@@ -4,197 +4,197 @@ import org.antlr.v4.runtime.tree.ParseTreeListener;
 
 /**
  * This interface defines a complete listener for a parse tree produced by
- * {@link simpleJavaParser}.
+ * {@link SimpleJavaParser}.
  */
-public interface simpleJavaListener extends ParseTreeListener {
+public interface SimpleJavaListener extends ParseTreeListener {
 	/**
-	 * Enter a parse tree produced by {@link simpleJavaParser#identifier}.
+	 * Enter a parse tree produced by {@link SimpleJavaParser#identifier}.
 	 * @param ctx the parse tree
 	 */
-	void enterIdentifier(simpleJavaParser.IdentifierContext ctx);
+	void enterIdentifier(SimpleJavaParser.IdentifierContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link simpleJavaParser#identifier}.
+	 * Exit a parse tree produced by {@link SimpleJavaParser#identifier}.
 	 * @param ctx the parse tree
 	 */
-	void exitIdentifier(simpleJavaParser.IdentifierContext ctx);
+	void exitIdentifier(SimpleJavaParser.IdentifierContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link simpleJavaParser#decimalVariable}.
+	 * Enter a parse tree produced by {@link SimpleJavaParser#decimalVariable}.
 	 * @param ctx the parse tree
 	 */
-	void enterDecimalVariable(simpleJavaParser.DecimalVariableContext ctx);
+	void enterDecimalVariable(SimpleJavaParser.DecimalVariableContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link simpleJavaParser#decimalVariable}.
+	 * Exit a parse tree produced by {@link SimpleJavaParser#decimalVariable}.
 	 * @param ctx the parse tree
 	 */
-	void exitDecimalVariable(simpleJavaParser.DecimalVariableContext ctx);
+	void exitDecimalVariable(SimpleJavaParser.DecimalVariableContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link simpleJavaParser#boolVariable}.
+	 * Enter a parse tree produced by {@link SimpleJavaParser#boolVariable}.
 	 * @param ctx the parse tree
 	 */
-	void enterBoolVariable(simpleJavaParser.BoolVariableContext ctx);
+	void enterBoolVariable(SimpleJavaParser.BoolVariableContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link simpleJavaParser#boolVariable}.
+	 * Exit a parse tree produced by {@link SimpleJavaParser#boolVariable}.
 	 * @param ctx the parse tree
 	 */
-	void exitBoolVariable(simpleJavaParser.BoolVariableContext ctx);
+	void exitBoolVariable(SimpleJavaParser.BoolVariableContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link simpleJavaParser#localVariableDeclaration}.
+	 * Enter a parse tree produced by {@link SimpleJavaParser#localVariableDeclaration}.
 	 * @param ctx the parse tree
 	 */
-	void enterLocalVariableDeclaration(simpleJavaParser.LocalVariableDeclarationContext ctx);
+	void enterLocalVariableDeclaration(SimpleJavaParser.LocalVariableDeclarationContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link simpleJavaParser#localVariableDeclaration}.
+	 * Exit a parse tree produced by {@link SimpleJavaParser#localVariableDeclaration}.
 	 * @param ctx the parse tree
 	 */
-	void exitLocalVariableDeclaration(simpleJavaParser.LocalVariableDeclarationContext ctx);
+	void exitLocalVariableDeclaration(SimpleJavaParser.LocalVariableDeclarationContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link simpleJavaParser#constDeclaration}.
+	 * Enter a parse tree produced by {@link SimpleJavaParser#constDeclaration}.
 	 * @param ctx the parse tree
 	 */
-	void enterConstDeclaration(simpleJavaParser.ConstDeclarationContext ctx);
+	void enterConstDeclaration(SimpleJavaParser.ConstDeclarationContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link simpleJavaParser#constDeclaration}.
+	 * Exit a parse tree produced by {@link SimpleJavaParser#constDeclaration}.
 	 * @param ctx the parse tree
 	 */
-	void exitConstDeclaration(simpleJavaParser.ConstDeclarationContext ctx);
+	void exitConstDeclaration(SimpleJavaParser.ConstDeclarationContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link simpleJavaParser#variableDeclaration}.
+	 * Enter a parse tree produced by {@link SimpleJavaParser#variableDeclaration}.
 	 * @param ctx the parse tree
 	 */
-	void enterVariableDeclaration(simpleJavaParser.VariableDeclarationContext ctx);
+	void enterVariableDeclaration(SimpleJavaParser.VariableDeclarationContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link simpleJavaParser#variableDeclaration}.
+	 * Exit a parse tree produced by {@link SimpleJavaParser#variableDeclaration}.
 	 * @param ctx the parse tree
 	 */
-	void exitVariableDeclaration(simpleJavaParser.VariableDeclarationContext ctx);
+	void exitVariableDeclaration(SimpleJavaParser.VariableDeclarationContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link simpleJavaParser#paralelDeclaration}.
+	 * Enter a parse tree produced by {@link SimpleJavaParser#paralelDeclaration}.
 	 * @param ctx the parse tree
 	 */
-	void enterParalelDeclaration(simpleJavaParser.ParalelDeclarationContext ctx);
+	void enterParalelDeclaration(SimpleJavaParser.ParalelDeclarationContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link simpleJavaParser#paralelDeclaration}.
+	 * Exit a parse tree produced by {@link SimpleJavaParser#paralelDeclaration}.
 	 * @param ctx the parse tree
 	 */
-	void exitParalelDeclaration(simpleJavaParser.ParalelDeclarationContext ctx);
+	void exitParalelDeclaration(SimpleJavaParser.ParalelDeclarationContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link simpleJavaParser#setVariable}.
+	 * Enter a parse tree produced by {@link SimpleJavaParser#setVariable}.
 	 * @param ctx the parse tree
 	 */
-	void enterSetVariable(simpleJavaParser.SetVariableContext ctx);
+	void enterSetVariable(SimpleJavaParser.SetVariableContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link simpleJavaParser#setVariable}.
+	 * Exit a parse tree produced by {@link SimpleJavaParser#setVariable}.
 	 * @param ctx the parse tree
 	 */
-	void exitSetVariable(simpleJavaParser.SetVariableContext ctx);
+	void exitSetVariable(SimpleJavaParser.SetVariableContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link simpleJavaParser#block}.
+	 * Enter a parse tree produced by {@link SimpleJavaParser#block}.
 	 * @param ctx the parse tree
 	 */
-	void enterBlock(simpleJavaParser.BlockContext ctx);
+	void enterBlock(SimpleJavaParser.BlockContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link simpleJavaParser#block}.
+	 * Exit a parse tree produced by {@link SimpleJavaParser#block}.
 	 * @param ctx the parse tree
 	 */
-	void exitBlock(simpleJavaParser.BlockContext ctx);
+	void exitBlock(SimpleJavaParser.BlockContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link simpleJavaParser#blockStatement}.
+	 * Enter a parse tree produced by {@link SimpleJavaParser#blockStatement}.
 	 * @param ctx the parse tree
 	 */
-	void enterBlockStatement(simpleJavaParser.BlockStatementContext ctx);
+	void enterBlockStatement(SimpleJavaParser.BlockStatementContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link simpleJavaParser#blockStatement}.
+	 * Exit a parse tree produced by {@link SimpleJavaParser#blockStatement}.
 	 * @param ctx the parse tree
 	 */
-	void exitBlockStatement(simpleJavaParser.BlockStatementContext ctx);
+	void exitBlockStatement(SimpleJavaParser.BlockStatementContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link simpleJavaParser#statement}.
+	 * Enter a parse tree produced by {@link SimpleJavaParser#statement}.
 	 * @param ctx the parse tree
 	 */
-	void enterStatement(simpleJavaParser.StatementContext ctx);
+	void enterStatement(SimpleJavaParser.StatementContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link simpleJavaParser#statement}.
+	 * Exit a parse tree produced by {@link SimpleJavaParser#statement}.
 	 * @param ctx the parse tree
 	 */
-	void exitStatement(simpleJavaParser.StatementContext ctx);
+	void exitStatement(SimpleJavaParser.StatementContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link simpleJavaParser#expression}.
+	 * Enter a parse tree produced by {@link SimpleJavaParser#expression}.
 	 * @param ctx the parse tree
 	 */
-	void enterExpression(simpleJavaParser.ExpressionContext ctx);
+	void enterExpression(SimpleJavaParser.ExpressionContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link simpleJavaParser#expression}.
+	 * Exit a parse tree produced by {@link SimpleJavaParser#expression}.
 	 * @param ctx the parse tree
 	 */
-	void exitExpression(simpleJavaParser.ExpressionContext ctx);
+	void exitExpression(SimpleJavaParser.ExpressionContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link simpleJavaParser#expressionBody}.
+	 * Enter a parse tree produced by {@link SimpleJavaParser#expressionBody}.
 	 * @param ctx the parse tree
 	 */
-	void enterExpressionBody(simpleJavaParser.ExpressionBodyContext ctx);
+	void enterExpressionBody(SimpleJavaParser.ExpressionBodyContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link simpleJavaParser#expressionBody}.
+	 * Exit a parse tree produced by {@link SimpleJavaParser#expressionBody}.
 	 * @param ctx the parse tree
 	 */
-	void exitExpressionBody(simpleJavaParser.ExpressionBodyContext ctx);
+	void exitExpressionBody(SimpleJavaParser.ExpressionBodyContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link simpleJavaParser#forControl}.
+	 * Enter a parse tree produced by {@link SimpleJavaParser#forControl}.
 	 * @param ctx the parse tree
 	 */
-	void enterForControl(simpleJavaParser.ForControlContext ctx);
+	void enterForControl(SimpleJavaParser.ForControlContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link simpleJavaParser#forControl}.
+	 * Exit a parse tree produced by {@link SimpleJavaParser#forControl}.
 	 * @param ctx the parse tree
 	 */
-	void exitForControl(simpleJavaParser.ForControlContext ctx);
+	void exitForControl(SimpleJavaParser.ForControlContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link simpleJavaParser#switchBlockStatement}.
+	 * Enter a parse tree produced by {@link SimpleJavaParser#switchBlockStatement}.
 	 * @param ctx the parse tree
 	 */
-	void enterSwitchBlockStatement(simpleJavaParser.SwitchBlockStatementContext ctx);
+	void enterSwitchBlockStatement(SimpleJavaParser.SwitchBlockStatementContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link simpleJavaParser#switchBlockStatement}.
+	 * Exit a parse tree produced by {@link SimpleJavaParser#switchBlockStatement}.
 	 * @param ctx the parse tree
 	 */
-	void exitSwitchBlockStatement(simpleJavaParser.SwitchBlockStatementContext ctx);
+	void exitSwitchBlockStatement(SimpleJavaParser.SwitchBlockStatementContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link simpleJavaParser#methodDeclaration}.
+	 * Enter a parse tree produced by {@link SimpleJavaParser#methodDeclaration}.
 	 * @param ctx the parse tree
 	 */
-	void enterMethodDeclaration(simpleJavaParser.MethodDeclarationContext ctx);
+	void enterMethodDeclaration(SimpleJavaParser.MethodDeclarationContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link simpleJavaParser#methodDeclaration}.
+	 * Exit a parse tree produced by {@link SimpleJavaParser#methodDeclaration}.
 	 * @param ctx the parse tree
 	 */
-	void exitMethodDeclaration(simpleJavaParser.MethodDeclarationContext ctx);
+	void exitMethodDeclaration(SimpleJavaParser.MethodDeclarationContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link simpleJavaParser#methodParameter}.
+	 * Enter a parse tree produced by {@link SimpleJavaParser#methodParameter}.
 	 * @param ctx the parse tree
 	 */
-	void enterMethodParameter(simpleJavaParser.MethodParameterContext ctx);
+	void enterMethodParameter(SimpleJavaParser.MethodParameterContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link simpleJavaParser#methodParameter}.
+	 * Exit a parse tree produced by {@link SimpleJavaParser#methodParameter}.
 	 * @param ctx the parse tree
 	 */
-	void exitMethodParameter(simpleJavaParser.MethodParameterContext ctx);
+	void exitMethodParameter(SimpleJavaParser.MethodParameterContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link simpleJavaParser#methodBody}.
+	 * Enter a parse tree produced by {@link SimpleJavaParser#methodBody}.
 	 * @param ctx the parse tree
 	 */
-	void enterMethodBody(simpleJavaParser.MethodBodyContext ctx);
+	void enterMethodBody(SimpleJavaParser.MethodBodyContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link simpleJavaParser#methodBody}.
+	 * Exit a parse tree produced by {@link SimpleJavaParser#methodBody}.
 	 * @param ctx the parse tree
 	 */
-	void exitMethodBody(simpleJavaParser.MethodBodyContext ctx);
+	void exitMethodBody(SimpleJavaParser.MethodBodyContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link simpleJavaParser#methodCall}.
+	 * Enter a parse tree produced by {@link SimpleJavaParser#methodCall}.
 	 * @param ctx the parse tree
 	 */
-	void enterMethodCall(simpleJavaParser.MethodCallContext ctx);
+	void enterMethodCall(SimpleJavaParser.MethodCallContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link simpleJavaParser#methodCall}.
+	 * Exit a parse tree produced by {@link SimpleJavaParser#methodCall}.
 	 * @param ctx the parse tree
 	 */
-	void exitMethodCall(simpleJavaParser.MethodCallContext ctx);
+	void exitMethodCall(SimpleJavaParser.MethodCallContext ctx);
 }

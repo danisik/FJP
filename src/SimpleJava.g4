@@ -90,7 +90,7 @@ identifier
   ;
 
 decimalVariable
-  : INT identifier (paralelDeclaration)* EQ DECIMAL
+  : INT identifier EQ DECIMAL
   ;
 
 boolVariable
@@ -98,7 +98,7 @@ boolVariable
   ;
 
 localVariableDeclaration
-  : (decimalVariable | boolVariable) SEMI
+  : (decimalVariable | boolVariable) SEMI EOF
   ;
 
 constDeclaration
@@ -152,11 +152,11 @@ expressionBody
   ;
 
 forControl
-  : DIGIT '...' DIGIT
+  : DECIMAL '...' DECIMAL
   ;
 
 switchBlockStatement
-  : CASE DIGIT COLON block
+  : CASE DECIMAL COLON block
   | DEFAULT COLON block
   ;
 
