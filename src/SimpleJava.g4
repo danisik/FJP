@@ -70,43 +70,55 @@ WORD  : (LOWECASE | UPPERCASE | '_')+ ;
 
 DECIMAL : DIGIT;
 
-BOOL_LITERAL : TRUE
-             | FALSE
-             ;
-
 WHITESPACE : [ \r\t\n]+ -> skip ;
-
-fragment DATA_TYPES : BOOLEAN | INT ;
-
-fragment METHOD_RETURN_TYPE : DATA_TYPES | VOID ;
-
-fragment POSSIBLE_VALUES : DECIMAL | BOOL_LITERAL ;
 
 
 /* -------------- parser rules -------------- */
+methodReturnType
+  : INT
+  | BOOLEAN
+  | VOID
+  ;
+
+possibleValues
+  : DECIMAL
+  | TRUE
+  | FALSE
+  ;
 
 identifier
   : WORD (WORD | DECIMAL)*
   ;
 
 decimalVariable
-  : INT identifier EQ DECIMAL
+  : INT identifier (paralelDeclaration)* EQ decimalValue
+  ;
+
+decimalValue
+  : DECIMAL
+  | methodCall
   ;
 
 boolVariable
-  : BOOLEAN identifier (paralelDeclaration)* EQ BOOL_LITERAL
+  : BOOLEAN identifier (paralelDeclaration)* EQ boolValue
+  ;
+
+boolValue
+  : TRUE
+  | FALSE
+  | methodCall
   ;
 
 localVariableDeclaration
-  : (decimalVariable | boolVariable) SEMI EOF
+  : (decimalVariable | boolVariable) SEMI
   ;
 
-constDeclaration
-  : CONST localVariableDeclaration SEMI
+constVariableDeclaration
+  : CONST localVariableDeclaration
   ;
 
 variableDeclaration
-  : (localVariableDeclaration | constDeclaration)+
+  : (localVariableDeclaration | constVariableDeclaration)+
   ;
 
 paralelDeclaration
@@ -115,7 +127,7 @@ paralelDeclaration
 
 
 setVariable
-  : identifier EQ POSSIBLE_VALUES
+  : identifier EQ possibleValues SEMI
   ;
 
 block
@@ -126,19 +138,17 @@ block
 blockStatement
   : variableDeclaration
   | statement
-  | methodCall
+  | methodCall SEMI
   | methodDeclaration
   | setVariable
   ;
 
 statement
   : IF expression block (ELSE block)?
-  | FOR LPAREN forControl RPAREN block
+  | FOR forControl block
   | WHILE expression block
-  | DO block WHILE expression SEMI
+  | DO block WHILE expression
   | SWITCH expression LBRACE switchBlockStatement* RBRACE
-  | RETURN expression? SEMI
-  | SEMI
   ;
 
 expression
@@ -146,13 +156,13 @@ expression
   ;
 
 expressionBody
-  : POSSIBLE_VALUES
+  : possibleValues
   | identifier
   | expressionBody op=(MULT | DIV | PLUS | MINUS | GT | GE | LT | LE | SAME | AND | OR | NOT_EQ) expressionBody
   ;
 
 forControl
-  : DECIMAL '...' DECIMAL
+  : LPAREN DECIMAL '...' DECIMAL RPAREN
   ;
 
 switchBlockStatement
@@ -161,18 +171,23 @@ switchBlockStatement
   ;
 
 methodDeclaration
-  : METHOD_RETURN_TYPE identifier LPAREN methodParameter? RPAREN methodBody
+  : methodReturnType FUNCTION_KEYWORD identifier LPAREN methodParameter? RPAREN methodBody
   ;
 
 methodParameter
-  : DATA_TYPES identifier
-  | DATA_TYPES identifier COMMA methodParameter
+  : (BOOLEAN | INT) identifier
+  | (BOOLEAN | INT) identifier COMMA methodParameter
   ;
 
 methodBody
-  : block
+  : LBRACE blockStatement* RETURN (expressionBody)? SEMI RBRACE
   ;
 
 methodCall
-  : identifier LPAREN methodParameter? RPAREN SEMI
+  : identifier LPAREN methodCallParameter? RPAREN
+  ;
+
+methodCallParameter
+  : identifier
+  | identifier COMMA methodCallParameter
   ;

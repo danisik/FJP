@@ -8,6 +8,26 @@ import org.antlr.v4.runtime.tree.ParseTreeListener;
  */
 public interface SimpleJavaListener extends ParseTreeListener {
 	/**
+	 * Enter a parse tree produced by {@link SimpleJavaParser#methodReturnType}.
+	 * @param ctx the parse tree
+	 */
+	void enterMethodReturnType(SimpleJavaParser.MethodReturnTypeContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link SimpleJavaParser#methodReturnType}.
+	 * @param ctx the parse tree
+	 */
+	void exitMethodReturnType(SimpleJavaParser.MethodReturnTypeContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link SimpleJavaParser#possibleValues}.
+	 * @param ctx the parse tree
+	 */
+	void enterPossibleValues(SimpleJavaParser.PossibleValuesContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link SimpleJavaParser#possibleValues}.
+	 * @param ctx the parse tree
+	 */
+	void exitPossibleValues(SimpleJavaParser.PossibleValuesContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link SimpleJavaParser#identifier}.
 	 * @param ctx the parse tree
 	 */
@@ -28,6 +48,16 @@ public interface SimpleJavaListener extends ParseTreeListener {
 	 */
 	void exitDecimalVariable(SimpleJavaParser.DecimalVariableContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link SimpleJavaParser#decimalValue}.
+	 * @param ctx the parse tree
+	 */
+	void enterDecimalValue(SimpleJavaParser.DecimalValueContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link SimpleJavaParser#decimalValue}.
+	 * @param ctx the parse tree
+	 */
+	void exitDecimalValue(SimpleJavaParser.DecimalValueContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link SimpleJavaParser#boolVariable}.
 	 * @param ctx the parse tree
 	 */
@@ -37,6 +67,16 @@ public interface SimpleJavaListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitBoolVariable(SimpleJavaParser.BoolVariableContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link SimpleJavaParser#boolValue}.
+	 * @param ctx the parse tree
+	 */
+	void enterBoolValue(SimpleJavaParser.BoolValueContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link SimpleJavaParser#boolValue}.
+	 * @param ctx the parse tree
+	 */
+	void exitBoolValue(SimpleJavaParser.BoolValueContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link SimpleJavaParser#localVariableDeclaration}.
 	 * @param ctx the parse tree
@@ -48,15 +88,15 @@ public interface SimpleJavaListener extends ParseTreeListener {
 	 */
 	void exitLocalVariableDeclaration(SimpleJavaParser.LocalVariableDeclarationContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link SimpleJavaParser#constDeclaration}.
+	 * Enter a parse tree produced by {@link SimpleJavaParser#constVariableDeclaration}.
 	 * @param ctx the parse tree
 	 */
-	void enterConstDeclaration(SimpleJavaParser.ConstDeclarationContext ctx);
+	void enterConstVariableDeclaration(SimpleJavaParser.ConstVariableDeclarationContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link SimpleJavaParser#constDeclaration}.
+	 * Exit a parse tree produced by {@link SimpleJavaParser#constVariableDeclaration}.
 	 * @param ctx the parse tree
 	 */
-	void exitConstDeclaration(SimpleJavaParser.ConstDeclarationContext ctx);
+	void exitConstVariableDeclaration(SimpleJavaParser.ConstVariableDeclarationContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link SimpleJavaParser#variableDeclaration}.
 	 * @param ctx the parse tree
@@ -197,4 +237,14 @@ public interface SimpleJavaListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitMethodCall(SimpleJavaParser.MethodCallContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link SimpleJavaParser#methodCallParameter}.
+	 * @param ctx the parse tree
+	 */
+	void enterMethodCallParameter(SimpleJavaParser.MethodCallParameterContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link SimpleJavaParser#methodCallParameter}.
+	 * @param ctx the parse tree
+	 */
+	void exitMethodCallParameter(SimpleJavaParser.MethodCallParameterContext ctx);
 }

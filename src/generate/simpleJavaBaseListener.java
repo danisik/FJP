@@ -16,6 +16,30 @@ public class SimpleJavaBaseListener implements SimpleJavaListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterMethodReturnType(SimpleJavaParser.MethodReturnTypeContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitMethodReturnType(SimpleJavaParser.MethodReturnTypeContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterPossibleValues(SimpleJavaParser.PossibleValuesContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitPossibleValues(SimpleJavaParser.PossibleValuesContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterIdentifier(SimpleJavaParser.IdentifierContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -40,6 +64,18 @@ public class SimpleJavaBaseListener implements SimpleJavaListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterDecimalValue(SimpleJavaParser.DecimalValueContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitDecimalValue(SimpleJavaParser.DecimalValueContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterBoolVariable(SimpleJavaParser.BoolVariableContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -47,6 +83,18 @@ public class SimpleJavaBaseListener implements SimpleJavaListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitBoolVariable(SimpleJavaParser.BoolVariableContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterBoolValue(SimpleJavaParser.BoolValueContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitBoolValue(SimpleJavaParser.BoolValueContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -64,13 +112,13 @@ public class SimpleJavaBaseListener implements SimpleJavaListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterConstDeclaration(SimpleJavaParser.ConstDeclarationContext ctx) { }
+	@Override public void enterConstVariableDeclaration(SimpleJavaParser.ConstVariableDeclarationContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitConstDeclaration(SimpleJavaParser.ConstDeclarationContext ctx) { }
+	@Override public void exitConstVariableDeclaration(SimpleJavaParser.ConstVariableDeclarationContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -239,6 +287,18 @@ public class SimpleJavaBaseListener implements SimpleJavaListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitMethodCall(SimpleJavaParser.MethodCallContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterMethodCallParameter(SimpleJavaParser.MethodCallParameterContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitMethodCallParameter(SimpleJavaParser.MethodCallParameterContext ctx) { }
 
 	/**
 	 * {@inheritDoc}
