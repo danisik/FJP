@@ -1,4 +1,4 @@
-// Generated from /Users/cagy/Documents/Škola/FJP/FJP/src/SimpleJava.g4 by ANTLR 4.7.2
+// Generated from /Users/cagy/Documents/Škola/FJP/simplejava/src/SimpleJava.g4 by ANTLR 4.7.2
 package generate;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
@@ -82,6 +82,12 @@ public interface SimpleJavaVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitSetVariable(SimpleJavaParser.SetVariableContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link SimpleJavaParser#program}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitProgram(SimpleJavaParser.ProgramContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link SimpleJavaParser#block}.
 	 * @param ctx the parse tree

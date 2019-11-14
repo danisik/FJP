@@ -1,7 +1,9 @@
 package compilator;
 
+import compilator.object.Program;
 import compilator.value.Value;
 import compilator.visitor.BlockVisitor;
+import compilator.visitor.ProgramVisitor;
 import compilator.visitor.VariableVisitor;
 import generate.SimpleJavaLexer;
 import generate.SimpleJavaParser;
@@ -31,8 +33,8 @@ public class Compilator {
 
         parser.setBuildParseTree(true);
 
-        ParseTree parseTree = parser.block();
+        ParseTree parseTree = parser.program();
 
-        Value value = new BlockVisitor().visit(parseTree);
+        Program program = new ProgramVisitor().visit(parseTree);
     }
 }

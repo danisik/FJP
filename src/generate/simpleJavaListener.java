@@ -1,4 +1,4 @@
-// Generated from /Users/cagy/Documents/Škola/FJP/FJP/src/SimpleJava.g4 by ANTLR 4.7.2
+// Generated from /Users/cagy/Documents/Škola/FJP/simplejava/src/SimpleJava.g4 by ANTLR 4.7.2
 package generate;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
@@ -127,6 +127,16 @@ public interface SimpleJavaListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitSetVariable(SimpleJavaParser.SetVariableContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link SimpleJavaParser#program}.
+	 * @param ctx the parse tree
+	 */
+	void enterProgram(SimpleJavaParser.ProgramContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link SimpleJavaParser#program}.
+	 * @param ctx the parse tree
+	 */
+	void exitProgram(SimpleJavaParser.ProgramContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link SimpleJavaParser#block}.
 	 * @param ctx the parse tree

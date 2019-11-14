@@ -97,6 +97,7 @@ decimalVariable
 decimalValue
   : DECIMAL
   | methodCall
+  | identifier
   ;
 
 boolVariable
@@ -107,6 +108,7 @@ boolValue
   : TRUE
   | FALSE
   | methodCall
+  | identifier
   ;
 
 localVariableDeclaration
@@ -118,7 +120,7 @@ constVariableDeclaration
   ;
 
 variableDeclaration
-  : (localVariableDeclaration | constVariableDeclaration)+
+  : (localVariableDeclaration | constVariableDeclaration)
   ;
 
 paralelDeclaration
@@ -130,17 +132,21 @@ setVariable
   : identifier EQ possibleValues SEMI
   ;
 
+program
+  : block
+  ;
+
 block
-  : LBRACE blockStatement* RBRACE
+  : LBRACE blockStatement? RBRACE
   ;
 
 
 blockStatement
-  : variableDeclaration
+  : (variableDeclaration
   | statement
   | methodCall SEMI
   | methodDeclaration
-  | setVariable
+  | setVariable)+
   ;
 
 statement

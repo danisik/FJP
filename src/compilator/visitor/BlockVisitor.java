@@ -1,14 +1,18 @@
 package compilator.visitor;
 
+import compilator.object.Block;
+import compilator.object.BlockStatement;
 import compilator.value.Value;
 import generate.SimpleJavaBaseVisitor;
 import generate.SimpleJavaParser;
 
-public class BlockVisitor extends SimpleJavaBaseVisitor<Value> {
+public class BlockVisitor extends SimpleJavaBaseVisitor<Block> {
     @Override
-    public Value visitBlock(SimpleJavaParser.BlockContext ctx) {
-         new VariableVisitor().visit(ctx.blockStatement(0));
+    public Block visitBlock(SimpleJavaParser.BlockContext ctx) {
 
-         return new Value("test");
+        BlockStatement blockStatement = new BlockStatementVisitor().visit(ctx.blockStatement());
+
+
+        return new Block();
     }
 }
