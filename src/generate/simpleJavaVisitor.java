@@ -1,5 +1,4 @@
-// Generated from /Users/cagy/Documents/Škola/FJP/simplejava/src/SimpleJava.g4 by ANTLR 4.7.2
-package generate;
+// Generated from C:/Users/danisik/Documents/GitHub/FJPP/src\SimpleJava.g4 by ANTLR 4.7.2
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
 /**
@@ -101,11 +100,47 @@ public interface SimpleJavaVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitBlockStatement(SimpleJavaParser.BlockStatementContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link SimpleJavaParser#statement}.
+	 * Visit a parse tree produced by the {@code statementIf}
+	 * labeled alternative in {@link SimpleJavaParser#statement}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitStatement(SimpleJavaParser.StatementContext ctx);
+	T visitStatementIf(SimpleJavaParser.StatementIfContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code statementFor}
+	 * labeled alternative in {@link SimpleJavaParser#statement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitStatementFor(SimpleJavaParser.StatementForContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code statementWhile}
+	 * labeled alternative in {@link SimpleJavaParser#statement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitStatementWhile(SimpleJavaParser.StatementWhileContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code statementDo}
+	 * labeled alternative in {@link SimpleJavaParser#statement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitStatementDo(SimpleJavaParser.StatementDoContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code statementSwitch}
+	 * labeled alternative in {@link SimpleJavaParser#statement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitStatementSwitch(SimpleJavaParser.StatementSwitchContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code statementRepeat}
+	 * labeled alternative in {@link SimpleJavaParser#statement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitStatementRepeat(SimpleJavaParser.StatementRepeatContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link SimpleJavaParser#expression}.
 	 * @param ctx the parse tree
@@ -113,11 +148,47 @@ public interface SimpleJavaVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitExpression(SimpleJavaParser.ExpressionContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link SimpleJavaParser#expressionBody}.
+	 * Visit a parse tree produced by the {@code exprAdditive}
+	 * labeled alternative in {@link SimpleJavaParser#expressionBody}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitExpressionBody(SimpleJavaParser.ExpressionBodyContext ctx);
+	T visitExprAdditive(SimpleJavaParser.ExprAdditiveContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code exprRelational}
+	 * labeled alternative in {@link SimpleJavaParser#expressionBody}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitExprRelational(SimpleJavaParser.ExprRelationalContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code exprIdentifier}
+	 * labeled alternative in {@link SimpleJavaParser#expressionBody}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitExprIdentifier(SimpleJavaParser.ExprIdentifierContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code exprPossibleValue}
+	 * labeled alternative in {@link SimpleJavaParser#expressionBody}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitExprPossibleValue(SimpleJavaParser.ExprPossibleValueContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code exprLogical}
+	 * labeled alternative in {@link SimpleJavaParser#expressionBody}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitExprLogical(SimpleJavaParser.ExprLogicalContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code exprMultipli}
+	 * labeled alternative in {@link SimpleJavaParser#expressionBody}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitExprMultipli(SimpleJavaParser.ExprMultipliContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link SimpleJavaParser#forControl}.
 	 * @param ctx the parse tree

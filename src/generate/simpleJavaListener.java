@@ -1,5 +1,4 @@
-// Generated from /Users/cagy/Documents/Škola/FJP/simplejava/src/SimpleJava.g4 by ANTLR 4.7.2
-package generate;
+// Generated from C:/Users/danisik/Documents/GitHub/FJPP/src\SimpleJava.g4 by ANTLR 4.7.2
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
 /**
@@ -158,15 +157,77 @@ public interface SimpleJavaListener extends ParseTreeListener {
 	 */
 	void exitBlockStatement(SimpleJavaParser.BlockStatementContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link SimpleJavaParser#statement}.
+	 * Enter a parse tree produced by the {@code statementIf}
+	 * labeled alternative in {@link SimpleJavaParser#statement}.
 	 * @param ctx the parse tree
 	 */
-	void enterStatement(SimpleJavaParser.StatementContext ctx);
+	void enterStatementIf(SimpleJavaParser.StatementIfContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link SimpleJavaParser#statement}.
+	 * Exit a parse tree produced by the {@code statementIf}
+	 * labeled alternative in {@link SimpleJavaParser#statement}.
 	 * @param ctx the parse tree
 	 */
-	void exitStatement(SimpleJavaParser.StatementContext ctx);
+	void exitStatementIf(SimpleJavaParser.StatementIfContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code statementFor}
+	 * labeled alternative in {@link SimpleJavaParser#statement}.
+	 * @param ctx the parse tree
+	 */
+	void enterStatementFor(SimpleJavaParser.StatementForContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code statementFor}
+	 * labeled alternative in {@link SimpleJavaParser#statement}.
+	 * @param ctx the parse tree
+	 */
+	void exitStatementFor(SimpleJavaParser.StatementForContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code statementWhile}
+	 * labeled alternative in {@link SimpleJavaParser#statement}.
+	 * @param ctx the parse tree
+	 */
+	void enterStatementWhile(SimpleJavaParser.StatementWhileContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code statementWhile}
+	 * labeled alternative in {@link SimpleJavaParser#statement}.
+	 * @param ctx the parse tree
+	 */
+	void exitStatementWhile(SimpleJavaParser.StatementWhileContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code statementDo}
+	 * labeled alternative in {@link SimpleJavaParser#statement}.
+	 * @param ctx the parse tree
+	 */
+	void enterStatementDo(SimpleJavaParser.StatementDoContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code statementDo}
+	 * labeled alternative in {@link SimpleJavaParser#statement}.
+	 * @param ctx the parse tree
+	 */
+	void exitStatementDo(SimpleJavaParser.StatementDoContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code statementSwitch}
+	 * labeled alternative in {@link SimpleJavaParser#statement}.
+	 * @param ctx the parse tree
+	 */
+	void enterStatementSwitch(SimpleJavaParser.StatementSwitchContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code statementSwitch}
+	 * labeled alternative in {@link SimpleJavaParser#statement}.
+	 * @param ctx the parse tree
+	 */
+	void exitStatementSwitch(SimpleJavaParser.StatementSwitchContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code statementRepeat}
+	 * labeled alternative in {@link SimpleJavaParser#statement}.
+	 * @param ctx the parse tree
+	 */
+	void enterStatementRepeat(SimpleJavaParser.StatementRepeatContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code statementRepeat}
+	 * labeled alternative in {@link SimpleJavaParser#statement}.
+	 * @param ctx the parse tree
+	 */
+	void exitStatementRepeat(SimpleJavaParser.StatementRepeatContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link SimpleJavaParser#expression}.
 	 * @param ctx the parse tree
@@ -178,15 +239,77 @@ public interface SimpleJavaListener extends ParseTreeListener {
 	 */
 	void exitExpression(SimpleJavaParser.ExpressionContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link SimpleJavaParser#expressionBody}.
+	 * Enter a parse tree produced by the {@code exprAdditive}
+	 * labeled alternative in {@link SimpleJavaParser#expressionBody}.
 	 * @param ctx the parse tree
 	 */
-	void enterExpressionBody(SimpleJavaParser.ExpressionBodyContext ctx);
+	void enterExprAdditive(SimpleJavaParser.ExprAdditiveContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link SimpleJavaParser#expressionBody}.
+	 * Exit a parse tree produced by the {@code exprAdditive}
+	 * labeled alternative in {@link SimpleJavaParser#expressionBody}.
 	 * @param ctx the parse tree
 	 */
-	void exitExpressionBody(SimpleJavaParser.ExpressionBodyContext ctx);
+	void exitExprAdditive(SimpleJavaParser.ExprAdditiveContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code exprRelational}
+	 * labeled alternative in {@link SimpleJavaParser#expressionBody}.
+	 * @param ctx the parse tree
+	 */
+	void enterExprRelational(SimpleJavaParser.ExprRelationalContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code exprRelational}
+	 * labeled alternative in {@link SimpleJavaParser#expressionBody}.
+	 * @param ctx the parse tree
+	 */
+	void exitExprRelational(SimpleJavaParser.ExprRelationalContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code exprIdentifier}
+	 * labeled alternative in {@link SimpleJavaParser#expressionBody}.
+	 * @param ctx the parse tree
+	 */
+	void enterExprIdentifier(SimpleJavaParser.ExprIdentifierContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code exprIdentifier}
+	 * labeled alternative in {@link SimpleJavaParser#expressionBody}.
+	 * @param ctx the parse tree
+	 */
+	void exitExprIdentifier(SimpleJavaParser.ExprIdentifierContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code exprPossibleValue}
+	 * labeled alternative in {@link SimpleJavaParser#expressionBody}.
+	 * @param ctx the parse tree
+	 */
+	void enterExprPossibleValue(SimpleJavaParser.ExprPossibleValueContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code exprPossibleValue}
+	 * labeled alternative in {@link SimpleJavaParser#expressionBody}.
+	 * @param ctx the parse tree
+	 */
+	void exitExprPossibleValue(SimpleJavaParser.ExprPossibleValueContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code exprLogical}
+	 * labeled alternative in {@link SimpleJavaParser#expressionBody}.
+	 * @param ctx the parse tree
+	 */
+	void enterExprLogical(SimpleJavaParser.ExprLogicalContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code exprLogical}
+	 * labeled alternative in {@link SimpleJavaParser#expressionBody}.
+	 * @param ctx the parse tree
+	 */
+	void exitExprLogical(SimpleJavaParser.ExprLogicalContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code exprMultipli}
+	 * labeled alternative in {@link SimpleJavaParser#expressionBody}.
+	 * @param ctx the parse tree
+	 */
+	void enterExprMultipli(SimpleJavaParser.ExprMultipliContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code exprMultipli}
+	 * labeled alternative in {@link SimpleJavaParser#expressionBody}.
+	 * @param ctx the parse tree
+	 */
+	void exitExprMultipli(SimpleJavaParser.ExprMultipliContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link SimpleJavaParser#forControl}.
 	 * @param ctx the parse tree

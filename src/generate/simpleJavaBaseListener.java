@@ -1,5 +1,4 @@
-// Generated from /Users/cagy/Documents/Škola/FJP/simplejava/src/SimpleJava.g4 by ANTLR 4.7.2
-package generate;
+// Generated from C:/Users/danisik/Documents/GitHub/FJPP/src\SimpleJava.g4 by ANTLR 4.7.2
 
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;
@@ -196,13 +195,73 @@ public class SimpleJavaBaseListener implements SimpleJavaListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterStatement(SimpleJavaParser.StatementContext ctx) { }
+	@Override public void enterStatementIf(SimpleJavaParser.StatementIfContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitStatement(SimpleJavaParser.StatementContext ctx) { }
+	@Override public void exitStatementIf(SimpleJavaParser.StatementIfContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterStatementFor(SimpleJavaParser.StatementForContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitStatementFor(SimpleJavaParser.StatementForContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterStatementWhile(SimpleJavaParser.StatementWhileContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitStatementWhile(SimpleJavaParser.StatementWhileContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterStatementDo(SimpleJavaParser.StatementDoContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitStatementDo(SimpleJavaParser.StatementDoContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterStatementSwitch(SimpleJavaParser.StatementSwitchContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitStatementSwitch(SimpleJavaParser.StatementSwitchContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterStatementRepeat(SimpleJavaParser.StatementRepeatContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitStatementRepeat(SimpleJavaParser.StatementRepeatContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -220,13 +279,73 @@ public class SimpleJavaBaseListener implements SimpleJavaListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterExpressionBody(SimpleJavaParser.ExpressionBodyContext ctx) { }
+	@Override public void enterExprAdditive(SimpleJavaParser.ExprAdditiveContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitExpressionBody(SimpleJavaParser.ExpressionBodyContext ctx) { }
+	@Override public void exitExprAdditive(SimpleJavaParser.ExprAdditiveContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterExprRelational(SimpleJavaParser.ExprRelationalContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitExprRelational(SimpleJavaParser.ExprRelationalContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterExprIdentifier(SimpleJavaParser.ExprIdentifierContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitExprIdentifier(SimpleJavaParser.ExprIdentifierContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterExprPossibleValue(SimpleJavaParser.ExprPossibleValueContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitExprPossibleValue(SimpleJavaParser.ExprPossibleValueContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterExprLogical(SimpleJavaParser.ExprLogicalContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitExprLogical(SimpleJavaParser.ExprLogicalContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterExprMultipli(SimpleJavaParser.ExprMultipliContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitExprMultipli(SimpleJavaParser.ExprMultipliContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

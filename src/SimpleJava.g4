@@ -31,6 +31,7 @@ TRUE  : 'true' ;
 FALSE : 'false' ;
 MULT  : '*' ;
 DIV   : '/' ;
+MOD   : '%' ;
 PLUS  : '+' ;
 MINUS : '-' ;
 GT    : '>' ;
@@ -150,11 +151,12 @@ blockStatement
   ;
 
 statement
-  : IF expression block (ELSE block)?
-  | FOR forControl block
-  | WHILE expression block
-  | DO block WHILE expression
-  | SWITCH expression LBRACE switchBlockStatement* RBRACE
+  : IF expression block (ELSE block)?                       #statementIf
+  | FOR forControl block                                    #statementFor
+  | WHILE expression block                                  #statementWhile
+  | DO block WHILE expression                               #statementDo
+  | SWITCH expression LBRACE switchBlockStatement* RBRACE   #statementSwitch
+  | REPEAT block UNTIL expression                           #statementRepeat
   ;
 
 expression
@@ -162,9 +164,12 @@ expression
   ;
 
 expressionBody
-  : possibleValues
-  | identifier
-  | expressionBody op=(MULT | DIV | PLUS | MINUS | GT | GE | LT | LE | SAME | AND | OR | NOT_EQ) expressionBody
+  : possibleValues                                                          #exprPossibleValue
+  | identifier                                                              #exprIdentifier
+  | expressionBody op=(MULT | DIV | MOD) expressionBody                     #exprMultipli
+  | expressionBody op=(PLUS | MINUS) expressionBody                         #exprAdditive
+  | expressionBody op=(GT | GE | LT | LE | SAME | NOT_EQ) expressionBody    #exprRelational
+  | expressionBody op=(AND | OR) expressionBody                             #exprLogical
   ;
 
 forControl
