@@ -101,6 +101,12 @@ public interface SimpleJavaVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitBlock(SimpleJavaParser.BlockContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link SimpleJavaParser#body}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBody(SimpleJavaParser.BodyContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link SimpleJavaParser#blockStatement}.
 	 * @param ctx the parse tree
 	 * @return the visitor result

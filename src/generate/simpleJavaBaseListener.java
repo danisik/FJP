@@ -196,6 +196,18 @@ public class SimpleJavaBaseListener implements SimpleJavaListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterBody(SimpleJavaParser.BodyContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitBody(SimpleJavaParser.BodyContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterBlockStatement(SimpleJavaParser.BlockStatementContext ctx) { }
 	/**
 	 * {@inheritDoc}

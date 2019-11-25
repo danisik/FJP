@@ -158,6 +158,16 @@ public interface SimpleJavaListener extends ParseTreeListener {
 	 */
 	void exitBlock(SimpleJavaParser.BlockContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link SimpleJavaParser#body}.
+	 * @param ctx the parse tree
+	 */
+	void enterBody(SimpleJavaParser.BodyContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link SimpleJavaParser#body}.
+	 * @param ctx the parse tree
+	 */
+	void exitBody(SimpleJavaParser.BodyContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link SimpleJavaParser#blockStatement}.
 	 * @param ctx the parse tree
 	 */
