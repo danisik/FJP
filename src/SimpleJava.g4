@@ -45,6 +45,7 @@ OR    : '||' ;
 QUESTION : '?' ;
 COLON : ':' ;
 NOT_EQ : '!=' ;
+NEGATION : '!';
 
 
 /* ------ Separators ------ */
@@ -176,6 +177,8 @@ expressionBody
   | expressionBody op=(PLUS | MINUS) expressionBody                         #exprAdditive
   | expressionBody op=(GT | GE | LT | LE | SAME | NOT_EQ) expressionBody    #exprRelational
   | expressionBody op=(AND | OR) expressionBody                             #exprLogical
+  | LPAREN expressionBody RPAREN                                            #exprPar
+  | NEGATION expressionBody                                                 #exprNeg
   ;
 
 forControl

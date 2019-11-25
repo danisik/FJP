@@ -250,6 +250,18 @@ public interface SimpleJavaListener extends ParseTreeListener {
 	 */
 	void exitExpression(SimpleJavaParser.ExpressionContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code exprNeg}
+	 * labeled alternative in {@link SimpleJavaParser#expressionBody}.
+	 * @param ctx the parse tree
+	 */
+	void enterExprNeg(SimpleJavaParser.ExprNegContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code exprNeg}
+	 * labeled alternative in {@link SimpleJavaParser#expressionBody}.
+	 * @param ctx the parse tree
+	 */
+	void exitExprNeg(SimpleJavaParser.ExprNegContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code exprAdditive}
 	 * labeled alternative in {@link SimpleJavaParser#expressionBody}.
 	 * @param ctx the parse tree
@@ -261,6 +273,18 @@ public interface SimpleJavaListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitExprAdditive(SimpleJavaParser.ExprAdditiveContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code exprPar}
+	 * labeled alternative in {@link SimpleJavaParser#expressionBody}.
+	 * @param ctx the parse tree
+	 */
+	void enterExprPar(SimpleJavaParser.ExprParContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code exprPar}
+	 * labeled alternative in {@link SimpleJavaParser#expressionBody}.
+	 * @param ctx the parse tree
+	 */
+	void exitExprPar(SimpleJavaParser.ExprParContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code exprRelational}
 	 * labeled alternative in {@link SimpleJavaParser#expressionBody}.
