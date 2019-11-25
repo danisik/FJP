@@ -92,7 +92,12 @@ identifier
   ;
 
 decimalVariable
-  : INT identifier (paralelDeclaration)* EQ decimalValue
+  : INT identifier (paralelDeclaration)* EQ operator? decimalValue
+  ;
+
+operator
+  : PLUS
+  | MINUS
   ;
 
 decimalValue
@@ -110,6 +115,7 @@ boolValue
   | FALSE
   | methodCall
   | identifier
+  | expression
   ;
 
 localVariableDeclaration
@@ -130,7 +136,7 @@ paralelDeclaration
 
 
 setVariable
-  : identifier EQ possibleValues SEMI
+  : identifier EQ (possibleValues | expression | methodCall) SEMI
   ;
 
 program
@@ -173,7 +179,7 @@ expressionBody
   ;
 
 forControl
-  : LPAREN DECIMAL '...' DECIMAL RPAREN
+  : LPAREN identifier EQ DECIMAL '...' DECIMAL RPAREN
   ;
 
 switchBlockStatement
@@ -201,4 +207,6 @@ methodCall
 methodCallParameter
   : identifier
   | identifier COMMA methodCallParameter
+  | methodCall
+  | methodCall COMMA methodCallParameter
   ;
