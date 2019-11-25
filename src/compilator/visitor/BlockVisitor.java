@@ -2,7 +2,6 @@ package compilator.visitor;
 
 import compilator.object.Block;
 import compilator.object.BlockStatement;
-import compilator.value.Value;
 import generate.SimpleJavaBaseVisitor;
 import generate.SimpleJavaParser;
 

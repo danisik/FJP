@@ -145,25 +145,27 @@ program
   ;
 
 block
-  : LBRACE blockStatement? RBRACE
+  : LBRACE blockStatement? methodDeclaration+ RBRACE
   ;
 
+body
+  : LBRACE blockStatement? RBRACE
+  ;
 
 blockStatement
   : (variableDeclaration
   | statement
   | methodCall SEMI
-  | methodDeclaration
   | setVariable)+
   ;
 
 statement
-  : IF expression block (ELSE block)?                       #statementIf
-  | FOR forControl block                                    #statementFor
-  | WHILE expression block                                  #statementWhile
-  | DO block WHILE expression                               #statementDo
+  : IF expression body (ELSE body)?                       #statementIf
+  | FOR forControl body                                    #statementFor
+  | WHILE expression body                                  #statementWhile
+  | DO body WHILE expression                               #statementDo
   | SWITCH expression LBRACE switchBlockStatement* RBRACE   #statementSwitch
-  | REPEAT block UNTIL expression                           #statementRepeat
+  | REPEAT body UNTIL expression                           #statementRepeat
   ;
 
 expression
@@ -186,8 +188,8 @@ forControl
   ;
 
 switchBlockStatement
-  : CASE DECIMAL COLON block
-  | DEFAULT COLON block
+  : CASE DECIMAL COLON body
+  | DEFAULT COLON body
   ;
 
 methodDeclaration
