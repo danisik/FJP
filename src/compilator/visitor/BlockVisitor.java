@@ -11,7 +11,6 @@ public class BlockVisitor extends SimpleJavaBaseVisitor<Block> {
 
         BlockStatement blockStatement = new BlockStatementVisitor().visit(ctx.blockStatement());
 
-
-        return new Block();
+        return new Block(blockStatement);
     }
 }

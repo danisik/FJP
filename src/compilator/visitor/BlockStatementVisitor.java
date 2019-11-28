@@ -1,8 +1,10 @@
 package compilator.visitor;
 
+import compilator.enums.StatementType;
 import compilator.object.BlockStatement;
 import compilator.object.Variable;
 import compilator.object.statement.Statement;
+import compilator.object.statement.StatementFor;
 import generate.SimpleJavaBaseVisitor;
 import generate.SimpleJavaParser;
 
@@ -29,7 +31,6 @@ public class BlockStatementVisitor extends SimpleJavaBaseVisitor<BlockStatement>
         for (Statement statement: statements) {
             System.out.println(statement.getType());
         }
-
 
         return new BlockStatement();
     }

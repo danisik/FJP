@@ -8,10 +8,37 @@ public class ExpressionRelational extends Expression{
 
     private Expression rightExpression;
 
-    private OperatorRelational additiveOperator;
+    private OperatorRelational operatorRelational;
 
-    public ExpressionRelational()
+    public ExpressionRelational(Expression leftExpression, Expression rightExpression, OperatorRelational operatorRelational)
     {
         super(ExpressionType.RELATIONAL);
+        this.leftExpression = leftExpression;
+        this.rightExpression = rightExpression;
+        this.operatorRelational = operatorRelational;
+    }
+
+    public Expression getLeftExpression() {
+        return leftExpression;
+    }
+
+    public void setLeftExpression(Expression leftExpression) {
+        this.leftExpression = leftExpression;
+    }
+
+    public Expression getRightExpression() {
+        return rightExpression;
+    }
+
+    public void setRightExpression(Expression rightExpression) {
+        this.rightExpression = rightExpression;
+    }
+
+    public OperatorRelational getOperatorRelational() {
+        return operatorRelational;
+    }
+
+    public void setOperatorRelational(OperatorRelational operatorRelational) {
+        this.operatorRelational = operatorRelational;
     }
 }

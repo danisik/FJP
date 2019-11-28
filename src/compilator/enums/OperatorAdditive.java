@@ -11,8 +11,13 @@ public enum OperatorAdditive {
         this.symbol = symbol;
     }
 
-    public String getSymbol()
-    {
-        return this.symbol;
+    public static OperatorAdditive getSymbol(String value) {
+        for(OperatorAdditive e: OperatorAdditive.values()) {
+            if(e.symbol.equals(value))
+            {
+                return e;
+            }
+        }
+        return null;
     }
 }

@@ -1,5 +1,4 @@
-// Generated from /Users/cagy/Documents/Škola/FJP/simplejava/src/SimpleJava.g4 by ANTLR 4.7.2
-package generate;
+// Generated from C:/Users/danisik/Documents/GitHub/FJPP/src\SimpleJava.g4 by ANTLR 4.7.2
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
 /**
@@ -83,11 +82,11 @@ public interface SimpleJavaVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitParalelDeclaration(SimpleJavaParser.ParalelDeclarationContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link SimpleJavaParser#setVariable}.
+	 * Visit a parse tree produced by {@link SimpleJavaParser#variableAssigment}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitSetVariable(SimpleJavaParser.SetVariableContext ctx);
+	T visitVariableAssigment(SimpleJavaParser.VariableAssigmentContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link SimpleJavaParser#program}.
 	 * @param ctx the parse tree
@@ -112,6 +111,12 @@ public interface SimpleJavaVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitBlockStatement(SimpleJavaParser.BlockStatementContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link SimpleJavaParser#blockBody}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBlockBody(SimpleJavaParser.BlockBodyContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code statementIf}
 	 * labeled alternative in {@link SimpleJavaParser#statement}.
@@ -154,6 +159,20 @@ public interface SimpleJavaVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitStatementRepeat(SimpleJavaParser.StatementRepeatContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code statementMethodCall}
+	 * labeled alternative in {@link SimpleJavaParser#statement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitStatementMethodCall(SimpleJavaParser.StatementMethodCallContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code statementAssigment}
+	 * labeled alternative in {@link SimpleJavaParser#statement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitStatementAssigment(SimpleJavaParser.StatementAssigmentContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link SimpleJavaParser#expression}.
 	 * @param ctx the parse tree

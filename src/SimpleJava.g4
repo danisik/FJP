@@ -136,7 +136,7 @@ paralelDeclaration
   ;
 
 
-setVariable
+variableAssigment
   : identifier EQ (possibleValues | expression | methodCall) SEMI
   ;
 
@@ -145,27 +145,33 @@ program
   ;
 
 block
-  : LBRACE blockStatement? methodDeclaration+ RBRACE
+  : LBRACE blockStatement? RBRACE
   ;
 
 body
-  : LBRACE blockStatement? RBRACE
+  : LBRACE blockBody? RBRACE
   ;
 
 blockStatement
   : (variableDeclaration
   | statement
-  | methodCall SEMI
-  | setVariable)+
+  | methodDeclaration)+
+  ;
+
+blockBody
+  : (variableDeclaration
+  | statement)+
   ;
 
 statement
-  : IF expression body (ELSE body)?                       #statementIf
+  : IF expression body (ELSE body)?                        #statementIf
   | FOR forControl body                                    #statementFor
   | WHILE expression body                                  #statementWhile
   | DO body WHILE expression                               #statementDo
-  | SWITCH expression LBRACE switchBlockStatement* RBRACE   #statementSwitch
+  | SWITCH expression LBRACE switchBlockStatement* RBRACE  #statementSwitch
   | REPEAT body UNTIL expression                           #statementRepeat
+  | methodCall SEMI                                        #statementMethodCall
+  | variableAssigment                                      #statementAssigment
   ;
 
 expression
@@ -202,7 +208,7 @@ methodParameter
   ;
 
 methodBody
-  : LBRACE blockStatement* RETURN (expressionBody)? SEMI RBRACE
+  : LBRACE blockBody* RETURN (expressionBody)? SEMI RBRACE
   ;
 
 methodCall

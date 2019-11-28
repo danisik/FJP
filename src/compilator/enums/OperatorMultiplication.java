@@ -12,9 +12,14 @@ public enum OperatorMultiplication {
         this.symbol = symbol;
     }
 
-    public String getSymbol()
-    {
-        return this.symbol;
+    public static OperatorMultiplication getSymbol(String value) {
+        for(OperatorMultiplication e: OperatorMultiplication.values()) {
+            if(e.symbol.equals(value))
+            {
+                return e;
+            }
+        }
+        return null;
     }
 
 }

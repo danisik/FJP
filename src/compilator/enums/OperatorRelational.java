@@ -15,8 +15,13 @@ public enum OperatorRelational {
         this.symbol = symbol;
     }
 
-    public String getSymbol()
-    {
-        return this.symbol;
+    public static OperatorRelational getSymbol(String value) {
+        for(OperatorRelational e: OperatorRelational.values()) {
+            if(e.symbol.equals(value))
+            {
+                return e;
+            }
+        }
+        return null;
     }
 }

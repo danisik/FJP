@@ -13,8 +13,13 @@ public enum OperatorLogical {
         this.symbol = symbol;
     }
 
-    public String getSymbol()
-    {
-        return this.symbol;
+    public static OperatorLogical getSymbol(String value) {
+        for(OperatorLogical e: OperatorLogical.values()) {
+            if(e.symbol.equals(value))
+            {
+                return e;
+            }
+        }
+        return null;
     }
 }

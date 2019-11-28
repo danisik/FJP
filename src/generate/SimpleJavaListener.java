@@ -1,5 +1,4 @@
-// Generated from /Users/cagy/Documents/Škola/FJP/simplejava/src/SimpleJava.g4 by ANTLR 4.7.2
-package generate;
+// Generated from C:/Users/danisik/Documents/GitHub/FJPP/src\SimpleJava.g4 by ANTLR 4.7.2
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
 /**
@@ -128,15 +127,15 @@ public interface SimpleJavaListener extends ParseTreeListener {
 	 */
 	void exitParalelDeclaration(SimpleJavaParser.ParalelDeclarationContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link SimpleJavaParser#setVariable}.
+	 * Enter a parse tree produced by {@link SimpleJavaParser#variableAssigment}.
 	 * @param ctx the parse tree
 	 */
-	void enterSetVariable(SimpleJavaParser.SetVariableContext ctx);
+	void enterVariableAssigment(SimpleJavaParser.VariableAssigmentContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link SimpleJavaParser#setVariable}.
+	 * Exit a parse tree produced by {@link SimpleJavaParser#variableAssigment}.
 	 * @param ctx the parse tree
 	 */
-	void exitSetVariable(SimpleJavaParser.SetVariableContext ctx);
+	void exitVariableAssigment(SimpleJavaParser.VariableAssigmentContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link SimpleJavaParser#program}.
 	 * @param ctx the parse tree
@@ -177,6 +176,16 @@ public interface SimpleJavaListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitBlockStatement(SimpleJavaParser.BlockStatementContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link SimpleJavaParser#blockBody}.
+	 * @param ctx the parse tree
+	 */
+	void enterBlockBody(SimpleJavaParser.BlockBodyContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link SimpleJavaParser#blockBody}.
+	 * @param ctx the parse tree
+	 */
+	void exitBlockBody(SimpleJavaParser.BlockBodyContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code statementIf}
 	 * labeled alternative in {@link SimpleJavaParser#statement}.
@@ -249,6 +258,30 @@ public interface SimpleJavaListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitStatementRepeat(SimpleJavaParser.StatementRepeatContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code statementMethodCall}
+	 * labeled alternative in {@link SimpleJavaParser#statement}.
+	 * @param ctx the parse tree
+	 */
+	void enterStatementMethodCall(SimpleJavaParser.StatementMethodCallContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code statementMethodCall}
+	 * labeled alternative in {@link SimpleJavaParser#statement}.
+	 * @param ctx the parse tree
+	 */
+	void exitStatementMethodCall(SimpleJavaParser.StatementMethodCallContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code statementAssigment}
+	 * labeled alternative in {@link SimpleJavaParser#statement}.
+	 * @param ctx the parse tree
+	 */
+	void enterStatementAssigment(SimpleJavaParser.StatementAssigmentContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code statementAssigment}
+	 * labeled alternative in {@link SimpleJavaParser#statement}.
+	 * @param ctx the parse tree
+	 */
+	void exitStatementAssigment(SimpleJavaParser.StatementAssigmentContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link SimpleJavaParser#expression}.
 	 * @param ctx the parse tree

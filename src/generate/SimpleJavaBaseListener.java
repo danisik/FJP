@@ -1,5 +1,4 @@
-// Generated from /Users/cagy/Documents/Škola/FJP/simplejava/src/SimpleJava.g4 by ANTLR 4.7.2
-package generate;
+// Generated from C:/Users/danisik/Documents/GitHub/FJPP/src\SimpleJava.g4 by ANTLR 4.7.2
 
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;
@@ -160,13 +159,13 @@ public class SimpleJavaBaseListener implements SimpleJavaListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterSetVariable(SimpleJavaParser.SetVariableContext ctx) { }
+	@Override public void enterVariableAssigment(SimpleJavaParser.VariableAssigmentContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitSetVariable(SimpleJavaParser.SetVariableContext ctx) { }
+	@Override public void exitVariableAssigment(SimpleJavaParser.VariableAssigmentContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -215,6 +214,18 @@ public class SimpleJavaBaseListener implements SimpleJavaListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitBlockStatement(SimpleJavaParser.BlockStatementContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterBlockBody(SimpleJavaParser.BlockBodyContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitBlockBody(SimpleJavaParser.BlockBodyContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -287,6 +298,30 @@ public class SimpleJavaBaseListener implements SimpleJavaListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitStatementRepeat(SimpleJavaParser.StatementRepeatContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterStatementMethodCall(SimpleJavaParser.StatementMethodCallContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitStatementMethodCall(SimpleJavaParser.StatementMethodCallContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterStatementAssigment(SimpleJavaParser.StatementAssigmentContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitStatementAssigment(SimpleJavaParser.StatementAssigmentContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
