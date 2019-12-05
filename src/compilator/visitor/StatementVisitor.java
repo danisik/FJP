@@ -4,7 +4,7 @@ package compilator.visitor;
 import compilator.enums.EMethodReturnType;
 import compilator.object.Body;
 import compilator.object.control.ControlFor;
-import compilator.object.MethodCall;
+import compilator.object.method.MethodCall;
 import compilator.object.Variable;
 import compilator.object.expression.Expression;
 import compilator.object.statement.*;

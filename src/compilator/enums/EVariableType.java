@@ -2,6 +2,6 @@ package compilator.enums;
 
 public enum EVariableType
 {
-    INTEGER,
+    INT,
     BOOLEAN
 }

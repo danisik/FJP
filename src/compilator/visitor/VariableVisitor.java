@@ -41,7 +41,7 @@ public class VariableVisitor extends SimpleJavaBaseVisitor<Variable> {
             String name = ctx.decimalVariable().identifier().getText();
             int val = Integer.parseInt(ctx.decimalVariable().decimalValue().getText());
 
-            variable = new Variable(name, new Value(val), EVariableType.INTEGER);
+            variable = new Variable(name, new Value(val), EVariableType.INT);
 
             if (ctx.decimalVariable().paralelDeclaration() != null)
             {

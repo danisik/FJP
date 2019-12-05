@@ -19,9 +19,11 @@ public class Main {
                                                 "test4 = 40;" +
                                                 "do{boolean a = true;}while(1) " +
                                                 "while(1){}" +
-                                                "void function abx()" +
+                                                "void function abx(int a, boolean b)" +
                                                 "{" +
                                                     "int in = 1; " +
+                                                    "int in2 = 1; " +
+                                                    "while(1){}" +
                                                     "return;" +
                                                 "} " +
                                                 "switch(1){" +
@@ -29,6 +31,7 @@ public class Main {
                                                 "    case 2:{ int i = 2;}" +
                                                 "    default: {boolean c = false;}" +
                                                 "}" +
+                                                "functionTest();" +
 
                                             "}");
 
@@ -45,6 +48,8 @@ public class Main {
 
             System.out.println(value);
         }
+
+
     }
 
 }

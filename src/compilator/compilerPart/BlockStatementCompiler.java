@@ -89,4 +89,9 @@ public class BlockStatementCompiler extends BaseCompiler
         this.addInstruction(EInstruction.STO, this.level, symbolTableItem.getAddress());
     }
 
+    private void generateAssigmentInstruction()
+    {
+
+    }
+
 }

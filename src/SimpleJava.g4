@@ -88,6 +88,11 @@ possibleValues
   | FALSE
   ;
 
+possibleTypes
+  : INT
+  | BOOLEAN
+  ;
+
 identifier
   : WORD (WORD | DECIMAL)*
   ;
@@ -198,25 +203,22 @@ switchBlockStatement
   ;
 
 methodDeclaration
-  : methodReturnType FUNCTION_KEYWORD identifier LPAREN methodParameter? RPAREN methodBody
+  : methodReturnType FUNCTION_KEYWORD identifier LPAREN (methodParameter (COMMA methodParameter)*)? RPAREN methodBody
   ;
 
 methodParameter
-  : (BOOLEAN | INT) identifier
-  | (BOOLEAN | INT) identifier COMMA methodParameter
+  : possibleTypes identifier
   ;
 
 methodBody
-  : LBRACE blockBody* RETURN (expressionBody)? SEMI RBRACE
+  : LBRACE blockBody RETURN (expressionBody)? SEMI RBRACE
   ;
 
 methodCall
-  : identifier LPAREN methodCallParameter? RPAREN
+  : identifier LPAREN (methodCallParameter (COMMA methodCallParameter)*)? RPAREN
   ;
 
 methodCallParameter
   : expression
-  | expression COMMA methodCallParameter
   | methodCall
-  | methodCall COMMA methodCallParameter
   ;

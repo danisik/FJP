@@ -1,5 +1,7 @@
 package compilator.object.symbolTable;
 
+import compilator.object.Variable;
+
 public class SymbolTableItem
 {
 
@@ -7,6 +9,9 @@ public class SymbolTableItem
     private int level;
     private int address;
     private int size;
+    private boolean isMethod = false;
+    private boolean isVariable = false;
+    private Variable variable;
 
     public SymbolTableItem(String name, int level, int address, int size)
     {
@@ -65,5 +70,25 @@ public class SymbolTableItem
     public void setSize(int size)
     {
         this.size = size;
+    }
+
+    public boolean isVariable()
+    {
+        return isVariable;
+    }
+
+    public void setVariable(boolean variable)
+    {
+        isVariable = variable;
+    }
+
+    public boolean isMethod()
+    {
+        return isMethod;
+    }
+
+    public void setMethod(boolean method)
+    {
+        isMethod = method;
     }
 }

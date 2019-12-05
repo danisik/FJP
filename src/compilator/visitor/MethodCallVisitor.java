@@ -1,6 +1,6 @@
 package compilator.visitor;
 
-import compilator.object.MethodCall;
+import compilator.object.method.MethodCall;
 import generate.SimpleJavaBaseVisitor;
 import generate.SimpleJavaParser;
 

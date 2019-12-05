@@ -1,7 +1,7 @@
 package compilator.object.statement;
 
 import compilator.enums.EStatementType;
-import compilator.object.MethodCall;
+import compilator.object.method.MethodCall;
 
 public class StatementMethodCall extends Statement
 {

@@ -28,6 +28,16 @@ public interface SimpleJavaListener extends ParseTreeListener {
 	 */
 	void exitPossibleValues(SimpleJavaParser.PossibleValuesContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link SimpleJavaParser#possibleTypes}.
+	 * @param ctx the parse tree
+	 */
+	void enterPossibleTypes(SimpleJavaParser.PossibleTypesContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link SimpleJavaParser#possibleTypes}.
+	 * @param ctx the parse tree
+	 */
+	void exitPossibleTypes(SimpleJavaParser.PossibleTypesContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link SimpleJavaParser#identifier}.
 	 * @param ctx the parse tree
 	 */

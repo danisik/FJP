@@ -23,6 +23,12 @@ public interface SimpleJavaVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitPossibleValues(SimpleJavaParser.PossibleValuesContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link SimpleJavaParser#possibleTypes}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPossibleTypes(SimpleJavaParser.PossibleTypesContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link SimpleJavaParser#identifier}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
