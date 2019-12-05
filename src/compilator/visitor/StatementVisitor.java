@@ -65,14 +65,14 @@ public class StatementVisitor extends SimpleJavaBaseVisitor<Statement>
         HashMap<Integer, StatementSwitchBlock> switchBlockHashMap = new HashMap<>();
         StatementSwitchBlock defaultBlock = null;
 
-        for (SimpleJavaParser.SwitchBlockStatementContext switchBlockStatement: switchBlocks)
+        for (SimpleJavaParser.SwitchBlockStatementContext switchBlockStatement : switchBlocks)
         {
             // case block
             if (switchBlockStatement.CASE() != null)
             {
                 int identifier = Integer.parseInt(switchBlockStatement.DECIMAL().getText());
                 Body body = new BodyVisitor().visit(switchBlockStatement.body());
-                StatementSwitchBlock stmtSwitchBlock =  new StatementSwitchBlock(identifier, body);
+                StatementSwitchBlock stmtSwitchBlock = new StatementSwitchBlock(identifier, body);
                 switchBlockHashMap.put(identifier, stmtSwitchBlock);
             }
             // default block
@@ -80,7 +80,7 @@ public class StatementVisitor extends SimpleJavaBaseVisitor<Statement>
             else
             {
                 Body body = new BodyVisitor().visit(switchBlockStatement.body());
-                defaultBlock =  new StatementSwitchBlock(body);
+                defaultBlock = new StatementSwitchBlock(body);
             }
         }
 
@@ -95,4 +95,22 @@ public class StatementVisitor extends SimpleJavaBaseVisitor<Statement>
 
         return new StatementRepeat(expression, body);
     }
+
+    @Override
+    public Statement visitStatementMethodCall(SimpleJavaParser.StatementMethodCallContext ctx)
+    {
+        String identifier = ctx.methodCall().identifier().getText();
+
+        return new StatementMethodCall(identifier);
+    }
+
+    @Override
+    public Statement visitStatementAssigment(SimpleJavaParser.StatementAssigmentContext ctx)
+    {
+        String identifier = ctx.variableAssigment().identifier().getText();
+        Expression expression = new ExpressionBodyVisitor().visit(ctx.variableAssigment().expressionBody());
+
+        return new StatementAssigment(identifier, expression);
+    }
+
 }

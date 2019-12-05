@@ -137,7 +137,7 @@ paralelDeclaration
 
 
 variableAssigment
-  : identifier EQ (possibleValues | expression | methodCall) SEMI
+  : identifier EQ expressionBody SEMI
   ;
 
 program
@@ -216,8 +216,8 @@ methodCall
   ;
 
 methodCallParameter
-  : identifier
-  | identifier COMMA methodCallParameter
+  : expression
+  | expression COMMA methodCallParameter
   | methodCall
   | methodCall COMMA methodCallParameter
   ;

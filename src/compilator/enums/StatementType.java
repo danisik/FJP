@@ -6,6 +6,8 @@ public enum StatementType {
     IF,
     WHILE,
     REPEAT_UNTIL,
-    SWITCH
+    SWITCH,
+    ASSIGMENT,
+    METHOD_CALL
 
 }
