@@ -1,6 +1,6 @@
 package compilator.object.statement;
 
-import compilator.enums.StatementType;
+import compilator.enums.EStatementType;
 import compilator.object.Body;
 import compilator.object.expression.Expression;
 
@@ -14,7 +14,7 @@ public class StatementIf extends Statement
 
     public StatementIf(Expression expression, Body bodyIf, Body bodyElse)
     {
-        super(StatementType.IF);
+        super(EStatementType.IF);
         this.expression = expression;
         this.bodyIf = bodyIf;
         this.bodyElse = bodyElse;

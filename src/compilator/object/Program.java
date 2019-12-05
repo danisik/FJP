@@ -8,4 +8,9 @@ public class Program {
     {
         this.block = block;
     }
+
+    public Block getBlock()
+    {
+        return block;
+    }
 }

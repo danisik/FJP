@@ -1,6 +1,6 @@
 package compilator.visitor;
 
-import compilator.object.Control.ControlFor;
+import compilator.object.control.ControlFor;
 import generate.SimpleJavaBaseVisitor;
 import generate.SimpleJavaParser;
 

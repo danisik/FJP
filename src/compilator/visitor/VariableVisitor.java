@@ -1,6 +1,6 @@
 package compilator.visitor;
 
-import compilator.enums.VariableType;
+import compilator.enums.EVariableType;
 import compilator.object.Variable;
 import compilator.value.Value;
 import generate.*;
@@ -41,7 +41,7 @@ public class VariableVisitor extends SimpleJavaBaseVisitor<Variable> {
             String name = ctx.decimalVariable().identifier().getText();
             int val = Integer.parseInt(ctx.decimalVariable().decimalValue().getText());
 
-            variable = new Variable(name, new Value(val), VariableType.INTEGER);
+            variable = new Variable(name, new Value(val), EVariableType.INTEGER);
 
             if (ctx.decimalVariable().paralelDeclaration() != null)
             {
@@ -54,7 +54,7 @@ public class VariableVisitor extends SimpleJavaBaseVisitor<Variable> {
             String name = ctx.boolVariable().identifier().getText();
             boolean val = Boolean.parseBoolean(ctx.boolVariable().boolValue().getText());
 
-            variable = new Variable(name, new Value(val), VariableType.BOOLEAN);
+            variable = new Variable(name, new Value(val), EVariableType.BOOLEAN);
 
             if (ctx.boolVariable().paralelDeclaration() != null)
             {

@@ -1,6 +1,7 @@
 package compilator.enums;
 
-public enum OperatorRelational {
+public enum EOperatorRelational
+{
     EQUAL("=="),
     NOT_EQUAL("!="),
     LT("<"),
@@ -10,13 +11,13 @@ public enum OperatorRelational {
 
     private String symbol;
 
-    OperatorRelational(String symbol)
+    EOperatorRelational(String symbol)
     {
         this.symbol = symbol;
     }
 
-    public static OperatorRelational getSymbol(String value) {
-        for(OperatorRelational e: OperatorRelational.values()) {
+    public static EOperatorRelational getSymbol(String value) {
+        for(EOperatorRelational e: EOperatorRelational.values()) {
             if(e.symbol.equals(value))
             {
                 return e;

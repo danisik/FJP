@@ -1,6 +1,6 @@
 package compilator.object.statement;
 
-import compilator.enums.StatementType;
+import compilator.enums.EStatementType;
 
 import java.util.HashMap;
 
@@ -11,7 +11,7 @@ public class StatementSwitch extends Statement
 
     public StatementSwitch(HashMap<Integer, StatementSwitchBlock> blocks, StatementSwitchBlock defaultBlock)
     {
-        super(StatementType.SWITCH);
+        super(EStatementType.SWITCH);
         this.blocks = blocks;
         this.defaultBlock = defaultBlock;
     }

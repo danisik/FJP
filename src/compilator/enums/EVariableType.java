@@ -1,6 +1,7 @@
 package compilator.enums;
 
-public enum VariableType {
+public enum EVariableType
+{
     INTEGER,
     BOOLEAN
 }

@@ -1,12 +1,12 @@
 package compilator.object.expression;
 
-import compilator.enums.ExpressionType;
+import compilator.enums.EExpressionType;
 
 public class Expression {
 
-    private ExpressionType type;
+    private EExpressionType type;
 
-    public Expression(ExpressionType type)
+    public Expression(EExpressionType type)
     {
         this.type = type;
     }

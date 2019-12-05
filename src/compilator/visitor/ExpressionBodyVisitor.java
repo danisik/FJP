@@ -1,9 +1,9 @@
 package compilator.visitor;
 
-import compilator.enums.OperatorAdditive;
-import compilator.enums.OperatorLogical;
-import compilator.enums.OperatorMultiplication;
-import compilator.enums.OperatorRelational;
+import compilator.enums.EOperatorAdditive;
+import compilator.enums.EOperatorLogical;
+import compilator.enums.EOperatorMultiplication;
+import compilator.enums.EOperatorRelational;
 import compilator.object.expression.*;
 import compilator.value.Value;
 import generate.SimpleJavaBaseVisitor;
@@ -21,7 +21,7 @@ public class ExpressionBodyVisitor extends SimpleJavaBaseVisitor<Expression> {
     {
         Expression left = this.visit(ctx.expressionBody(0));
         Expression right = this.visit(ctx.expressionBody(1));
-        OperatorAdditive operator = OperatorAdditive.getSymbol(ctx.op.getText());
+        EOperatorAdditive operator = EOperatorAdditive.getSymbol(ctx.op.getText());
 
         return new ExpressionAdditive(left, right, operator);
     }
@@ -37,7 +37,7 @@ public class ExpressionBodyVisitor extends SimpleJavaBaseVisitor<Expression> {
     {
         Expression left = this.visit(ctx.expressionBody(0));
         Expression right = this.visit(ctx.expressionBody(1));
-        OperatorRelational operator = OperatorRelational.getSymbol(ctx.op.getText());
+        EOperatorRelational operator = EOperatorRelational.getSymbol(ctx.op.getText());
 
         return new ExpressionRelational(left, right, operator);
     }
@@ -59,7 +59,7 @@ public class ExpressionBodyVisitor extends SimpleJavaBaseVisitor<Expression> {
     {
         Expression left = this.visit(ctx.expressionBody(0));
         Expression right = this.visit(ctx.expressionBody(1));
-        OperatorLogical operator = OperatorLogical.getSymbol(ctx.op.getText());
+        EOperatorLogical operator = EOperatorLogical.getSymbol(ctx.op.getText());
 
 
         return new ExpressionLogical(left, right, operator);
@@ -70,7 +70,7 @@ public class ExpressionBodyVisitor extends SimpleJavaBaseVisitor<Expression> {
     {
         Expression left = this.visit(ctx.expressionBody(0));
         Expression right = this.visit(ctx.expressionBody(1));
-        OperatorMultiplication operator = OperatorMultiplication.getSymbol(ctx.op.getText());
+        EOperatorMultiplication operator = EOperatorMultiplication.getSymbol(ctx.op.getText());
 
 
         return new ExpressionMultiplication(left, right, operator);

@@ -1,8 +1,8 @@
 package compilator.object.statement;
 
-import compilator.enums.StatementType;
+import compilator.enums.EStatementType;
 import compilator.object.Body;
-import compilator.object.Control.ControlFor;
+import compilator.object.control.ControlFor;
 
 public class StatementFor extends Statement
 {
@@ -11,7 +11,7 @@ public class StatementFor extends Statement
 
     public StatementFor(ControlFor controlFor, Body body)
     {
-        super(StatementType.FOR);
+        super(EStatementType.FOR);
         this.controlFor = controlFor;
         this.body = body;
     }

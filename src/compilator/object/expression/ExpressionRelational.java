@@ -1,18 +1,18 @@
 package compilator.object.expression;
 
-import compilator.enums.ExpressionType;
-import compilator.enums.OperatorRelational;
+import compilator.enums.EExpressionType;
+import compilator.enums.EOperatorRelational;
 
 public class ExpressionRelational extends Expression{
     private Expression leftExpression;
 
     private Expression rightExpression;
 
-    private OperatorRelational operatorRelational;
+    private EOperatorRelational operatorRelational;
 
-    public ExpressionRelational(Expression leftExpression, Expression rightExpression, OperatorRelational operatorRelational)
+    public ExpressionRelational(Expression leftExpression, Expression rightExpression, EOperatorRelational operatorRelational)
     {
-        super(ExpressionType.RELATIONAL);
+        super(EExpressionType.RELATIONAL);
         this.leftExpression = leftExpression;
         this.rightExpression = rightExpression;
         this.operatorRelational = operatorRelational;
@@ -34,11 +34,11 @@ public class ExpressionRelational extends Expression{
         this.rightExpression = rightExpression;
     }
 
-    public OperatorRelational getOperatorRelational() {
+    public EOperatorRelational getOperatorRelational() {
         return operatorRelational;
     }
 
-    public void setOperatorRelational(OperatorRelational operatorRelational) {
+    public void setOperatorRelational(EOperatorRelational operatorRelational) {
         this.operatorRelational = operatorRelational;
     }
 }

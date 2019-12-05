@@ -1,6 +1,6 @@
 package compilator.object.statement;
 
-import compilator.enums.StatementType;
+import compilator.enums.EStatementType;
 import compilator.object.Body;
 import compilator.object.expression.Expression;
 
@@ -12,7 +12,7 @@ public class StatementWhile extends Statement
 
     public StatementWhile(Expression expression, Body body)
     {
-        super(StatementType.WHILE);
+        super(EStatementType.WHILE);
         this.expression = expression;
         this.body = body;
     }

@@ -1,6 +1,6 @@
 package compilator.object.statement;
 
-import compilator.enums.StatementType;
+import compilator.enums.EStatementType;
 import compilator.object.MethodCall;
 
 public class StatementMethodCall extends Statement
@@ -9,7 +9,7 @@ public class StatementMethodCall extends Statement
 
     public StatementMethodCall(MethodCall methodCall)
     {
-        super(StatementType.METHOD_CALL);
+        super(EStatementType.METHOD_CALL);
         this.methodCall = methodCall;
     }
 

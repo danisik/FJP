@@ -1,6 +1,6 @@
 package compilator.enums;
 
-public enum MethodReturnType
+public enum EMethodReturnType
 {
     VOID,
     BOOLEAN,

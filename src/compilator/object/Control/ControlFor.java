@@ -1,4 +1,4 @@
-package compilator.object.Control;
+package compilator.object.control;
 
 public class ControlFor
 {

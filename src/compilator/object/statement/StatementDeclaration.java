@@ -1,6 +1,6 @@
 package compilator.object.statement;
 
-import compilator.enums.StatementType;
+import compilator.enums.EStatementType;
 import compilator.object.Variable;
 
 public class StatementDeclaration extends Statement
@@ -9,7 +9,7 @@ public class StatementDeclaration extends Statement
 
     public StatementDeclaration(Variable variable)
     {
-        super(StatementType.DECLARATION);
+        super(EStatementType.DECLARATION);
         this.variable = variable;
     }
 

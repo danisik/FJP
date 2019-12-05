@@ -1,6 +1,7 @@
 package compilator.enums;
 
-public enum ExpressionType {
+public enum EExpressionType
+{
         IDENTIFIER,
         VALUE,
         MULTIPLICATION,

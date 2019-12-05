@@ -1,9 +1,9 @@
 package compilator.visitor;
 
 
-import compilator.enums.MethodReturnType;
+import compilator.enums.EMethodReturnType;
 import compilator.object.Body;
-import compilator.object.Control.ControlFor;
+import compilator.object.control.ControlFor;
 import compilator.object.MethodCall;
 import compilator.object.Variable;
 import compilator.object.expression.Expression;
@@ -103,7 +103,7 @@ public class StatementVisitor extends SimpleJavaBaseVisitor<Statement>
     public Statement visitStatementMethodCall(SimpleJavaParser.StatementMethodCallContext ctx)
     {
         MethodCall methodCall = new MethodCallVisitor().visit(ctx.methodCall());
-        methodCall.setExpectedReturnType(MethodReturnType.VOID);
+        methodCall.setExpectedReturnType(EMethodReturnType.VOID);
 
         return new StatementMethodCall(methodCall);
     }

@@ -1,18 +1,21 @@
 package compilator.enums;
 
-public enum OperatorAdditive {
-    PLUS("+"),
-    MINUS("-");
+public enum EOperatorLogical
+{
+
+    AND("and"),
+    OR("or");
+
 
     private String symbol;
 
-    OperatorAdditive(String symbol)
+    EOperatorLogical(String symbol)
     {
         this.symbol = symbol;
     }
 
-    public static OperatorAdditive getSymbol(String value) {
-        for(OperatorAdditive e: OperatorAdditive.values()) {
+    public static EOperatorLogical getSymbol(String value) {
+        for(EOperatorLogical e: EOperatorLogical.values()) {
             if(e.symbol.equals(value))
             {
                 return e;

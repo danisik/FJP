@@ -1,19 +1,20 @@
 package compilator.enums;
 
-public enum OperatorMultiplication {
+public enum EOperatorMultiplication
+{
     MULTIPLY("*"),
     DIVIDE("/"),
     MOD("%");
 
     private String symbol;
 
-    OperatorMultiplication(String symbol)
+    EOperatorMultiplication(String symbol)
     {
         this.symbol = symbol;
     }
 
-    public static OperatorMultiplication getSymbol(String value) {
-        for(OperatorMultiplication e: OperatorMultiplication.values()) {
+    public static EOperatorMultiplication getSymbol(String value) {
+        for(EOperatorMultiplication e: EOperatorMultiplication.values()) {
             if(e.symbol.equals(value))
             {
                 return e;

@@ -1,13 +1,13 @@
 package compilator.object.expression;
 
-import compilator.enums.ExpressionType;
+import compilator.enums.EExpressionType;
 
 public class ExpressionPar extends Expression {
     private Expression expression;
 
     public ExpressionPar(Expression expression)
     {
-        super(ExpressionType.PAR);
+        super(EExpressionType.PAR);
         this.expression = expression;
     }
 

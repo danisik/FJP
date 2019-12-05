@@ -1,4 +1,11 @@
 import compilator.Compilator;
+import compilator.compilerPart.BaseCompiler;
+import compilator.enums.EInstruction;
+import compilator.object.instruction.Instruction;
+import compilator.object.symbolTable.SymbolTable;
+import compilator.object.symbolTable.SymbolTableItem;
+
+import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
@@ -14,8 +21,8 @@ public class Main {
                                                 "while(1){}" +
                                                 "void function abx()" +
                                                 "{" +
-                                                "int in = 1; " +
-                                                "return;" +
+                                                    "int in = 1; " +
+                                                    "return;" +
                                                 "} " +
                                                 "switch(1){" +
                                                 "    case 1:{ int i = 1;}" +
@@ -25,7 +32,19 @@ public class Main {
 
                                             "}");
 
-    }
+        BaseCompiler baseCompiler = new BaseCompiler();
+        for (Instruction instruction : baseCompiler.getInstructionsList()
+             )
+        {
+            System.out.println(instruction);
+        }
 
+        for(Map.Entry<String, SymbolTableItem> entry : SymbolTable.getInstance().getTable().entrySet()) {
+            String key = entry.getKey();
+            SymbolTableItem value = entry.getValue();
+
+            System.out.println(value);
+        }
+    }
 
 }

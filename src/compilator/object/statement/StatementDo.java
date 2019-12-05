@@ -1,6 +1,6 @@
 package compilator.object.statement;
 
-import compilator.enums.StatementType;
+import compilator.enums.EStatementType;
 import compilator.object.Body;
 import compilator.object.expression.Expression;
 
@@ -12,7 +12,7 @@ public class StatementDo extends Statement
 
     public StatementDo(Expression expression, Body body)
     {
-        super(StatementType.DO_WHILE);
+        super(EStatementType.DO_WHILE);
         this.expression = expression;
         this.body = body;
     }

@@ -1,6 +1,6 @@
 package compilator.object.statement;
 
-import compilator.enums.StatementType;
+import compilator.enums.EStatementType;
 import compilator.object.expression.Expression;
 
 public class StatementAssigment extends Statement
@@ -11,7 +11,7 @@ public class StatementAssigment extends Statement
 
     public StatementAssigment(String identifier, Expression expression)
     {
-        super(StatementType.ASSIGMENT);
+        super(EStatementType.ASSIGMENT);
         this.identifier = identifier;
         this.expression = expression;
     }

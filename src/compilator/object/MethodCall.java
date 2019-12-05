@@ -1,19 +1,19 @@
 package compilator.object;
 
-import compilator.enums.MethodReturnType;
+import compilator.enums.EMethodReturnType;
 
 public class MethodCall
 {
 
     private final String identifier;
-    private MethodReturnType expectedReturnType;
+    private EMethodReturnType expectedReturnType;
 
     public MethodCall(String identifier)
     {
         this.identifier = identifier;
     }
 
-    public MethodCall(String identifier, MethodReturnType expectedReturnType)
+    public MethodCall(String identifier, EMethodReturnType expectedReturnType)
     {
         this.identifier = identifier;
         this.expectedReturnType = expectedReturnType;
@@ -24,12 +24,12 @@ public class MethodCall
         return identifier;
     }
 
-    public MethodReturnType getExpectedReturnType()
+    public EMethodReturnType getExpectedReturnType()
     {
         return expectedReturnType;
     }
 
-    public void setExpectedReturnType(MethodReturnType expectedReturnType)
+    public void setExpectedReturnType(EMethodReturnType expectedReturnType)
     {
         this.expectedReturnType = expectedReturnType;
     }

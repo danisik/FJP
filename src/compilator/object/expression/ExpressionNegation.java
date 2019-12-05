@@ -1,13 +1,13 @@
 package compilator.object.expression;
 
-import compilator.enums.ExpressionType;
+import compilator.enums.EExpressionType;
 
 public class ExpressionNegation extends Expression {
 
     private Expression expression;
 
     public ExpressionNegation(Expression expression) {
-        super(ExpressionType.NEGATION);
+        super(EExpressionType.NEGATION);
         this.expression = expression;
     }
 

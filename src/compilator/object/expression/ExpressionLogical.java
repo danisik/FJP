@@ -1,29 +1,28 @@
 package compilator.object.expression;
 
-import compilator.enums.ExpressionType;
-import compilator.enums.OperatorLogical;
-import compilator.enums.OperatorMultiplication;
+import compilator.enums.EExpressionType;
+import compilator.enums.EOperatorLogical;
 
 public class ExpressionLogical extends Expression{
 
     private Expression leftExpression;
 
     private Expression rightExpression;
-    private OperatorLogical operatorLogical;
+    private EOperatorLogical operatorLogical;
 
-    public ExpressionLogical(Expression leftExpression, Expression rightExpression, OperatorLogical operatorLogical)
+    public ExpressionLogical(Expression leftExpression, Expression rightExpression, EOperatorLogical operatorLogical)
     {
-        super(ExpressionType.LOGICAL);
+        super(EExpressionType.LOGICAL);
         this.leftExpression = leftExpression;
         this.rightExpression = rightExpression;
         this.operatorLogical = operatorLogical;
     }
 
-    public OperatorLogical getOperatorLogical() {
+    public EOperatorLogical getOperatorLogical() {
         return operatorLogical;
     }
 
-    public void setOperatorLogical(OperatorLogical operatorLogical) {
+    public void setOperatorLogical(EOperatorLogical operatorLogical) {
         this.operatorLogical = operatorLogical;
     }
 

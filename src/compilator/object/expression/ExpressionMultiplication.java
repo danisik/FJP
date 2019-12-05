@@ -1,28 +1,28 @@
 package compilator.object.expression;
 
-import compilator.enums.ExpressionType;
-import compilator.enums.OperatorMultiplication;
+import compilator.enums.EExpressionType;
+import compilator.enums.EOperatorMultiplication;
 
 public class ExpressionMultiplication extends Expression {
 
     private Expression leftExpression;
 
     private Expression rightExpression;
-    private OperatorMultiplication operatorMultiplication;
+    private EOperatorMultiplication operatorMultiplication;
 
-    public ExpressionMultiplication(Expression leftExpression, Expression rightExpression, OperatorMultiplication operatorMultiplication)
+    public ExpressionMultiplication(Expression leftExpression, Expression rightExpression, EOperatorMultiplication operatorMultiplication)
     {
-        super(ExpressionType.MULTIPLICATION);
+        super(EExpressionType.MULTIPLICATION);
         this.leftExpression = leftExpression;
         this.rightExpression = rightExpression;
         this.operatorMultiplication = operatorMultiplication;
     }
 
-    public OperatorMultiplication getOperatorMultiplication() {
+    public EOperatorMultiplication getOperatorMultiplication() {
         return operatorMultiplication;
     }
 
-    public void setOperatorMultiplication(OperatorMultiplication operatorMultiplication) {
+    public void setOperatorMultiplication(EOperatorMultiplication operatorMultiplication) {
         this.operatorMultiplication = operatorMultiplication;
     }
 

@@ -1,6 +1,6 @@
 package compilator.object;
 
-import compilator.enums.VariableType;
+import compilator.enums.EVariableType;
 import compilator.value.Value;
 
 import java.util.ArrayList;
@@ -13,11 +13,11 @@ public class Variable {
 
     private boolean isConstant;
 
-    private VariableType type;
+    private EVariableType type;
 
     private List<String> parallelArray;
 
-    public Variable(String name, Value value, VariableType type)
+    public Variable(String name, Value value, EVariableType type)
     {
         this.name = name;
         this.value = value;
@@ -26,7 +26,7 @@ public class Variable {
         this.parallelArray = new ArrayList<>();
     }
 
-    public Variable(String name, Value value, VariableType type, boolean isConstant)
+    public Variable(String name, Value value, EVariableType type, boolean isConstant)
     {
         this.name = name;
         this.value = value;
@@ -69,11 +69,11 @@ public class Variable {
         isConstant = constant;
     }
 
-    public VariableType getType() {
+    public EVariableType getType() {
         return type;
     }
 
-    public void setType(VariableType type) {
+    public void setType(EVariableType type) {
         this.type = type;
     }
 

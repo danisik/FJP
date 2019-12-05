@@ -1,6 +1,6 @@
 package compilator.object.expression;
 
-import compilator.enums.ExpressionType;
+import compilator.enums.EExpressionType;
 import compilator.value.Value;
 
 public class ExpressionValue extends Expression {
@@ -9,7 +9,7 @@ public class ExpressionValue extends Expression {
     
     public ExpressionValue(Value value)
     {
-        super(ExpressionType.VALUE);
+        super(EExpressionType.VALUE);
         this.value = value;
     }
 

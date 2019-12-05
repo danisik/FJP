@@ -1,10 +1,7 @@
 package compilator;
 
 import compilator.object.Program;
-import compilator.value.Value;
-import compilator.visitor.BlockVisitor;
 import compilator.visitor.ProgramVisitor;
-import compilator.visitor.VariableVisitor;
 import generate.SimpleJavaLexer;
 import generate.SimpleJavaParser;
 import org.antlr.v4.runtime.CharStream;
@@ -36,5 +33,8 @@ public class Compilator {
         ParseTree parseTree = parser.program();
 
         Program program = new ProgramVisitor().visit(parseTree);
+
+        InstructionGenerator instructionGenerator = new InstructionGenerator(program);
+        instructionGenerator.generateInstructions();
     }
 }

@@ -1,7 +1,7 @@
 package compilator.object.expression;
 
-import compilator.enums.OperatorAdditive;
-import compilator.enums.ExpressionType;
+import compilator.enums.EOperatorAdditive;
+import compilator.enums.EExpressionType;
 
 public class ExpressionAdditive extends Expression {
 
@@ -9,20 +9,20 @@ public class ExpressionAdditive extends Expression {
 
     private Expression rightExpression;
 
-    private OperatorAdditive operatorAdditive;
+    private EOperatorAdditive operatorAdditive;
 
-    public ExpressionAdditive(Expression leftExpression, Expression rightExpression, OperatorAdditive operatorAdditive) {
-        super(ExpressionType.ADDITIVE);
+    public ExpressionAdditive(Expression leftExpression, Expression rightExpression, EOperatorAdditive operatorAdditive) {
+        super(EExpressionType.ADDITIVE);
         this.leftExpression = leftExpression;
         this.rightExpression = rightExpression;
         this.operatorAdditive = operatorAdditive;
     }
 
-    public OperatorAdditive getOperatorAdditive() {
+    public EOperatorAdditive getOperatorAdditive() {
         return operatorAdditive;
     }
 
-    public void setOperatorAdditive(OperatorAdditive operatorAdditive) {
+    public void setOperatorAdditive(EOperatorAdditive operatorAdditive) {
         this.operatorAdditive = operatorAdditive;
     }
 

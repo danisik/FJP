@@ -1,21 +1,21 @@
 package compilator.object.statement;
 
-import compilator.enums.StatementType;
+import compilator.enums.EStatementType;
 
 public class Statement {
 
-    private StatementType type;
+    private EStatementType type;
 
-    public Statement(StatementType type)
+    public Statement(EStatementType type)
     {
         this.type = type;
     }
 
-    public StatementType getType() {
+    public EStatementType getType() {
         return type;
     }
 
-    public void setType(StatementType type) {
+    public void setType(EStatementType type) {
         this.type = type;
     }
 }
