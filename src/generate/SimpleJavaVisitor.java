@@ -175,6 +175,13 @@ public interface SimpleJavaVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitStatementAssigment(SimpleJavaParser.StatementAssigmentContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code statementVariableDeclaration}
+	 * labeled alternative in {@link SimpleJavaParser#statement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitStatementVariableDeclaration(SimpleJavaParser.StatementVariableDeclarationContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link SimpleJavaParser#expression}.
 	 * @param ctx the parse tree
 	 * @return the visitor result

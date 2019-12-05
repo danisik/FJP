@@ -116,7 +116,7 @@ boolValue
   | FALSE
   | methodCall
   | identifier
-  | expression
+  | expressionBody
   ;
 
 localVariableDeclaration
@@ -153,14 +153,12 @@ body
   ;
 
 blockStatement
-  : (variableDeclaration
-  | statement
+  : (statement
   | methodDeclaration)+
   ;
 
 blockBody
-  : (variableDeclaration
-  | statement)+
+  : (statement)+
   ;
 
 statement
@@ -172,6 +170,7 @@ statement
   | REPEAT body UNTIL expression                           #statementRepeat
   | methodCall SEMI                                        #statementMethodCall
   | variableAssigment                                      #statementAssigment
+  | variableDeclaration                                    #statementVariableDeclaration
   ;
 
 expression

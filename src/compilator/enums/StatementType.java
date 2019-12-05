@@ -8,6 +8,6 @@ public enum StatementType {
     REPEAT_UNTIL,
     SWITCH,
     ASSIGMENT,
-    METHOD_CALL
-
+    METHOD_CALL,
+    DECLARATION
 }

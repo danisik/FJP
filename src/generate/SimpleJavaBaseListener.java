@@ -328,6 +328,18 @@ public class SimpleJavaBaseListener implements SimpleJavaListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterStatementVariableDeclaration(SimpleJavaParser.StatementVariableDeclarationContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitStatementVariableDeclaration(SimpleJavaParser.StatementVariableDeclarationContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterExpression(SimpleJavaParser.ExpressionContext ctx) { }
 	/**
 	 * {@inheritDoc}

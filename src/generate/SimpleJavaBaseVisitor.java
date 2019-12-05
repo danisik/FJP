@@ -199,6 +199,13 @@ public class SimpleJavaBaseVisitor<T> extends AbstractParseTreeVisitor<T> implem
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
+	@Override public T visitStatementVariableDeclaration(SimpleJavaParser.StatementVariableDeclarationContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
 	@Override public T visitExpression(SimpleJavaParser.ExpressionContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}

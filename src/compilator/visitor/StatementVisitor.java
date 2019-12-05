@@ -1,8 +1,11 @@
 package compilator.visitor;
 
 
+import compilator.enums.MethodReturnType;
 import compilator.object.Body;
 import compilator.object.Control.ControlFor;
+import compilator.object.MethodCall;
+import compilator.object.Variable;
 import compilator.object.expression.Expression;
 import compilator.object.statement.*;
 import generate.SimpleJavaBaseVisitor;
@@ -99,9 +102,10 @@ public class StatementVisitor extends SimpleJavaBaseVisitor<Statement>
     @Override
     public Statement visitStatementMethodCall(SimpleJavaParser.StatementMethodCallContext ctx)
     {
-        String identifier = ctx.methodCall().identifier().getText();
+        MethodCall methodCall = new MethodCallVisitor().visit(ctx.methodCall());
+        methodCall.setExpectedReturnType(MethodReturnType.VOID);
 
-        return new StatementMethodCall(identifier);
+        return new StatementMethodCall(methodCall);
     }
 
     @Override
@@ -112,5 +116,13 @@ public class StatementVisitor extends SimpleJavaBaseVisitor<Statement>
 
         return new StatementAssigment(identifier, expression);
     }
+
+    @Override
+    public Statement visitStatementVariableDeclaration(SimpleJavaParser.StatementVariableDeclarationContext ctx)
+    {
+        Variable variable = new VariableVisitor().visit(ctx.variableDeclaration());
+        return new StatementDeclaration(variable);
+    }
+
 
 }

@@ -284,6 +284,18 @@ public interface SimpleJavaListener extends ParseTreeListener {
 	 */
 	void exitStatementAssigment(SimpleJavaParser.StatementAssigmentContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code statementVariableDeclaration}
+	 * labeled alternative in {@link SimpleJavaParser#statement}.
+	 * @param ctx the parse tree
+	 */
+	void enterStatementVariableDeclaration(SimpleJavaParser.StatementVariableDeclarationContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code statementVariableDeclaration}
+	 * labeled alternative in {@link SimpleJavaParser#statement}.
+	 * @param ctx the parse tree
+	 */
+	void exitStatementVariableDeclaration(SimpleJavaParser.StatementVariableDeclarationContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link SimpleJavaParser#expression}.
 	 * @param ctx the parse tree
 	 */

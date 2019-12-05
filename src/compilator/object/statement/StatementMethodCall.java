@@ -1,19 +1,25 @@
 package compilator.object.statement;
 
 import compilator.enums.StatementType;
+import compilator.object.MethodCall;
 
 public class StatementMethodCall extends Statement
 {
-    private final String identifier;
+    private MethodCall methodCall;
 
-    public StatementMethodCall(String identifier)
+    public StatementMethodCall(MethodCall methodCall)
     {
         super(StatementType.METHOD_CALL);
-        this.identifier = identifier;
+        this.methodCall = methodCall;
     }
 
-    public String getIdentifier()
+    public MethodCall getMethodCall()
     {
-        return identifier;
+        return methodCall;
+    }
+
+    public void setMethodCall(MethodCall methodCall)
+    {
+        this.methodCall = methodCall;
     }
 }
