@@ -5,11 +5,13 @@ import compilator.enums.EOperatorLogical;
 import compilator.enums.EOperatorMultiplication;
 import compilator.enums.EOperatorRelational;
 import compilator.object.expression.*;
+import compilator.object.method.MethodCall;
 import compilator.value.Value;
 import generate.SimpleJavaBaseVisitor;
 import generate.SimpleJavaParser;
 
-public class ExpressionBodyVisitor extends SimpleJavaBaseVisitor<Expression> {
+public class ExpressionBodyVisitor extends SimpleJavaBaseVisitor<Expression>
+{
     @Override
     public Expression visitExprNeg(SimpleJavaParser.ExprNegContext ctx)
     {
@@ -75,5 +77,13 @@ public class ExpressionBodyVisitor extends SimpleJavaBaseVisitor<Expression> {
 
         return new ExpressionMultiplication(left, right, operator);
     }
+
+    @Override
+    public Expression visitExprMethodCall(SimpleJavaParser.ExprMethodCallContext ctx)
+    {
+        MethodCall methodCall = new MethodCallVisitor().visit(ctx.methodCall());
+        return new ExpressionMethodCall(methodCall);
+    }
+
 
 }

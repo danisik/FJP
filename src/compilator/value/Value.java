@@ -1,18 +1,26 @@
 package compilator.value;
 
-public class Value {
+public class Value
+{
     final private Object value;
 
-    public Value(Object value) {
+    public Value(Object value)
+    {
         this.value = value;
     }
 
-    int asInt() {
-        return (Integer) value;
+    public int toInt()
+    {
+        return (Integer) this.value;
     }
 
-    @Override
-    public String toString() {
-        return String.valueOf(this.value);
+    public String toString()
+    {
+        return (String) this.value;
+    }
+
+    public int toBooleanAsInt()
+    {
+        return ((Boolean) this.value) ? 1 : 0;
     }
 }

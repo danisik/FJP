@@ -1,5 +1,7 @@
 package compilator.object.symbolTable;
 
+import compilator.enums.EMethodReturnType;
+import compilator.enums.EVariableType;
 import compilator.object.Variable;
 
 public class SymbolTableItem
@@ -9,9 +11,16 @@ public class SymbolTableItem
     private int level;
     private int address;
     private int size;
-    private boolean isMethod = false;
+
+    // additional info variable
     private boolean isVariable = false;
-    private Variable variable;
+    private boolean isConstant = false;
+    private EVariableType variableType = null;
+
+
+    // additional info method
+    private boolean isMethod = false;
+    private EMethodReturnType methodReturnType = null;
 
     public SymbolTableItem(String name, int level, int address, int size)
     {
@@ -77,11 +86,6 @@ public class SymbolTableItem
         return isVariable;
     }
 
-    public void setVariable(boolean variable)
-    {
-        isVariable = variable;
-    }
-
     public boolean isMethod()
     {
         return isMethod;
@@ -90,5 +94,30 @@ public class SymbolTableItem
     public void setMethod(boolean method)
     {
         isMethod = method;
+    }
+
+    public boolean isConstant()
+    {
+        return isConstant;
+    }
+
+    public void setConstant(boolean constant)
+    {
+        isConstant = constant;
+    }
+
+    public EVariableType getVariableType()
+    {
+        return variableType;
+    }
+
+    public void setVariableType(EVariableType variableType)
+    {
+        this.variableType = variableType;
+    }
+
+    public void setIsVariable(boolean isVariable)
+    {
+        this.isVariable = isVariable;
     }
 }

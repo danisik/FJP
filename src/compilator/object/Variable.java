@@ -1,6 +1,9 @@
 package compilator.object;
 
+import compilator.enums.EVariableDeclaration;
 import compilator.enums.EVariableType;
+import compilator.object.expression.Expression;
+import compilator.object.method.MethodCall;
 import compilator.value.Value;
 
 import java.util.ArrayList;
@@ -13,14 +16,37 @@ public class Variable {
 
     private boolean isConstant;
 
+    private Expression expression;
     private EVariableType type;
 
     private List<String> parallelArray;
+
+    private MethodCall methodCall;
+
+    private EVariableDeclaration variableDeclaration;
 
     public Variable(String name, Value value, EVariableType type)
     {
         this.name = name;
         this.value = value;
+        this.type = type;
+        this.isConstant = false;
+        this.parallelArray = new ArrayList<>();
+    }
+
+    public Variable(String name, MethodCall methodCall, EVariableType type)
+    {
+        this.name = name;
+        this.methodCall = methodCall;
+        this.type = type;
+        this.isConstant = false;
+        this.parallelArray = new ArrayList<>();
+    }
+
+    public Variable(String name, Expression expression, EVariableType type)
+    {
+        this.name = name;
+        this.expression = expression;
         this.type = type;
         this.isConstant = false;
         this.parallelArray = new ArrayList<>();
@@ -86,4 +112,44 @@ public class Variable {
     }
 
 
+    public MethodCall getMethodCall()
+    {
+        return methodCall;
+    }
+
+    public EVariableDeclaration getVariableDeclaration()
+    {
+        return variableDeclaration;
+    }
+
+    public void setVariableDeclaration(EVariableDeclaration variableDeclaration)
+    {
+        this.variableDeclaration = variableDeclaration;
+    }
+
+    @Override
+    public String toString()
+    {
+        Object a = value;
+        if (variableDeclaration == EVariableDeclaration.DECIMAL)
+        {
+            a = value.toInt();
+        }
+        return "Variable{" +
+                "name='" + name + '\'' +
+                ", value=" + a +
+                ", isConstant=" + isConstant +
+                ", type=" + type +
+                '}';
+    }
+
+    public Expression getExpression()
+    {
+        return expression;
+    }
+
+    public void setExpression(Expression expression)
+    {
+        this.expression = expression;
+    }
 }

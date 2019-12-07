@@ -4,14 +4,7 @@ import java.util.HashMap;
 
 public class SymbolTable
 {
-    private static final SymbolTable instance = new SymbolTable();
-
-    private static HashMap<String, SymbolTableItem> table = new HashMap<>();
-
-    public static SymbolTable getInstance()
-    {
-        return instance;
-    }
+    private HashMap<String, SymbolTableItem> table = new HashMap<>();
 
     public HashMap<String, SymbolTableItem> getTable()
     {
@@ -20,6 +13,11 @@ public class SymbolTable
 
     public void addItem(SymbolTableItem symbolTableItem)
     {
-        table.put(symbolTableItem.getName(), symbolTableItem);
+        this.table.put(symbolTableItem.getName(), symbolTableItem);
+    }
+
+    public SymbolTableItem getItem(String identifier)
+    {
+        return this.table.get(identifier);
     }
 }

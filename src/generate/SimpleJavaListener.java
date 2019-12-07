@@ -78,6 +78,16 @@ public interface SimpleJavaListener extends ParseTreeListener {
 	 */
 	void exitDecimalValue(SimpleJavaParser.DecimalValueContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link SimpleJavaParser#booleanValue}.
+	 * @param ctx the parse tree
+	 */
+	void enterBooleanValue(SimpleJavaParser.BooleanValueContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link SimpleJavaParser#booleanValue}.
+	 * @param ctx the parse tree
+	 */
+	void exitBooleanValue(SimpleJavaParser.BooleanValueContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link SimpleJavaParser#boolVariable}.
 	 * @param ctx the parse tree
 	 */
@@ -387,6 +397,18 @@ public interface SimpleJavaListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitExprPossibleValue(SimpleJavaParser.ExprPossibleValueContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code exprMethodCall}
+	 * labeled alternative in {@link SimpleJavaParser#expressionBody}.
+	 * @param ctx the parse tree
+	 */
+	void enterExprMethodCall(SimpleJavaParser.ExprMethodCallContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code exprMethodCall}
+	 * labeled alternative in {@link SimpleJavaParser#expressionBody}.
+	 * @param ctx the parse tree
+	 */
+	void exitExprMethodCall(SimpleJavaParser.ExprMethodCallContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code exprLogical}
 	 * labeled alternative in {@link SimpleJavaParser#expressionBody}.

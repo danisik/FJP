@@ -1,7 +1,10 @@
 package compilator.visitor;
 
+import compilator.enums.EVariableDeclaration;
 import compilator.enums.EVariableType;
 import compilator.object.Variable;
+import compilator.object.expression.Expression;
+import compilator.object.method.MethodCall;
 import compilator.value.Value;
 import generate.*;
 
@@ -35,35 +38,117 @@ public class VariableVisitor extends SimpleJavaBaseVisitor<Variable> {
     private Variable createVariable(SimpleJavaParser.LocalVariableDeclarationContext ctx)
     {
         Variable variable = null;
-
+        // decimal
         if (ctx.decimalVariable() != null)
         {
-            String name = ctx.decimalVariable().identifier().getText();
-            int val = Integer.parseInt(ctx.decimalVariable().decimalValue().getText());
-
-            variable = new Variable(name, new Value(val), EVariableType.INT);
-
-            if (ctx.decimalVariable().paralelDeclaration() != null)
-            {
-                variable.setParallelArray(this.getParallel(ctx.decimalVariable().paralelDeclaration()));
-            }
-
+            variable = this.createDecimal(ctx.decimalVariable());
         }
+        // boolean
         else if (ctx.boolVariable() != null)
         {
-            String name = ctx.boolVariable().identifier().getText();
-            boolean val = Boolean.parseBoolean(ctx.boolVariable().boolValue().getText());
-
-            variable = new Variable(name, new Value(val), EVariableType.BOOLEAN);
-
-            if (ctx.boolVariable().paralelDeclaration() != null)
-            {
-                variable.setParallelArray(this.getParallel(ctx.boolVariable().paralelDeclaration()));
-            }
+            variable = this.createBoolean(ctx.boolVariable());
         }
 
         return  variable;
     }
+
+    private Variable createDecimal(SimpleJavaParser.DecimalVariableContext ctx)
+    {
+        Variable variable = null;
+
+        String name = ctx.identifier().getText();
+
+        // int a = 1;
+        if (ctx.decimalValue().DECIMAL() != null)
+        {
+            int val = Integer.parseInt(ctx.decimalValue().getText());
+
+            variable = new Variable(name, new Value(val), EVariableType.INT);
+            variable.setVariableDeclaration(EVariableDeclaration.DECIMAL);
+        }
+        // int a = b;
+        else if (ctx.decimalValue().identifier() != null)
+        {
+            String val = ctx.decimalValue().identifier().getText();
+
+            variable = new Variable(name, new Value(val), EVariableType.INT);
+            variable.setVariableDeclaration(EVariableDeclaration.IDENTIFIER);
+        }
+        // int a = declare();
+        else if (ctx.decimalValue().methodCall() != null)
+        {
+            MethodCall methodCall = new MethodCallVisitor().visit(ctx.decimalValue().methodCall());
+
+            variable = new Variable(name,methodCall, EVariableType.INT);
+            variable.setVariableDeclaration(EVariableDeclaration.METHOD_CALL);
+        }
+
+
+        if (ctx.paralelDeclaration() != null)
+        {
+            if (variable != null)
+            {
+                variable.setParallelArray(this.getParallel(ctx.paralelDeclaration()));
+            }
+        }
+
+        return variable;
+    }
+
+    private Variable createBoolean(SimpleJavaParser.BoolVariableContext ctx)
+    {
+        Variable variable = null;
+
+        String name = ctx.identifier().getText();
+
+        // boolean a = true;
+        if (ctx.boolValue().booleanValue() != null)
+        {
+            boolean val = Boolean.parseBoolean(ctx.boolValue().booleanValue().getText());
+
+            variable = new Variable(name, new Value(val), EVariableType.BOOLEAN);
+            variable.setVariableDeclaration(EVariableDeclaration.BOOLEAN);
+        }
+        // boolean a = b;
+        else if (ctx.boolValue().identifier() != null)
+        {
+            String val = ctx.boolValue().identifier().getText();
+
+            variable = new Variable(name, new Value(val), EVariableType.BOOLEAN);
+            variable.setVariableDeclaration(EVariableDeclaration.IDENTIFIER);
+
+        }
+        // boolean a = declaration();
+        else if (ctx.boolValue().methodCall() != null)
+        {
+            MethodCall methodCall = new MethodCallVisitor().visit(ctx.boolValue().methodCall());
+
+            variable = new Variable(name, methodCall, EVariableType.BOOLEAN);
+            variable.setVariableDeclaration(EVariableDeclaration.METHOD_CALL);
+
+        }
+        // boolean a = a && b;
+        // TODO: 07/12/2019 CHECK expression type
+        else if (ctx.boolValue().expressionBody() != null)
+        {
+            Expression expression = new ExpressionBodyVisitor().visit(ctx.boolValue().expressionBody());
+
+            variable = new Variable(name, expression, EVariableType.BOOLEAN);
+            variable.setVariableDeclaration(EVariableDeclaration.EXPRESSION);
+        }
+
+
+        if (ctx.paralelDeclaration() != null)
+        {
+            if (variable != null)
+            {
+                variable.setParallelArray(this.getParallel(ctx.paralelDeclaration()));
+            }
+        }
+
+        return variable;
+    }
+
 
     private List<String> getParallel(List<SimpleJavaParser.ParalelDeclarationContext> ctx)
     {

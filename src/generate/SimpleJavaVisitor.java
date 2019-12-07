@@ -53,6 +53,12 @@ public interface SimpleJavaVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitDecimalValue(SimpleJavaParser.DecimalValueContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link SimpleJavaParser#booleanValue}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBooleanValue(SimpleJavaParser.BooleanValueContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link SimpleJavaParser#boolVariable}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -235,6 +241,13 @@ public interface SimpleJavaVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitExprPossibleValue(SimpleJavaParser.ExprPossibleValueContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code exprMethodCall}
+	 * labeled alternative in {@link SimpleJavaParser#expressionBody}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitExprMethodCall(SimpleJavaParser.ExprMethodCallContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code exprLogical}
 	 * labeled alternative in {@link SimpleJavaParser#expressionBody}.

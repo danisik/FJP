@@ -1,5 +1,6 @@
 package compilator.compilerPart;
 
+import compilator.ErrorHandler;
 import compilator.enums.EInstruction;
 import compilator.object.instruction.Instruction;
 import compilator.object.symbolTable.SymbolTable;
@@ -22,6 +23,8 @@ public class BaseCompiler
     {
         return instructionsList;
     }
+
+    protected static ErrorHandler errorHandler = ErrorHandler.getInstance();
 
     protected void addInstruction(EInstruction instruction, int level, int address)
     {
@@ -56,5 +59,15 @@ public class BaseCompiler
     protected SymbolTable getSymbolTable()
     {
         return symbolTable;
+    }
+
+    protected boolean isInSymbolTable(String identifier)
+    {
+        return this.getSymbolTable().getTable().containsKey(identifier);
+    }
+
+    protected ErrorHandler getErrorHandler()
+    {
+        return errorHandler;
     }
 }

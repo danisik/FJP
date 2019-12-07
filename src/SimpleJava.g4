@@ -112,13 +112,17 @@ decimalValue
   | identifier
   ;
 
+booleanValue
+  : TRUE
+  | FALSE
+  ;
+
 boolVariable
   : BOOLEAN identifier (paralelDeclaration)* EQ boolValue
   ;
 
 boolValue
-  : TRUE
-  | FALSE
+  : booleanValue
   | methodCall
   | identifier
   | expressionBody
@@ -185,6 +189,7 @@ expression
 expressionBody
   : possibleValues                                                          #exprPossibleValue
   | identifier                                                              #exprIdentifier
+  | methodCall                                                              #exprMethodCall
   | expressionBody op=(MULT | DIV | MOD) expressionBody                     #exprMultipli
   | expressionBody op=(PLUS | MINUS) expressionBody                         #exprAdditive
   | expressionBody op=(GT | GE | LT | LE | SAME | NOT_EQ) expressionBody    #exprRelational
@@ -219,6 +224,6 @@ methodCall
   ;
 
 methodCallParameter
-  : expression
+  : expressionBody
   | methodCall
   ;
