@@ -10,4 +10,14 @@ public class Expression {
     {
         this.type = type;
     }
+
+    public EExpressionType getType()
+    {
+        return type;
+    }
+
+    public void setType(EExpressionType type)
+    {
+        this.type = type;
+    }
 }
