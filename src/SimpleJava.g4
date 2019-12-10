@@ -82,9 +82,8 @@ methodReturnType
   | VOID
   ;
 
-possibleValues
-  : DECIMAL
-  | TRUE
+booleanValue
+  : TRUE
   | FALSE
   ;
 
@@ -95,6 +94,11 @@ possibleTypes
 
 identifier
   : WORD (WORD | DECIMAL)*
+  ;
+
+possibleValues
+  : DECIMAL
+  | booleanValue
   ;
 
 decimalVariable
@@ -110,11 +114,7 @@ decimalValue
   : DECIMAL
   | methodCall
   | identifier
-  ;
-
-booleanValue
-  : TRUE
-  | FALSE
+  | expressionBody
   ;
 
 boolVariable

@@ -1,8 +1,9 @@
 package compilator.compilerPart;
 
 import compilator.enums.EInstruction;
+import compilator.enums.EVariableType;
 import compilator.error.ErrorAssignedVariableNotExists;
-import compilator.error.ErrorMismatchTypes;
+import compilator.error.ErrorMismatchTypesVariable;
 import compilator.error.ErrorVariableAlreadyExists;
 import compilator.object.BlockStatement;
 import compilator.object.StatementData;
@@ -140,6 +141,9 @@ public class BlockStatementCompiler extends BaseCompiler
             case IDENTIFIER:
                 this.variableAssigmentIdentifier(variable);
                 break;
+            case EXPRESSION:
+                new ExpressionCompiler(variable.getExpression(), EVariableType.INT).run();
+                break;
         }
     }
 
@@ -157,6 +161,7 @@ public class BlockStatementCompiler extends BaseCompiler
                 this.variableAssigmentIdentifier(variable);
                 break;
             case EXPRESSION:
+                new ExpressionCompiler(variable.getExpression(), EVariableType.BOOLEAN).run();
                 break;
         }
     }
@@ -169,7 +174,7 @@ public class BlockStatementCompiler extends BaseCompiler
 
             if (variable.getType() != assignedValue.getVariableType())
             {
-                this.getErrorHandler().throwError(new ErrorMismatchTypes(variable.getName(), variable.getType().toString(), assignedValue.getVariableType().toString()));
+                this.getErrorHandler().throwError(new ErrorMismatchTypesVariable(variable.getName(), variable.getType().toString(), assignedValue.getVariableType().toString()));
             }
 
             // load value on top

@@ -1,9 +1,11 @@
 package compilator.object.expression;
 
 import compilator.enums.EExpressionType;
+import compilator.enums.EInstruction;
+import compilator.enums.EInstructionOperation;
 import compilator.enums.EOperatorMultiplication;
 
-public class ExpressionMultiplication extends Expression {
+public class ExpressionMultiplication extends Expression implements IExpression{
 
     private Expression leftExpression;
 
@@ -40,5 +42,20 @@ public class ExpressionMultiplication extends Expression {
 
     public void setLeftExpression(Expression leftExpression) {
         this.leftExpression = leftExpression;
+    }
+
+    public int getOperatorCode()
+    {
+        switch (this.getOperatorMultiplication())
+        {
+            case MULTIPLY:
+                return EInstructionOperation.MULTIPLY.getCode();
+            case DIVIDE:
+                return EInstructionOperation.DIVIDE.getCode();
+            case MOD:
+                return EInstructionOperation.MODULO.getCode();
+        }
+
+        return -1;
     }
 }

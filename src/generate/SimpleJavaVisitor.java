@@ -17,11 +17,11 @@ public interface SimpleJavaVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitMethodReturnType(SimpleJavaParser.MethodReturnTypeContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link SimpleJavaParser#possibleValues}.
+	 * Visit a parse tree produced by {@link SimpleJavaParser#booleanValue}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitPossibleValues(SimpleJavaParser.PossibleValuesContext ctx);
+	T visitBooleanValue(SimpleJavaParser.BooleanValueContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link SimpleJavaParser#possibleTypes}.
 	 * @param ctx the parse tree
@@ -34,6 +34,12 @@ public interface SimpleJavaVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitIdentifier(SimpleJavaParser.IdentifierContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link SimpleJavaParser#possibleValues}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPossibleValues(SimpleJavaParser.PossibleValuesContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link SimpleJavaParser#decimalVariable}.
 	 * @param ctx the parse tree
@@ -52,12 +58,6 @@ public interface SimpleJavaVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitDecimalValue(SimpleJavaParser.DecimalValueContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link SimpleJavaParser#booleanValue}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitBooleanValue(SimpleJavaParser.BooleanValueContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link SimpleJavaParser#boolVariable}.
 	 * @param ctx the parse tree

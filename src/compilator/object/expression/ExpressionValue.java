@@ -1,16 +1,19 @@
 package compilator.object.expression;
 
 import compilator.enums.EExpressionType;
+import compilator.enums.EVariableType;
 import compilator.value.Value;
 
 public class ExpressionValue extends Expression {
 
     private Value value;
-    
-    public ExpressionValue(Value value)
+    private EVariableType type;
+
+    public ExpressionValue(Value value, EVariableType type)
     {
         super(EExpressionType.VALUE);
         this.value = value;
+        this.type = type;
     }
 
     public Value getValue() {
@@ -19,5 +22,15 @@ public class ExpressionValue extends Expression {
 
     public void setValue(Value value) {
         this.value = value;
+    }
+
+    public EVariableType getVariableType()
+    {
+        return type;
+    }
+
+    public void setVariableType(EVariableType type)
+    {
+        this.type = type;
     }
 }

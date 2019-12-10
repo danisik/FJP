@@ -23,7 +23,8 @@ public enum EInstructionOperation
         this.value = value;
     }
 
-    public String toString() {
-        return String.valueOf(this.value);
+    public int getCode()
+    {
+        return this.value;
     }
 }

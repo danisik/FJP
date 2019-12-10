@@ -28,13 +28,13 @@ public class SimpleJavaBaseListener implements SimpleJavaListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterPossibleValues(SimpleJavaParser.PossibleValuesContext ctx) { }
+	@Override public void enterBooleanValue(SimpleJavaParser.BooleanValueContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitPossibleValues(SimpleJavaParser.PossibleValuesContext ctx) { }
+	@Override public void exitBooleanValue(SimpleJavaParser.BooleanValueContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -59,6 +59,18 @@ public class SimpleJavaBaseListener implements SimpleJavaListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitIdentifier(SimpleJavaParser.IdentifierContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterPossibleValues(SimpleJavaParser.PossibleValuesContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitPossibleValues(SimpleJavaParser.PossibleValuesContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -95,18 +107,6 @@ public class SimpleJavaBaseListener implements SimpleJavaListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitDecimalValue(SimpleJavaParser.DecimalValueContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterBooleanValue(SimpleJavaParser.BooleanValueContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitBooleanValue(SimpleJavaParser.BooleanValueContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

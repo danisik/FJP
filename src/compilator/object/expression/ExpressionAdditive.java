@@ -1,9 +1,10 @@
 package compilator.object.expression;
 
+import compilator.enums.EInstructionOperation;
 import compilator.enums.EOperatorAdditive;
 import compilator.enums.EExpressionType;
 
-public class ExpressionAdditive extends Expression {
+public class ExpressionAdditive extends Expression implements IExpression{
 
     private Expression leftExpression;
 
@@ -40,5 +41,19 @@ public class ExpressionAdditive extends Expression {
 
     public void setLeftExpression(Expression leftExpression) {
         this.leftExpression = leftExpression;
+    }
+
+    @Override
+    public int getOperatorCode()
+    {
+        switch (this.getOperatorAdditive())
+        {
+            case PLUS:
+                return EInstructionOperation.PLUS.getCode();
+            case MINUS:
+                return EInstructionOperation.MINUS.getCode();
+        }
+
+        return -1;
     }
 }

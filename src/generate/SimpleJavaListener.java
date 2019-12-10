@@ -18,15 +18,15 @@ public interface SimpleJavaListener extends ParseTreeListener {
 	 */
 	void exitMethodReturnType(SimpleJavaParser.MethodReturnTypeContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link SimpleJavaParser#possibleValues}.
+	 * Enter a parse tree produced by {@link SimpleJavaParser#booleanValue}.
 	 * @param ctx the parse tree
 	 */
-	void enterPossibleValues(SimpleJavaParser.PossibleValuesContext ctx);
+	void enterBooleanValue(SimpleJavaParser.BooleanValueContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link SimpleJavaParser#possibleValues}.
+	 * Exit a parse tree produced by {@link SimpleJavaParser#booleanValue}.
 	 * @param ctx the parse tree
 	 */
-	void exitPossibleValues(SimpleJavaParser.PossibleValuesContext ctx);
+	void exitBooleanValue(SimpleJavaParser.BooleanValueContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link SimpleJavaParser#possibleTypes}.
 	 * @param ctx the parse tree
@@ -47,6 +47,16 @@ public interface SimpleJavaListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitIdentifier(SimpleJavaParser.IdentifierContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link SimpleJavaParser#possibleValues}.
+	 * @param ctx the parse tree
+	 */
+	void enterPossibleValues(SimpleJavaParser.PossibleValuesContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link SimpleJavaParser#possibleValues}.
+	 * @param ctx the parse tree
+	 */
+	void exitPossibleValues(SimpleJavaParser.PossibleValuesContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link SimpleJavaParser#decimalVariable}.
 	 * @param ctx the parse tree
@@ -77,16 +87,6 @@ public interface SimpleJavaListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitDecimalValue(SimpleJavaParser.DecimalValueContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link SimpleJavaParser#booleanValue}.
-	 * @param ctx the parse tree
-	 */
-	void enterBooleanValue(SimpleJavaParser.BooleanValueContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link SimpleJavaParser#booleanValue}.
-	 * @param ctx the parse tree
-	 */
-	void exitBooleanValue(SimpleJavaParser.BooleanValueContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link SimpleJavaParser#boolVariable}.
 	 * @param ctx the parse tree

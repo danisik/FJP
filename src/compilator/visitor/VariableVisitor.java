@@ -82,6 +82,13 @@ public class VariableVisitor extends SimpleJavaBaseVisitor<Variable> {
             variable = new Variable(name,methodCall, EVariableType.INT);
             variable.setVariableDeclaration(EVariableDeclaration.METHOD_CALL);
         }
+        else if (ctx.decimalValue().expressionBody() != null)
+        {
+            Expression expression = new ExpressionBodyVisitor().visit(ctx.decimalValue().expressionBody());
+
+            variable = new Variable(name, expression, EVariableType.INT);
+            variable.setVariableDeclaration(EVariableDeclaration.EXPRESSION);
+        }
 
 
         if (ctx.paralelDeclaration() != null)

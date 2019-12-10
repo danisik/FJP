@@ -1,9 +1,10 @@
 package compilator.object.expression;
 
 import compilator.enums.EExpressionType;
+import compilator.enums.EInstructionOperation;
 import compilator.enums.EOperatorLogical;
 
-public class ExpressionLogical extends Expression{
+public class ExpressionLogical extends Expression {
 
     private Expression leftExpression;
 

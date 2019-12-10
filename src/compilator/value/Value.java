@@ -11,7 +11,7 @@ public class Value
 
     public int toInt()
     {
-        return (Integer) this.value;
+        return Integer.parseInt(this.value.toString());
     }
 
     public String toString()

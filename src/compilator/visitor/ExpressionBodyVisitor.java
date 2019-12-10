@@ -1,9 +1,6 @@
 package compilator.visitor;
 
-import compilator.enums.EOperatorAdditive;
-import compilator.enums.EOperatorLogical;
-import compilator.enums.EOperatorMultiplication;
-import compilator.enums.EOperatorRelational;
+import compilator.enums.*;
 import compilator.object.expression.*;
 import compilator.object.method.MethodCall;
 import compilator.value.Value;
@@ -53,7 +50,21 @@ public class ExpressionBodyVisitor extends SimpleJavaBaseVisitor<Expression>
     @Override
     public Expression visitExprPossibleValue(SimpleJavaParser.ExprPossibleValueContext ctx)
     {
-        return new ExpressionValue(new Value(ctx.possibleValues().getText()));
+        EVariableType type = null;
+        Value value = null;
+
+        if (ctx.possibleValues().DECIMAL() != null)
+        {
+            value = new Value(ctx.possibleValues().DECIMAL().getText());
+            type = EVariableType.INT;
+        }
+        else if (ctx.possibleValues().booleanValue() != null)
+        {
+            value = new Value(ctx.possibleValues().booleanValue().getText());
+            type = EVariableType.BOOLEAN;
+        }
+
+        return new ExpressionValue(value, type);
     }
 
     @Override

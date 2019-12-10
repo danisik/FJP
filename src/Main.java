@@ -11,9 +11,9 @@ public class Main {
     public static void main(String[] args) {
 
         Compilator.getInstance().run("{" +
-                                                "int test1 = ttest = 10; " +
-                                                "int test11 = test1;" +
-                                                "boolean test2 = test1;" +
+         //                                       "int test1 = ttest = 10; " +
+                                                "boolean test11 = (1*2*3*4) > 30;" +
+        /*                                        "boolean test2 = true;" +
                                                 "const int test3 = testp1 = testp2 = 30;" +
                                                 "for(a=0 ... 10){int s = 1;} " +
                                                 "int test4 = 40;" +
@@ -33,7 +33,7 @@ public class Main {
                                                 "    default: {boolean c = false;}" +
                                                 "}" +
                                                 "functionTest(a,1,true);" +
-                                                "int test5 = declare(a,1,true);" +
+                                                "int test5 = declare(a,1,true);" +*/
 
                 "}");
 

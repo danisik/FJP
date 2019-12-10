@@ -1,8 +1,15 @@
 package compilator.compilerPart;
 
-import compilator.enums.EExpressionType;
+import compilator.enums.EInstruction;
+import compilator.enums.EInstructionOperation;
+import compilator.enums.EOperatorLogical;
 import compilator.enums.EVariableType;
+import compilator.error.ErrorMismatchExpressionResult;
+import compilator.error.ErrorMismatchTypesExpression;
+import compilator.error.ErrorVariableNotExists;
 import compilator.object.expression.*;
+import compilator.object.symbolTable.SymbolTableItem;
+import compilator.value.Value;
 
 public class ExpressionCompiler extends BaseCompiler
 {
@@ -17,14 +24,19 @@ public class ExpressionCompiler extends BaseCompiler
 
     public void run()
     {
-        this.processExpression(this.expression);
+        EVariableType type = this.processExpression(this.expression);
+
+        if (type != this.resultType)
+        {
+            this.getErrorHandler().throwError(new ErrorMismatchExpressionResult(this.resultType.toString(), type.toString()));
+        }
     }
 
-    private void processExpression(Expression expression)
+    private EVariableType processExpression(Expression expression)
     {
         EVariableType type = null;
 
-        switch (this.expression.getType())
+        switch (expression.getType())
         {
             case IDENTIFIER:
                 type = this.generateIdentifierInstructions((ExpressionIdentifier) expression);
@@ -55,51 +67,140 @@ public class ExpressionCompiler extends BaseCompiler
                 break;
         }
 
-        // TODO: type check
+        return type;
     }
 
     private EVariableType generateIdentifierInstructions(ExpressionIdentifier expression)
     {
+        String identifier = expression.getValue().toString();
+
+        if (this.isInSymbolTable(identifier))
+        {
+            SymbolTableItem item = this.getSymbolTable().getItem(identifier);
+            this.addInstruction(EInstruction.LIT, 0, item.getAddress());
+
+            return item.getVariableType();
+        }
+        else
+        {
+            this.getErrorHandler().throwError(new ErrorVariableNotExists(identifier));
+        }
+
         return null;
     }
 
     private EVariableType generateValueInstructions(ExpressionValue expression)
     {
+        Value value = expression.getValue();
+
+        if (expression.getVariableType() == EVariableType.INT)
+        {
+            this.addInstruction(EInstruction.LIT, 0, value.toInt());
+            return EVariableType.INT;
+        }
+        else if (expression.getVariableType() == EVariableType.BOOLEAN)
+        {
+            this.addInstruction(EInstruction.LIT, 0, value.toBooleanAsInt());
+            return EVariableType.BOOLEAN;
+        }
+
         return null;
     }
 
     private EVariableType generateMultiplicationInstructions(ExpressionMultiplication expression)
     {
-        return  null;
+        EVariableType leftExpression = this.processExpression(expression.getLeftExpression());
+        EVariableType rightExpression = this.processExpression(expression.getRightExpression());
+
+        checkVariableTypes(leftExpression, rightExpression, EVariableType.INT);
+
+        this.addInstruction(EInstruction.OPR, 0, expression.getOperatorCode());
+
+        return  EVariableType.INT;
     }
 
     private EVariableType generateAdditiveInstructions(ExpressionAdditive expression)
     {
-        return null;
+        EVariableType leftExpression = this.processExpression(expression.getLeftExpression());
+        EVariableType rightExpression = this.processExpression(expression.getRightExpression());
+
+        checkVariableTypes(leftExpression, rightExpression, EVariableType.INT);
+
+        this.addInstruction(EInstruction.OPR, 0, expression.getOperatorCode());
+
+        return  EVariableType.INT;
     }
 
     private EVariableType generateRelationalInstructions(ExpressionRelational expression)
     {
-        return null;
+        EVariableType leftExpression = this.processExpression(expression.getLeftExpression());
+        EVariableType rightExpression = this.processExpression(expression.getRightExpression());
+
+        checkVariableTypes(leftExpression, rightExpression, EVariableType.INT);
+
+        this.addInstruction(EInstruction.OPR, 0, expression.getOperatorCode());
+
+        return  EVariableType.BOOLEAN;
     }
 
     private EVariableType generateLogicalInstructions(ExpressionLogical expression)
     {
-        return null;
+        EVariableType leftExpression = this.processExpression(expression.getLeftExpression());
+        EVariableType rightExpression = this.processExpression(expression.getRightExpression());
+
+        checkVariableTypes(leftExpression, rightExpression, EVariableType.BOOLEAN);
+
+        if (expression.getOperatorLogical() == EOperatorLogical.AND)
+        {
+            this.addInstruction(EInstruction.OPR, 0, EInstructionOperation.MULTIPLY.getCode());
+            this.addInstruction(EInstruction.LIT, 0, 1);
+            this.addInstruction(EInstruction.OPR, 0, EInstructionOperation.EQ.getCode());
+        }
+        else
+        {
+            this.addInstruction(EInstruction.OPR, 0, EInstructionOperation.PLUS.getCode());
+            this.addInstruction(EInstruction.LIT, 0, 0);
+            this.addInstruction(EInstruction.OPR, 0, EInstructionOperation.GREATER.getCode());
+        }
+
+        return  EVariableType.BOOLEAN;
     }
 
     private EVariableType generateNegationInstructions(ExpressionNegation expression)
     {
-        return null;
+        EVariableType expressionType = this.processExpression(expression.getExpression());
+
+        this.checkVariableType(expressionType, EVariableType.BOOLEAN);
+
+        this.addInstruction(EInstruction.LIT, 0,0);
+        this.addInstruction(EInstruction.OPR, 0, EInstructionOperation.EQ.getCode());
+
+        return EVariableType.BOOLEAN;
     }
 
     private EVariableType generateParInstructions(ExpressionPar expression)
     {
-        return null;
+        return this.processExpression(expression.getExpression());
     }
 
     private EVariableType generateMethodCallInstructions(ExpressionMethodCall expression)
     {
         return null;
+    }
+
+    private void checkVariableTypes(EVariableType type1, EVariableType type2, EVariableType expected)
+    {
+        if (type1 != expected || type2 != expected)
+        {
+            this.getErrorHandler().throwError(new ErrorMismatchTypesExpression(expected.toString(), type1.toString(), type2.toString()));
+        }
+    }
+
+    private void checkVariableType(EVariableType type, EVariableType expected)
+    {
+        if (type != expected)
+        {
+            this.getErrorHandler().throwError(new ErrorMismatchExpressionResult(expected.toString(), type.toString()));
+        }
     }
 }
