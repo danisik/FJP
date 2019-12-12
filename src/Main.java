@@ -1,18 +1,14 @@
 import compilator.Compilator;
 import compilator.compilerPart.BaseCompiler;
-import compilator.enums.EInstruction;
 import compilator.object.instruction.Instruction;
-import compilator.object.symbolTable.SymbolTable;
-import compilator.object.symbolTable.SymbolTableItem;
 
-import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
 
         Compilator.getInstance().run("{" +
          //                                       "int test1 = ttest = 10; " +
-                                                "boolean test11 = (1*2*3*4) > 30;" +
+         //                                       "boolean test11 = (1*2*3*4) > 30;" +
         /*                                        "boolean test2 = true;" +
                                                 "const int test3 = testp1 = testp2 = 30;" +
                                                 "for(a=0 ... 10){int s = 1;} " +
@@ -34,6 +30,20 @@ public class Main {
                                                 "}" +
                                                 "functionTest(a,1,true);" +
                                                 "int test5 = declare(a,1,true);" +*/
+                                                "int test5 = abx(int : 5, boolean: true);" +
+                                                "test5 = ab(int : 5);" +
+                                                "int function abx(int c, boolean b)" +
+                                                "{" +
+                                                    "int test = ab(int : 5); " +
+                                                    "test5 = 100; " +
+                                                    "return 100;" +
+                                                "} " +
+                                                "int function ab(int c)" +
+                                                "{" +
+                                                    "int test = 13; " +
+                                                    "test5 = 100; " +
+                                                    "return 200;" +
+                                                "} " +
 
                 "}");
 

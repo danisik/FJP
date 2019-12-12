@@ -1,6 +1,7 @@
 package compilator.object.instruction;
 
 import compilator.enums.EInstruction;
+import compilator.object.method.MethodCall;
 
 public class Instruction
 {
@@ -9,12 +10,25 @@ public class Instruction
     private int level;
     private int address;
 
+    private boolean laterInitialization = false;
+    private MethodCall methodCall = null;
+
     public Instruction(EInstruction instruction, int rowId, int level, int address)
     {
         this.instruction = instruction;
         this.rowId = rowId;
         this.level = level;
         this.address = address;
+    }
+
+    public Instruction(EInstruction instruction, int rowId, int level, MethodCall methodCall)
+    {
+        this.instruction = instruction;
+        this.rowId = rowId;
+        this.level = level;
+        this.methodCall = methodCall;
+        this.address = -1;
+        this.laterInitialization = true;
     }
 
     @Override
@@ -61,5 +75,21 @@ public class Instruction
     public void setAddress(int address)
     {
         this.address = address;
+    }
+
+
+    public boolean isLaterInitialization()
+    {
+        return laterInitialization;
+    }
+
+    public void setLaterInitialization(boolean laterInitialization)
+    {
+        this.laterInitialization = laterInitialization;
+    }
+
+    public MethodCall getMethodCall()
+    {
+        return methodCall;
     }
 }

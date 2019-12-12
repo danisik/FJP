@@ -92,12 +92,17 @@ possibleTypes
   | BOOLEAN
   ;
 
+decimalSymbol
+  : PLUS
+  | MINUS
+  ;
+
 identifier
   : WORD (WORD | DECIMAL)*
   ;
 
 possibleValues
-  : DECIMAL
+  : decimalSymbol? DECIMAL
   | booleanValue
   ;
 
@@ -111,7 +116,7 @@ operator
   ;
 
 decimalValue
-  : DECIMAL
+  : decimalSymbol? DECIMAL
   | methodCall
   | identifier
   | expressionBody
@@ -199,7 +204,7 @@ expressionBody
   ;
 
 forControl
-  : LPAREN identifier EQ DECIMAL '...' DECIMAL RPAREN
+  : LPAREN identifier EQ decimalSymbol? DECIMAL '...' decimalSymbol? DECIMAL RPAREN
   ;
 
 switchBlockStatement
@@ -216,7 +221,7 @@ methodParameter
   ;
 
 methodBody
-  : LBRACE blockBody RETURN (expressionBody)? SEMI RBRACE
+  : LBRACE blockBody? RETURN (expressionBody)? SEMI RBRACE
   ;
 
 methodCall
@@ -224,6 +229,6 @@ methodCall
   ;
 
 methodCallParameter
-  : expressionBody
-  | methodCall
+  : possibleTypes COLON expressionBody
+  | possibleTypes COLON methodCall
   ;

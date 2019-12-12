@@ -1,4 +1,4 @@
-// Generated from C:/Users/danisik/Documents/GitHub/FJPP/src\SimpleJava.g4 by ANTLR 4.7.2
+// Generated from /Users/cagy/Documents/Škola/FJP/simplejava/src/SimpleJava.g4 by ANTLR 4.7.2
 package generate;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
@@ -28,6 +28,12 @@ public interface SimpleJavaVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitPossibleTypes(SimpleJavaParser.PossibleTypesContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link SimpleJavaParser#decimalSymbol}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitDecimalSymbol(SimpleJavaParser.DecimalSymbolContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link SimpleJavaParser#identifier}.
 	 * @param ctx the parse tree

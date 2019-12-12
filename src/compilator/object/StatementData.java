@@ -3,32 +3,51 @@ package compilator.object;
 import compilator.enums.EStatementType;
 import compilator.object.statement.Statement;
 import compilator.object.statement.StatementDeclaration;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class StatementData
 {
     private List<Statement> statements;
+    private List<String> variableNames;
 
     public StatementData(List<Statement> statements)
     {
         this.statements = statements;
+        this.variableNames = this.createVariableNamesList();
     }
 
     public int getVariableDeclarationCount()
     {
-        int count = 0;
+        return this.variableNames.size();
+    }
 
-        for (Statement statement: statements) {
+    private List<String> createVariableNamesList()
+    {
+        List<String> list = new ArrayList<>();
+        for (Statement statement: statements)
+        {
             if (statement.getType() == EStatementType.DECLARATION)
             {
                 StatementDeclaration statementDeclaration = (StatementDeclaration) statement;
                 Variable variable = statementDeclaration.getVariable();
-                System.out.println(variable.getName() + " " + variable.getParallelArray().size());
-                count += (1 + variable.getParallelArray().size());
+
+                list.add(variable.getName());
+
+                if (variable.existsParallel())
+                {
+                    list.addAll(variable.getParallelArray());
+                }
             }
         }
 
-        return count;
+        return list;
+    }
+
+    public List<String> getVariableNames()
+    {
+        return variableNames;
     }
 
     public List<Statement> getStatements()

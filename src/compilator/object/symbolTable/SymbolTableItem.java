@@ -3,6 +3,9 @@ package compilator.object.symbolTable;
 import compilator.enums.EMethodReturnType;
 import compilator.enums.EVariableType;
 import compilator.object.Variable;
+import compilator.object.method.MethodDeclarationParameter;
+
+import java.util.List;
 
 public class SymbolTableItem
 {
@@ -20,7 +23,9 @@ public class SymbolTableItem
 
     // additional info method
     private boolean isMethod = false;
+    private String methodIdentifier = null;
     private EMethodReturnType methodReturnType = null;
+    private List<MethodDeclarationParameter> methodDeclarationParameters = null;
 
     public SymbolTableItem(String name, int level, int address, int size)
     {
@@ -119,5 +124,35 @@ public class SymbolTableItem
     public void setIsVariable(boolean isVariable)
     {
         this.isVariable = isVariable;
+    }
+
+    public String getMethodIdentifier()
+    {
+        return methodIdentifier;
+    }
+
+    public void setMethodIdentifier(String methodIdentifier)
+    {
+        this.methodIdentifier = methodIdentifier;
+    }
+
+    public EMethodReturnType getMethodReturnType()
+    {
+        return methodReturnType;
+    }
+
+    public void setMethodReturnType(EMethodReturnType methodReturnType)
+    {
+        this.methodReturnType = methodReturnType;
+    }
+
+    public List<MethodDeclarationParameter> getMethodDeclarationParameters()
+    {
+        return methodDeclarationParameters;
+    }
+
+    public void setMethodDeclarationParameters(List<MethodDeclarationParameter> methodDeclarationParameters)
+    {
+        this.methodDeclarationParameters = methodDeclarationParameters;
     }
 }

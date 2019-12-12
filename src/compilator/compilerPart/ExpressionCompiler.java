@@ -1,12 +1,10 @@
 package compilator.compilerPart;
 
-import compilator.enums.EInstruction;
-import compilator.enums.EInstructionOperation;
-import compilator.enums.EOperatorLogical;
-import compilator.enums.EVariableType;
+import compilator.enums.*;
 import compilator.error.ErrorMismatchExpressionResult;
 import compilator.error.ErrorMismatchTypesExpression;
 import compilator.error.ErrorVariableNotExists;
+import compilator.error.ErrorVoidMethodExpression;
 import compilator.object.expression.*;
 import compilator.object.symbolTable.SymbolTableItem;
 import compilator.value.Value;
@@ -14,7 +12,8 @@ import compilator.value.Value;
 public class ExpressionCompiler extends BaseCompiler
 {
     private final Expression expression;
-    private final EVariableType resultType;
+    private EMethodReturnType methodReturnType;
+    private EVariableType resultType;
 
     public ExpressionCompiler(Expression expression, EVariableType resultType)
     {
@@ -22,14 +21,29 @@ public class ExpressionCompiler extends BaseCompiler
         this.resultType = resultType;
     }
 
+    public ExpressionCompiler(Expression expression, EMethodReturnType methodReturnType)
+    {
+
+        this.expression = expression;
+        this.methodReturnType = methodReturnType;
+    }
+
     public void run()
     {
         EVariableType type = this.processExpression(this.expression);
 
-        if (type != this.resultType)
+        if (this.resultType != null && type != null)
         {
-            this.getErrorHandler().throwError(new ErrorMismatchExpressionResult(this.resultType.toString(), type.toString()));
+            if (type != this.resultType)
+            {
+                this.getErrorHandler().throwError(new ErrorMismatchExpressionResult(this.resultType.toString(), type.toString()));
+            }
         }
+        else
+        {
+
+        }
+
     }
 
     private EVariableType processExpression(Expression expression)
@@ -185,7 +199,13 @@ public class ExpressionCompiler extends BaseCompiler
 
     private EVariableType generateMethodCallInstructions(ExpressionMethodCall expression)
     {
-        return null;
+        if (expression.getMethodCall().getExpectedReturnType() == EMethodReturnType.VOID)
+        {
+            this.getErrorHandler().throwError(new ErrorVoidMethodExpression(expression.getMethodCall().getIdentifier()));
+        }
+
+        new MethodCallCompiler(expression.getMethodCall(), 0).run();
+        return expression.getMethodCall().convertReturnTypeToVariableType();
     }
 
     private void checkVariableTypes(EVariableType type1, EVariableType type2, EVariableType expected)
@@ -202,5 +222,15 @@ public class ExpressionCompiler extends BaseCompiler
         {
             this.getErrorHandler().throwError(new ErrorMismatchExpressionResult(expected.toString(), type.toString()));
         }
+    }
+
+    public EMethodReturnType getMethodReturnType()
+    {
+        return methodReturnType;
+    }
+
+    public void setMethodReturnType(EMethodReturnType methodReturnType)
+    {
+        this.methodReturnType = methodReturnType;
     }
 }

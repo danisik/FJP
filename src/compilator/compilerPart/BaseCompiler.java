@@ -3,6 +3,7 @@ package compilator.compilerPart;
 import compilator.ErrorHandler;
 import compilator.enums.EInstruction;
 import compilator.object.instruction.Instruction;
+import compilator.object.method.MethodCall;
 import compilator.object.symbolTable.SymbolTable;
 
 import java.util.ArrayList;
@@ -19,6 +20,8 @@ public class BaseCompiler
 
     private static int stackPointer = 3;
 
+    public final int STACK_POINTER_DEFAULT_VALUE = 3;
+
     public ArrayList<Instruction> getInstructionsList()
     {
         return instructionsList;
@@ -32,9 +35,19 @@ public class BaseCompiler
         instructionsCounter++;
     }
 
+    protected void addMethodCallInstruction(EInstruction instruction, int level, MethodCall methodCall)
+    {
+        instructionsList.add(new Instruction(instruction, this.getInstructionsCounter(), level, methodCall));
+        instructionsCounter++;
+    }
+
     protected int getStackPointer()
     {
         return stackPointer;
+    }
+    protected void setStackPointer(int address)
+    {
+        stackPointer = address;
     }
 
     protected void increaseStackPointer()

@@ -1,5 +1,6 @@
 package compilator.visitor;
 
+import compilator.enums.EMethodReturnType;
 import compilator.enums.EVariableDeclaration;
 import compilator.enums.EVariableType;
 import compilator.object.Variable;
@@ -78,10 +79,12 @@ public class VariableVisitor extends SimpleJavaBaseVisitor<Variable> {
         else if (ctx.decimalValue().methodCall() != null)
         {
             MethodCall methodCall = new MethodCallVisitor().visit(ctx.decimalValue().methodCall());
+            methodCall.setExpectedReturnType(EMethodReturnType.INT);
 
             variable = new Variable(name,methodCall, EVariableType.INT);
             variable.setVariableDeclaration(EVariableDeclaration.METHOD_CALL);
         }
+        // int a = 1 + 2 + a;
         else if (ctx.decimalValue().expressionBody() != null)
         {
             Expression expression = new ExpressionBodyVisitor().visit(ctx.decimalValue().expressionBody());
@@ -129,6 +132,7 @@ public class VariableVisitor extends SimpleJavaBaseVisitor<Variable> {
         else if (ctx.boolValue().methodCall() != null)
         {
             MethodCall methodCall = new MethodCallVisitor().visit(ctx.boolValue().methodCall());
+            methodCall.setExpectedReturnType(EMethodReturnType.BOOLEAN);
 
             variable = new Variable(name, methodCall, EVariableType.BOOLEAN);
             variable.setVariableDeclaration(EVariableDeclaration.METHOD_CALL);

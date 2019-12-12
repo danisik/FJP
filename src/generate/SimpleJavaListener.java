@@ -1,4 +1,4 @@
-// Generated from C:/Users/danisik/Documents/GitHub/FJPP/src\SimpleJava.g4 by ANTLR 4.7.2
+// Generated from /Users/cagy/Documents/Škola/FJP/simplejava/src/SimpleJava.g4 by ANTLR 4.7.2
 package generate;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
@@ -37,6 +37,16 @@ public interface SimpleJavaListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitPossibleTypes(SimpleJavaParser.PossibleTypesContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link SimpleJavaParser#decimalSymbol}.
+	 * @param ctx the parse tree
+	 */
+	void enterDecimalSymbol(SimpleJavaParser.DecimalSymbolContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link SimpleJavaParser#decimalSymbol}.
+	 * @param ctx the parse tree
+	 */
+	void exitDecimalSymbol(SimpleJavaParser.DecimalSymbolContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link SimpleJavaParser#identifier}.
 	 * @param ctx the parse tree

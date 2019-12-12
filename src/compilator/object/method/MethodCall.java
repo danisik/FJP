@@ -1,6 +1,7 @@
 package compilator.object.method;
 
 import compilator.enums.EMethodReturnType;
+import compilator.enums.EVariableType;
 
 import java.util.List;
 
@@ -38,10 +39,26 @@ public class MethodCall
         return expectedReturnType;
     }
 
+    public EVariableType convertReturnTypeToVariableType()
+    {
+        if (this.expectedReturnType == EMethodReturnType.INT)
+        {
+            return EVariableType.INT;
+        }
+        else if (this.expectedReturnType == EMethodReturnType.BOOLEAN)
+        {
+            return EVariableType.BOOLEAN;
+        }
+
+        return null;
+    }
+
     public void setExpectedReturnType(EMethodReturnType expectedReturnType)
     {
         this.expectedReturnType = expectedReturnType;
     }
+
+
 
     public List<MethodCallParameter> getParameters()
     {

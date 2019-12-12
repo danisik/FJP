@@ -21,6 +21,6 @@ public class Value
 
     public int toBooleanAsInt()
     {
-        return ((Boolean) this.value) ? 1 : 0;
+        return Boolean.parseBoolean(this.value.toString()) ? 1 : 0;
     }
 }

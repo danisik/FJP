@@ -92,6 +92,8 @@ public class ExpressionBodyVisitor extends SimpleJavaBaseVisitor<Expression>
     @Override
     public Expression visitExprMethodCall(SimpleJavaParser.ExprMethodCallContext ctx)
     {
+        // expected return type is set in compilation, we dont know here
+        // BlockStatementCompiler::generateAssigmentInstruction()
         MethodCall methodCall = new MethodCallVisitor().visit(ctx.methodCall());
         return new ExpressionMethodCall(methodCall);
     }

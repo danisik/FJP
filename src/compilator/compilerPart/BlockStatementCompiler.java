@@ -1,21 +1,33 @@
 package compilator.compilerPart;
 
+import compilator.enums.EExpressionType;
 import compilator.enums.EInstruction;
+import compilator.enums.EMethodReturnType;
 import compilator.enums.EVariableType;
-import compilator.error.ErrorAssignedVariableNotExists;
-import compilator.error.ErrorMismatchTypesVariable;
-import compilator.error.ErrorVariableAlreadyExists;
+import compilator.error.*;
 import compilator.object.BlockStatement;
 import compilator.object.StatementData;
 import compilator.object.Variable;
+import compilator.object.expression.Expression;
+import compilator.object.expression.ExpressionMethodCall;
+import compilator.object.instruction.Instruction;
+import compilator.object.method.Method;
+import compilator.object.method.MethodCall;
+import compilator.object.method.MethodCallParameter;
 import compilator.object.statement.*;
 import compilator.object.symbolTable.SymbolTableItem;
+
+import java.util.List;
 
 public class BlockStatementCompiler extends BaseCompiler
 {
     private BlockStatement blockStatement;
     private StatementData statementData;
     private int level;
+    private boolean generateMethods = true;
+    private boolean increaseStack = true;
+    private boolean generateReturn = true;
+    private boolean deleteLocalVariables = false;
 
     public BlockStatementCompiler(BlockStatement blockStatement, int level)
     {
@@ -27,18 +39,52 @@ public class BlockStatementCompiler extends BaseCompiler
     public void run()
     {
         this.incrementStackForVariables();
-        this.generateInstructionForMethods();
+
         this.generateInstructionForStatements();
+
+        // methods generate own return
+        if (this.generateReturn)
+        {
+            this.addInstruction(EInstruction.RET, 0,0);
+        }
+
+        // methods are generated only in main body
+        if (this.generateMethods)
+        {
+            // generate methods
+            this.generateInstructionForMethods();
+
+            // method calls assignment
+            this.initializeMethodsInInstructions();
+
+        }
+
+        // delete local variables
+        if (this.deleteLocalVariables)
+        {
+            this.deleteLocalVariables();
+        }
     }
 
     private void incrementStackForVariables()
     {
-        this.addInstruction(EInstruction.INT, 0, this.BASE_METHOD_SIZE + this.statementData.getVariableDeclarationCount());
+        if (this.increaseStack)
+        {
+            this.addInstruction(EInstruction.INT, 0, this.BASE_METHOD_SIZE + this.statementData.getVariableDeclarationCount());
+        }
+    }
+
+    private void generateVariablesToSymbolTable()
+    {
+
     }
 
     private void generateInstructionForMethods()
     {
-
+        for (Method method: this.blockStatement.getMethods())
+        {
+            new MethodCompiler(method).run();
+        }
     }
 
     private void generateInstructionForStatements()
@@ -122,7 +168,7 @@ public class BlockStatementCompiler extends BaseCompiler
 
         this.getSymbolTable().addItem(symbolTableItem);
 
-        this.addInstruction(EInstruction.STO, this.level, symbolTableItem.getAddress());
+        this.addInstruction(EInstruction.STO, 0, symbolTableItem.getAddress());
 
         return symbolTableItem;
     }
@@ -133,10 +179,10 @@ public class BlockStatementCompiler extends BaseCompiler
         switch (variable.getVariableDeclaration())
         {
             case DECIMAL:
-                this.addInstruction(EInstruction.LIT, this.level, variable.getValue().toInt());
+                this.addInstruction(EInstruction.LIT, 0, variable.getValue().toInt());
                 break;
             case METHOD_CALL:
-                // TODO: 07/12/2019
+                new MethodCallCompiler(variable.getMethodCall(), 0).run();
                 break;
             case IDENTIFIER:
                 this.variableAssigmentIdentifier(variable);
@@ -152,10 +198,10 @@ public class BlockStatementCompiler extends BaseCompiler
         switch (variable.getVariableDeclaration())
         {
             case BOOLEAN:
-                this.addInstruction(EInstruction.LIT, this.level, variable.getValue().toBooleanAsInt());
+                this.addInstruction(EInstruction.LIT, 0, variable.getValue().toBooleanAsInt());
                 break;
             case METHOD_CALL:
-                // TODO: 07/12/2019
+                new MethodCallCompiler(variable.getMethodCall(), 0).run();
                 break;
             case IDENTIFIER:
                 this.variableAssigmentIdentifier(variable);
@@ -170,25 +216,45 @@ public class BlockStatementCompiler extends BaseCompiler
     {
         if (this.isInSymbolTable(variable.getValue().toString()))
         {
-            SymbolTableItem assignedValue = this.getSymbolTable().getItem(variable.getValue().toString());
-
-            if (variable.getType() != assignedValue.getVariableType())
-            {
-                this.getErrorHandler().throwError(new ErrorMismatchTypesVariable(variable.getName(), variable.getType().toString(), assignedValue.getVariableType().toString()));
-            }
-
-            // load value on top
-            this.addInstruction(EInstruction.LOD, this.level, assignedValue.getAddress());
-        }
-        else
-        {
             this.getErrorHandler().throwError(new ErrorAssignedVariableNotExists(variable.getValue().toString()));
         }
+
+        SymbolTableItem assignedValue = this.getSymbolTable().getItem(variable.getValue().toString());
+
+        if (variable.getType() != assignedValue.getVariableType())
+        {
+            this.getErrorHandler().throwError(new ErrorMismatchTypesVariable(variable.getName(), variable.getType().toString(), assignedValue.getVariableType().toString()));
+        }
+
+        // load value on top
+        this.addInstruction(EInstruction.LOD, this.level, assignedValue.getAddress());
     }
 
     private void generateAssigmentInstruction(StatementAssigment statementAssigment)
     {
+        if (this.isInSymbolTable(statementAssigment.getIdentifier()))
+        {
+            SymbolTableItem symbolTableItem = this.getSymbolTable().getItem(statementAssigment.getIdentifier());
 
+            // need to set methodCall expected return value here. In assigment visitor we dont know variable type
+            if (statementAssigment.getExpression().getType() == EExpressionType.METHOD_CALL)
+            {
+                ExpressionMethodCall expressionMethodCall = (ExpressionMethodCall) statementAssigment.getExpression();
+                EMethodReturnType methodReturnType = symbolTableItem.getVariableType() == EVariableType.INT ? EMethodReturnType.INT : EMethodReturnType.BOOLEAN;
+                expressionMethodCall.getMethodCall().setExpectedReturnType(methodReturnType);
+                new ExpressionCompiler(expressionMethodCall, symbolTableItem.getVariableType()).run();
+            }
+            else
+            {
+                new ExpressionCompiler(statementAssigment.getExpression(), symbolTableItem.getVariableType()).run();
+            }
+
+            this.addInstruction(EInstruction.STO, this.level, symbolTableItem.getAddress());
+        }
+        else
+        {
+            this.getErrorHandler().throwError(new ErrorVariableNotExists(statementAssigment.getIdentifier()));
+        }
     }
 
     private void generateIfInstructions(StatementIf statementIf)
@@ -213,7 +279,7 @@ public class BlockStatementCompiler extends BaseCompiler
 
     private void generateMethodCallInstructions(StatementMethodCall statementMethodCall)
     {
-
+        new MethodCallCompiler(statementMethodCall.getMethodCall(), this.level).run();
     }
 
     private void generateRepeatUntilInstructions(StatementRepeat statementRepeatUntil)
@@ -226,4 +292,79 @@ public class BlockStatementCompiler extends BaseCompiler
 
     }
 
+    public void setGenerateMethods(boolean generateMethods)
+    {
+        this.generateMethods = generateMethods;
+    }
+
+    private void initializeMethodsInInstructions()
+    {
+        for (Instruction instruction : this.getInstructionsList())
+        {
+            if (instruction.isLaterInitialization())
+            {
+                MethodCall methodCall = instruction.getMethodCall();
+
+                if (this.isInSymbolTable(methodCall.getIdentifier()))
+                {
+                    SymbolTableItem symbolTableItem = this.getSymbolTable().getItem(methodCall.getIdentifier());
+System.out.println(symbolTableItem);
+                    // check expected return call and method return type
+                    if (methodCall.getExpectedReturnType() != symbolTableItem.getMethodReturnType())
+                    {
+                        this.getErrorHandler().throwError(new ErrorMismatchMethodCallReturnType(methodCall.getIdentifier(),
+                                                                                                methodCall.getExpectedReturnType(),
+                                                                                                symbolTableItem.getMethodReturnType())
+                                                                                                );
+                    }
+
+                    // check parameters count
+                    if (methodCall.getParameters().size() != symbolTableItem.getMethodDeclarationParameters().size())
+                    {
+                        this.getErrorHandler().throwError(new ErrorInvalidParametersCount(symbolTableItem.getName(), symbolTableItem.getMethodDeclarationParameters().size()));
+                    }
+
+                    for (int i = 0 ; i < methodCall.getParameters().size() ; i++)
+                    {
+                        EVariableType callType = methodCall.getParameters().get(i).getVariableType();
+                        EVariableType methodType = symbolTableItem.getMethodDeclarationParameters().get(i).getType();
+                        if (callType != methodType)
+                        {
+                            this.getErrorHandler().throwError(new ErrorMismatchMethodAndCallParameterTypes(methodCall.getIdentifier(), methodType, callType, i + 1));
+                        }
+                    }
+
+                    instruction.setAddress(symbolTableItem.getAddress());
+                }
+                else
+                {
+                    this.getErrorHandler().throwError(new ErrorMethodNotExists(methodCall.getIdentifier()));
+                }
+            }
+        }
+    }
+
+    private void deleteLocalVariables()
+    {
+        for (String name : this.statementData.getVariableNames())
+        {
+            this.getSymbolTable().getTable().remove(name);
+        }
+    }
+
+
+    public void setIncreaseStack(boolean increaseStack)
+    {
+        this.increaseStack = increaseStack;
+    }
+
+    public void setGenerateReturn(boolean generateReturn)
+    {
+        this.generateReturn = generateReturn;
+    }
+
+    public void setDeleteLocalVariables(boolean deleteLocalVariables)
+    {
+        this.deleteLocalVariables = deleteLocalVariables;
+    }
 }

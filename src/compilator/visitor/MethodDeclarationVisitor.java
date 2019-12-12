@@ -15,11 +15,14 @@ import java.util.List;
 
 public class MethodDeclarationVisitor extends SimpleJavaBaseVisitor<Method>
 {
+    // added to method identifier, for separate methods from variables at symbol of table
+    private final String METHOD_SYMBOL = "()";
+
     @Override
     public Method visitMethodDeclaration(SimpleJavaParser.MethodDeclarationContext ctx)
     {
         EMethodReturnType returnType = EMethodReturnType.valueOf(ctx.methodReturnType().getText().toUpperCase());
-        String identifier = ctx.identifier().getText();
+        String identifier = ctx.identifier().getText() + this.METHOD_SYMBOL;
         List<MethodDeclarationParameter> parameters = this.parseMethodParameters(ctx.methodParameter());
         BlockStatement body = new BlockBodyVisitor().visit(ctx.methodBody().blockBody());
         Expression returnValue = ctx.methodBody().expressionBody() != null ? new ExpressionBodyVisitor().visit(ctx.methodBody().expressionBody()) : null;
