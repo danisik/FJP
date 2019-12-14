@@ -42,7 +42,15 @@ public class StatementVisitor extends SimpleJavaBaseVisitor<Statement>
     public StatementFor visitStatementFor(SimpleJavaParser.StatementForContext ctx)
     {
         ControlFor controlFor = new ForControlVisitor().visit(ctx.forControl());
-        BlockStatement body = new BlockBodyVisitor().visit(ctx.body().blockBody());
+        BlockStatement body;
+        if (ctx.body().blockBody() == null)
+        {
+            body = null;
+        }
+        else
+        {
+            body = new BlockBodyVisitor().visit(ctx.body().blockBody());
+        }
 
         return new StatementFor(controlFor, body);
     }

@@ -2,6 +2,9 @@ package compilator;
 
 import compilator.compilerPart.ProgramCompiler;
 import compilator.object.Program;
+import compilator.object.instruction.Instruction;
+
+import java.util.List;
 
 
 public class InstructionGenerator
@@ -14,10 +17,12 @@ public class InstructionGenerator
         this.program = program;
     }
 
-    public void generateInstructions()
+    public List<Instruction> generateInstructions()
     {
-        new ProgramCompiler(this.program).run();
+        ProgramCompiler programCompiler = new ProgramCompiler(this.program);
+        programCompiler.run();
 
 
+        return programCompiler.getInstructionsList();
     }
 }

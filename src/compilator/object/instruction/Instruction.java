@@ -35,7 +35,7 @@ public class Instruction
     @Override
     public String toString()
     {
-        return this.rowId + " " + this.instruction + " " + this.level + " " + this.address;
+        return this.rowId + "\t" + this.instruction + "\t" + this.level + "\t" + this.address + "\n";
     }
 
     public EInstruction getInstruction()

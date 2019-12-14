@@ -163,7 +163,6 @@ public class ExpressionCompiler extends BaseCompiler
         EVariableType rightExpression = this.processExpression(expression.getRightExpression());
 
         checkVariableTypes(leftExpression, rightExpression, EVariableType.BOOLEAN);
-
         if (expression.getOperatorLogical() == EOperatorLogical.AND)
         {
             this.addInstruction(EInstruction.OPR, 0, EInstructionOperation.MULTIPLY.getCode());
@@ -205,7 +204,8 @@ public class ExpressionCompiler extends BaseCompiler
         }
 
         new MethodCallCompiler(expression.getMethodCall(), 0).run();
-        return expression.getMethodCall().convertReturnTypeToVariableType();
+        //System.out.println(expression.getMethodCall().convertReturnTypeToVariableType());
+        return EVariableType.INT;
     }
 
     private void checkVariableTypes(EVariableType type1, EVariableType type2, EVariableType expected)

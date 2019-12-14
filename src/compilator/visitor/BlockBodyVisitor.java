@@ -13,15 +13,12 @@ public class BlockBodyVisitor extends SimpleJavaBaseVisitor<BlockStatement>
 {
     public BlockStatement visitBlockBody(SimpleJavaParser.BlockBodyContext ctx)
     {
-        List<Statement> statements = this.getStatements(ctx.statement());
-
-        System.out.println("---------Body-----------" + ctx.getParent().getParent().getText());
-
-
-        for (Statement statement: statements) {
-            System.out.println(statement.getType());
+        if (ctx == null)
+        {
+            return null;
         }
-        System.out.println("--------------------");
+
+        List<Statement> statements = this.getStatements(ctx.statement());
 
         return new BlockStatement(new StatementData(statements), null);
     }

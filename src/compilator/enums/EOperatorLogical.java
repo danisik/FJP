@@ -3,8 +3,8 @@ package compilator.enums;
 public enum EOperatorLogical
 {
 
-    AND("and"),
-    OR("or");
+    AND("&&"),
+    OR("||");
 
 
     private String symbol;

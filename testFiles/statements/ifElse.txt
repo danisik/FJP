@@ -1,0 +1,12 @@
+{
+    int a = 0;
+    boolean b = false;
+    if (true && b)
+    {
+        a = 10;
+    }
+    else
+    {
+        a = 20;
+    }
+}

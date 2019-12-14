@@ -26,19 +26,30 @@ public class BlockStatementCompiler extends BaseCompiler
     private boolean increaseStack = true;
     private boolean generateReturn = true;
     private boolean deleteLocalVariables = false;
+    private boolean createLocalSpaceForLocalVariables = false;
 
     public BlockStatementCompiler(BlockStatement blockStatement, int level)
     {
         this.blockStatement = blockStatement;
-        this.statementData = blockStatement.getStatementData();
+
+        if (blockStatement != null)
+        {
+            this.statementData = blockStatement.getStatementData();
+        }
         this.level = level;
     }
 
     public void run()
     {
+        if (this.blockStatement == null)
+        {
+            return;
+        }
+
         this.incrementStackForVariables();
 
         this.generateInstructionForStatements();
+
 
         // methods generate own return
         if (this.generateReturn)
@@ -63,6 +74,11 @@ public class BlockStatementCompiler extends BaseCompiler
         if (this.deleteLocalVariables)
         {
             this.deleteLocalVariables();
+
+            if (this.createLocalSpaceForLocalVariables && this.statementData.getVariableDeclarationCount() != 0)
+            {
+                this.addInstruction(EInstruction.INT, 0, -this.statementData.getVariableDeclarationCount());
+            }
         }
     }
 
@@ -71,6 +87,11 @@ public class BlockStatementCompiler extends BaseCompiler
         if (this.increaseStack)
         {
             this.addInstruction(EInstruction.INT, 0, this.BASE_METHOD_SIZE + this.statementData.getVariableDeclarationCount() + this.statementData.getForStatementCount());
+        }
+
+        if (this.createLocalSpaceForLocalVariables && this.statementData.getVariableDeclarationCount() != 0)
+        {
+            this.addInstruction(EInstruction.INT, 0, this.statementData.getVariableDeclarationCount());
         }
     }
 
@@ -279,7 +300,7 @@ public class BlockStatementCompiler extends BaseCompiler
 
         if (statementIf.hasElse())
         {
-            BlockStatementCompiler blockStatementCompilerElse = new BlockStatementCompiler(statementIf.getBodyIf(), 0);
+            BlockStatementCompiler blockStatementCompilerElse = new BlockStatementCompiler(statementIf.getBodyElse(), 0);
             blockStatementCompilerElse.setUpInnerBodySettings();
             blockStatementCompilerElse.run();
 
@@ -539,5 +560,11 @@ public class BlockStatementCompiler extends BaseCompiler
         this.setIncreaseStack(false);
         this.setGenerateReturn(false);
         this.setDeleteLocalVariables(true);
+        this.setCreateLocalSpaceForLocalVariables(true);
+    }
+
+    public void setCreateLocalSpaceForLocalVariables(boolean createLocalSpaceForLocalVariables)
+    {
+        this.createLocalSpaceForLocalVariables = createLocalSpaceForLocalVariables;
     }
 }
