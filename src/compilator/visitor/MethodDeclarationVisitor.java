@@ -25,7 +25,8 @@ public class MethodDeclarationVisitor extends SimpleJavaBaseVisitor<Method>
         String identifier = ctx.identifier().getText() + this.METHOD_SYMBOL;
         List<MethodDeclarationParameter> parameters = this.parseMethodParameters(ctx.methodParameter());
         BlockStatement body = new BlockBodyVisitor().visit(ctx.methodBody().blockBody());
-        Expression returnValue = ctx.methodBody().expressionBody() != null ? new ExpressionBodyVisitor().visit(ctx.methodBody().expressionBody()) : null;
+        Expression returnValue = new ExpressionBodyVisitor().visit(ctx.methodBody().expressionBody());
+        returnValue.setExpectedReturnType(returnType == EMethodReturnType.INT ? EVariableType.INT : EVariableType.BOOLEAN);
 
         return new Method(returnType, identifier, parameters, body, returnValue);
     }

@@ -31,19 +31,17 @@ public class Main {
                                                 "functionTest(a,1,true);" +
                                                 "int test5 = declare(a,1,true);" +*/
                                                 "int test5 = abx(int : 5, boolean: true);" +
-                                                "test5 = ab(int : 5);" +
                                                 "int function abx(int c, boolean b)" +
                                                 "{" +
                                                     "int test = ab(int : 5); " +
-                                                    "test5 = 100; " +
                                                     "return 100;" +
                                                 "} " +
                                                 "int function ab(int c)" +
                                                 "{" +
-                                                    "int test = 13; " +
                                                     "test5 = 100; " +
-                                                    "return 200;" +
+                                                    "return 200 * c;" +
                                                 "} " +
+                                                //"test5 = ab(int : 5);" +
 
                 "}");
 

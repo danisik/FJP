@@ -8,16 +8,12 @@ import compilator.error.*;
 import compilator.object.BlockStatement;
 import compilator.object.StatementData;
 import compilator.object.Variable;
-import compilator.object.expression.Expression;
 import compilator.object.expression.ExpressionMethodCall;
 import compilator.object.instruction.Instruction;
 import compilator.object.method.Method;
 import compilator.object.method.MethodCall;
-import compilator.object.method.MethodCallParameter;
 import compilator.object.statement.*;
 import compilator.object.symbolTable.SymbolTableItem;
-
-import java.util.List;
 
 public class BlockStatementCompiler extends BaseCompiler
 {
@@ -57,6 +53,8 @@ public class BlockStatementCompiler extends BaseCompiler
             // method calls assignment
             this.initializeMethodsInInstructions();
 
+            // update call levels in multiple calls
+            this.updateCallLevel();
         }
 
         // delete local variables
@@ -246,6 +244,7 @@ public class BlockStatementCompiler extends BaseCompiler
             }
             else
             {
+                statementAssigment.getExpression().setExpectedReturnType(symbolTableItem.getVariableType());
                 new ExpressionCompiler(statementAssigment.getExpression(), symbolTableItem.getVariableType()).run();
             }
 
@@ -308,7 +307,7 @@ public class BlockStatementCompiler extends BaseCompiler
                 if (this.isInSymbolTable(methodCall.getIdentifier()))
                 {
                     SymbolTableItem symbolTableItem = this.getSymbolTable().getItem(methodCall.getIdentifier());
-System.out.println(symbolTableItem);
+
                     // check expected return call and method return type
                     if (methodCall.getExpectedReturnType() != symbolTableItem.getMethodReturnType())
                     {
@@ -352,6 +351,30 @@ System.out.println(symbolTableItem);
         }
     }
 
+    private void updateCallLevel()
+    {
+        for (Instruction instruction : this.getInstructionsList())
+        {
+            if (instruction.getInstruction() == EInstruction.CAL && !instruction.isUpdatedCall())
+            {
+                int methodCalls = 1;
+                for(int i = instruction.getAddress() ; i < instructionsList.size() ; i++)
+                {
+                    if (instructionsList.get(i).getInstruction() == EInstruction.RET)
+                    {
+                        break;
+                    }
+                    else if(instructionsList.get(i).getInstruction() == EInstruction.CAL)
+                    {
+                        instructionsList.get(i).setUpdatedCall(true);
+                        instructionsList.get(i).setLevel(methodCalls);
+                        methodCalls++;
+                        i = instructionsList.get(i).getAddress();
+                    }
+                }
+            }
+        }
+    }
 
     public void setIncreaseStack(boolean increaseStack)
     {

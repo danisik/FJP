@@ -90,6 +90,7 @@ public class MethodCompiler extends BaseCompiler
             this.addInstruction(EInstruction.LOD, 0, i - parameters.size());
 
             item = new SymbolTableItem(parameters.get(i).getIdentifier(), 1, this.getAndIncreaseStackPointer(), 0);
+            item.setVariableType(parameters.get(i).getType());
             this.getSymbolTable().addItem(item);
 
             this.addInstruction(EInstruction.STO, 0, item.getAddress());

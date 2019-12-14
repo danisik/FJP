@@ -12,6 +12,7 @@ public class Instruction
 
     private boolean laterInitialization = false;
     private MethodCall methodCall = null;
+    private boolean updatedCall = false;
 
     public Instruction(EInstruction instruction, int rowId, int level, int address)
     {
@@ -91,5 +92,15 @@ public class Instruction
     public MethodCall getMethodCall()
     {
         return methodCall;
+    }
+
+    public boolean isUpdatedCall()
+    {
+        return updatedCall;
+    }
+
+    public void setUpdatedCall(boolean updatedCall)
+    {
+        this.updatedCall = updatedCall;
     }
 }
