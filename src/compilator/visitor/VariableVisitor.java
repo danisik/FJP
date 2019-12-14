@@ -62,9 +62,14 @@ public class VariableVisitor extends SimpleJavaBaseVisitor<Variable> {
         // int a = 1;
         if (ctx.decimalValue().DECIMAL() != null)
         {
+            int dimension = 1;
+            if (ctx.operator() != null && ctx.operator().getText().equals("-"))
+            {
+                dimension = -1;
+            }
             int val = Integer.parseInt(ctx.decimalValue().getText());
 
-            variable = new Variable(name, new Value(val), EVariableType.INT);
+            variable = new Variable(name, new Value(val * dimension), EVariableType.INT);
             variable.setVariableDeclaration(EVariableDeclaration.DECIMAL);
         }
         // int a = b;

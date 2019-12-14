@@ -1,7 +1,6 @@
 package compilator.compilerPart;
 
 import compilator.object.Block;
-import compilator.object.symbolTable.SymbolTable;
 import compilator.object.symbolTable.SymbolTableItem;
 
 import java.util.Map;

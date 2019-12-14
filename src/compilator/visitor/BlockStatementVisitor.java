@@ -13,6 +13,7 @@ public class BlockStatementVisitor extends SimpleJavaBaseVisitor<BlockStatement>
 
     public BlockStatement visitBlockStatement(SimpleJavaParser.BlockStatementContext ctx)
     {
+        System.out.println("a");
         List<Statement> statements = this.getStatements(ctx.statement());
         List<Method> methods = this.getMethods(ctx.methodDeclaration());
         System.out.println("---------Statementy-----------");

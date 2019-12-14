@@ -1,20 +1,21 @@
 package compilator.object.statement;
 
+import compilator.object.BlockStatement;
 import compilator.object.Body;
 
 public class StatementSwitchBlock
 {
 
     private int identifier;
-    private final Body body;
+    private final BlockStatement body;
     private boolean isSetDefault = false;
 
-    public StatementSwitchBlock(Body body)
+    public StatementSwitchBlock(BlockStatement body)
     {
         this.body = body;
     }
 
-    public StatementSwitchBlock(int identifier, Body body)
+    public StatementSwitchBlock(int identifier, BlockStatement body)
     {
         this.identifier = identifier;
         this.body = body;
@@ -25,7 +26,7 @@ public class StatementSwitchBlock
         return identifier;
     }
 
-    public Body getBody()
+    public BlockStatement getBody()
     {
         return body;
     }

@@ -1,17 +1,19 @@
 package compilator.object.control;
 
+import compilator.object.expression.Expression;
+
 public class ControlFor
 {
 
     private final String identifier;
-    private final int from;
-    private final int to;
+    private Expression expression;
+    private Expression to;
 
-    public ControlFor(String identifier, int from, int to)
+    public ControlFor(String identifier, Expression expression, Expression to)
     {
 
         this.identifier = identifier;
-        this.from = from;
+        this.expression = expression;
         this.to = to;
     }
 
@@ -20,12 +22,12 @@ public class ControlFor
         return identifier;
     }
 
-    public int getFrom()
+    public Expression getFrom()
     {
-        return from;
+        return expression;
     }
 
-    public int getTo()
+    public Expression getTo()
     {
         return to;
     }

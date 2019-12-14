@@ -91,7 +91,7 @@ public class ExpressionCompiler extends BaseCompiler
         if (this.isInSymbolTable(identifier))
         {
             SymbolTableItem item = this.getSymbolTable().getItem(identifier);
-            this.addInstruction(EInstruction.LIT, 0, item.getAddress());
+            this.addInstruction(EInstruction.LOD, 0, item.getAddress());
 
             return item.getVariableType();
         }

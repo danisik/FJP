@@ -204,7 +204,7 @@ expressionBody
   ;
 
 forControl
-  : LPAREN identifier EQ decimalSymbol? DECIMAL '...' decimalSymbol? DECIMAL RPAREN
+  : LPAREN identifier EQ decimalSymbol? expressionBody '...' decimalSymbol? expressionBody RPAREN
   ;
 
 switchBlockStatement

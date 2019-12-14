@@ -2281,9 +2281,11 @@ public class SimpleJavaParser extends Parser {
 			return getRuleContext(IdentifierContext.class,0);
 		}
 		public TerminalNode EQ() { return getToken(SimpleJavaParser.EQ, 0); }
-		public List<TerminalNode> DECIMAL() { return getTokens(SimpleJavaParser.DECIMAL); }
-		public TerminalNode DECIMAL(int i) {
-			return getToken(SimpleJavaParser.DECIMAL, i);
+		public List<ExpressionBodyContext> expressionBody() {
+			return getRuleContexts(ExpressionBodyContext.class);
+		}
+		public ExpressionBodyContext expressionBody(int i) {
+			return getRuleContext(ExpressionBodyContext.class,i);
 		}
 		public TerminalNode RPAREN() { return getToken(SimpleJavaParser.RPAREN, 0); }
 		public List<DecimalSymbolContext> decimalSymbol() {
@@ -2314,7 +2316,6 @@ public class SimpleJavaParser extends Parser {
 	public final ForControlContext forControl() throws RecognitionException {
 		ForControlContext _localctx = new ForControlContext(_ctx, getState());
 		enterRule(_localctx, 48, RULE_forControl);
-		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
@@ -2326,30 +2327,30 @@ public class SimpleJavaParser extends Parser {
 			match(EQ);
 			setState(252);
 			_errHandler.sync(this);
-			_la = _input.LA(1);
-			if (_la==PLUS || _la==MINUS) {
+			switch ( getInterpreter().adaptivePredict(_input,22,_ctx) ) {
+			case 1:
 				{
 				setState(251);
 				decimalSymbol();
 				}
+				break;
 			}
-
 			setState(254);
-			match(DECIMAL);
+			expressionBody(0);
 			setState(255);
 			match(T__0);
 			setState(257);
 			_errHandler.sync(this);
-			_la = _input.LA(1);
-			if (_la==PLUS || _la==MINUS) {
+			switch ( getInterpreter().adaptivePredict(_input,23,_ctx) ) {
+			case 1:
 				{
 				setState(256);
 				decimalSymbol();
 				}
+				break;
 			}
-
 			setState(259);
-			match(DECIMAL);
+			expressionBody(0);
 			setState(260);
 			match(RPAREN);
 			}
@@ -2934,9 +2935,9 @@ public class SimpleJavaParser extends Parser {
 		"\u00ef\3\2\2\2\u00f5\u00f2\3\2\2\2\u00f6\u00f9\3\2\2\2\u00f7\u00f5\3\2"+
 		"\2\2\u00f7\u00f8\3\2\2\2\u00f8\61\3\2\2\2\u00f9\u00f7\3\2\2\2\u00fa\u00fb"+
 		"\7\'\2\2\u00fb\u00fc\5\n\6\2\u00fc\u00fe\7 \2\2\u00fd\u00ff\5\b\5\2\u00fe"+
-		"\u00fd\3\2\2\2\u00fe\u00ff\3\2\2\2\u00ff\u0100\3\2\2\2\u0100\u0101\7\60"+
-		"\2\2\u0101\u0103\7\3\2\2\u0102\u0104\5\b\5\2\u0103\u0102\3\2\2\2\u0103"+
-		"\u0104\3\2\2\2\u0104\u0105\3\2\2\2\u0105\u0106\7\60\2\2\u0106\u0107\7"+
+		"\u00fd\3\2\2\2\u00fe\u00ff\3\2\2\2\u00ff\u0100\3\2\2\2\u0100\u0101\5\60"+
+		"\31\2\u0101\u0103\7\3\2\2\u0102\u0104\5\b\5\2\u0103\u0102\3\2\2\2\u0103"+
+		"\u0104\3\2\2\2\u0104\u0105\3\2\2\2\u0105\u0106\5\60\31\2\u0106\u0107\7"+
 		"(\2\2\u0107\63\3\2\2\2\u0108\u0109\7\t\2\2\u0109\u010a\7\60\2\2\u010a"+
 		"\u010b\7$\2\2\u010b\u0110\5&\24\2\u010c\u010d\7\n\2\2\u010d\u010e\7$\2"+
 		"\2\u010e\u0110\5&\24\2\u010f\u0108\3\2\2\2\u010f\u010c\3\2\2\2\u0110\65"+

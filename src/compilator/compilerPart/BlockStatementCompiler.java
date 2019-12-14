@@ -1,11 +1,9 @@
 package compilator.compilerPart;
 
-import compilator.enums.EExpressionType;
-import compilator.enums.EInstruction;
-import compilator.enums.EMethodReturnType;
-import compilator.enums.EVariableType;
+import compilator.enums.*;
 import compilator.error.*;
 import compilator.object.BlockStatement;
+import compilator.object.Body;
 import compilator.object.StatementData;
 import compilator.object.Variable;
 import compilator.object.expression.ExpressionMethodCall;
@@ -14,6 +12,10 @@ import compilator.object.method.Method;
 import compilator.object.method.MethodCall;
 import compilator.object.statement.*;
 import compilator.object.symbolTable.SymbolTableItem;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class BlockStatementCompiler extends BaseCompiler
 {
@@ -68,13 +70,8 @@ public class BlockStatementCompiler extends BaseCompiler
     {
         if (this.increaseStack)
         {
-            this.addInstruction(EInstruction.INT, 0, this.BASE_METHOD_SIZE + this.statementData.getVariableDeclarationCount());
+            this.addInstruction(EInstruction.INT, 0, this.BASE_METHOD_SIZE + this.statementData.getVariableDeclarationCount() + this.statementData.getForStatementCount());
         }
-    }
-
-    private void generateVariablesToSymbolTable()
-    {
-
     }
 
     private void generateInstructionForMethods()
@@ -258,21 +255,118 @@ public class BlockStatementCompiler extends BaseCompiler
 
     private void generateIfInstructions(StatementIf statementIf)
     {
+        new ExpressionCompiler(statementIf.getExpression(), EVariableType.BOOLEAN).run();
 
+        int jmcElseRow = this.getInstructionsCounter();
+
+        // jmo to else/end if
+        this.addInstruction(EInstruction.JMC, 0, -1); // address is set later
+
+        BlockStatementCompiler blockStatementCompiler = new BlockStatementCompiler(statementIf.getBodyIf(), 0);
+        blockStatementCompiler.setUpInnerBodySettings();
+        blockStatementCompiler.run();
+
+        int jmpEndIfStatement = this.getInstructionsCounter();
+
+        // jump over else block if exists
+        if (statementIf.hasElse())
+        {
+            this.addInstruction(EInstruction.JMP, 0, -1); // address is set later
+        }
+
+        // set address to else/end if address
+        this.getInstructionsList().get(jmcElseRow).setAddress(this.getInstructionsCounter());
+
+        if (statementIf.hasElse())
+        {
+            BlockStatementCompiler blockStatementCompilerElse = new BlockStatementCompiler(statementIf.getBodyIf(), 0);
+            blockStatementCompilerElse.setUpInnerBodySettings();
+            blockStatementCompilerElse.run();
+
+            // set address to else end
+            this.getInstructionsList().get(jmpEndIfStatement).setAddress(this.getInstructionsCounter());
+        }
     }
 
     private void generateForInstructions(StatementFor statementFor)
     {
+        if (this.isInSymbolTable(statementFor.getControlFor().getIdentifier()))
+        {
+            this.getErrorHandler().throwError(new ErrorVariableAlreadyExists(statementFor.getControlFor().getIdentifier()));
+        }
 
+        new ExpressionCompiler(statementFor.getControlFor().getFrom(), EVariableType.INT).run();
+
+        SymbolTableItem symbolTableItem = new SymbolTableItem(statementFor.getControlFor().getIdentifier(), this.level, this.getAndIncreaseStackPointer(), 0);
+        symbolTableItem.setIsVariable(true);
+        symbolTableItem.setVariableType(EVariableType.INT);
+
+        this.getSymbolTable().addItem(symbolTableItem);
+
+        this.addInstruction(EInstruction.STO, 0, symbolTableItem.getAddress());
+
+        int startIndex = this.getInstructionsCounter();
+
+        this.addInstruction(EInstruction.LOD, 0, symbolTableItem.getAddress());
+
+        new ExpressionCompiler(statementFor.getControlFor().getTo(), EVariableType.INT).run();
+
+        this.addInstruction(EInstruction.OPR, 0, EInstructionOperation.LESS_EQ.getCode());
+
+        int jmcEndIndex = this.getInstructionsCounter();
+        this.addInstruction(EInstruction.JMC, 0, -1);
+
+
+        BlockStatementCompiler blockStatementCompiler = new BlockStatementCompiler(statementFor.getBody(), 0);
+        blockStatementCompiler.setUpInnerBodySettings();
+        blockStatementCompiler.run();
+
+        this.addInstruction(EInstruction.LOD, 0, symbolTableItem.getAddress());
+        this.addInstruction(EInstruction.LIT, 0, 1);
+        this.addInstruction(EInstruction.OPR, 0, EInstructionOperation.PLUS.getCode());
+        this.addInstruction(EInstruction.STO, 0, symbolTableItem.getAddress());
+        this.addInstruction(EInstruction.JMP, 0, startIndex);
+
+        this.getInstructionsList().get(jmcEndIndex).setAddress(this.getInstructionsCounter());
     }
 
     private void generateWhileInstructions(StatementWhile statementWhile)
     {
+        int startIndex = this.getInstructionsCounter();
+        new ExpressionCompiler(statementWhile.getExpression(), EVariableType.BOOLEAN).run();
 
+        int jmcIndex = this.getInstructionsCounter();
+        this.addInstruction(EInstruction.JMC, 0, -1);
+
+        BlockStatementCompiler blockStatementCompiler = new BlockStatementCompiler(statementWhile.getBody(), 0);
+        blockStatementCompiler.setUpInnerBodySettings();
+        blockStatementCompiler.run();
+
+        // jump to start
+        this.addInstruction(EInstruction.JMP, 0, startIndex);
+
+        // update jmc address
+        this.getInstructionsList().get(jmcIndex).setAddress(this.getInstructionsCounter());
     }
 
     private void generateDoWhileInstructions(StatementDo statementDoWhile)
     {
+        int startIndex = this.getInstructionsCounter();
+
+        BlockStatementCompiler blockStatementCompiler = new BlockStatementCompiler(statementDoWhile.getBody(), 0);
+        blockStatementCompiler.setUpInnerBodySettings();
+        blockStatementCompiler.run();
+
+        new ExpressionCompiler(statementDoWhile.getExpression(), EVariableType.BOOLEAN).run();
+
+        int jmcIndex = this.getInstructionsCounter();
+        this.addInstruction(EInstruction.JMC, 0, -1);
+
+        // jmp to start
+        this.addInstruction(EInstruction.JMP, 0, startIndex);
+
+        // update jmc address
+        this.getInstructionsList().get(jmcIndex).setAddress(this.getInstructionsCounter());
 
     }
 
@@ -283,12 +377,60 @@ public class BlockStatementCompiler extends BaseCompiler
 
     private void generateRepeatUntilInstructions(StatementRepeat statementRepeatUntil)
     {
+        int startAddress = this.getInstructionsCounter();
 
+        BlockStatementCompiler blockStatementCompiler = new BlockStatementCompiler(statementRepeatUntil.getBody(), 0);
+        blockStatementCompiler.setUpInnerBodySettings();
+        blockStatementCompiler.run();
+
+        new ExpressionCompiler(statementRepeatUntil.getExpression(), EVariableType.BOOLEAN).run();
+
+        // jump back if false
+        this.addInstruction(EInstruction.JMC, 0, startAddress);
     }
 
     private void generateSwitchInstructions(StatementSwitch statementSwitch)
     {
+        ArrayList<Integer> jmpIndexes = new ArrayList<>();
 
+        for(Map.Entry<Integer, StatementSwitchBlock> block : statementSwitch.getBlocks().entrySet()) {
+            int key = block.getKey();
+            StatementSwitchBlock body = block.getValue();
+
+            new ExpressionCompiler(statementSwitch.getExpression(), EVariableType.INT).run();
+
+            this.addInstruction(EInstruction.LIT, 0, key);
+            this.addInstruction(EInstruction.OPR, 0, EInstructionOperation.EQ.getCode());
+
+            int jmcIndex = this.getInstructionsCounter();
+            this.addInstruction(EInstruction.JMC, 0, -1);
+
+            BlockStatementCompiler blockStatementCompiler = new BlockStatementCompiler(body.getBody(), 0);
+            blockStatementCompiler.setUpInnerBodySettings();
+            blockStatementCompiler.run();
+
+            int jmpEndIndex = this.getInstructionsCounter();
+            jmpIndexes.add(jmpEndIndex);
+            this.addInstruction(EInstruction.JMP, 0, -1);
+
+            this.getInstructionsList().get(jmcIndex).setAddress(this.getInstructionsCounter());
+        }
+
+        // default block
+        if (statementSwitch.getDefaultBlock() != null)
+        {
+            BlockStatementCompiler blockStatementCompiler = new BlockStatementCompiler(statementSwitch.getDefaultBlock().getBody(), 0);
+            blockStatementCompiler.setUpInnerBodySettings();
+            blockStatementCompiler.run();
+        }
+
+        int currentInstructionCounter = this.getInstructionsCounter();
+
+        // initialize jumps out of switch
+        for (int index : jmpIndexes)
+        {
+            this.getInstructionsList().get(index).setAddress(currentInstructionCounter);
+        }
     }
 
     public void setGenerateMethods(boolean generateMethods)
@@ -389,5 +531,13 @@ public class BlockStatementCompiler extends BaseCompiler
     public void setDeleteLocalVariables(boolean deleteLocalVariables)
     {
         this.deleteLocalVariables = deleteLocalVariables;
+    }
+
+    public void setUpInnerBodySettings()
+    {
+        this.setGenerateMethods(false);
+        this.setIncreaseStack(false);
+        this.setGenerateReturn(false);
+        this.setDeleteLocalVariables(true);
     }
 }

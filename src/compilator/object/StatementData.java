@@ -11,6 +11,7 @@ public class StatementData
 {
     private List<Statement> statements;
     private List<String> variableNames;
+    private int forStatementCount = 0;
 
     public StatementData(List<Statement> statements)
     {
@@ -40,6 +41,10 @@ public class StatementData
                     list.addAll(variable.getParallelArray());
                 }
             }
+            else if (statement.getType() == EStatementType.FOR)
+            {
+                this.forStatementCount++;
+            }
         }
 
         return list;
@@ -55,4 +60,8 @@ public class StatementData
         return this.statements;
     }
 
+    public int getForStatementCount()
+    {
+        return forStatementCount;
+    }
 }

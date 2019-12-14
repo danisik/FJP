@@ -15,8 +15,14 @@ public class BodyVisitor extends SimpleJavaBaseVisitor<Body> {
         if (ctx.blockBody() != null)
         {
             blockStatement = new BlockStatementVisitor().visit(ctx.blockBody());
-        }
+            System.out.println(ctx.blockBody().getParent().getText());
 
+        }
+        else {
+            System.out.println("pi");
+
+        }
+System.out.println(blockStatement);
         return new Body(blockStatement);
     }
 }

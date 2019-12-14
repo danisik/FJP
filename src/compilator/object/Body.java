@@ -7,7 +7,6 @@ public class Body
 
     public Body(BlockStatement blockStatement)
     {
-
         this.blockStatement = blockStatement;
     }
 

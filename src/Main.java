@@ -30,7 +30,7 @@ public class Main {
                                                 "}" +
                                                 "functionTest(a,1,true);" +
                                                 "int test5 = declare(a,1,true);" +*/
-                                                "int test5 = abx(int : 5, boolean: true);" +
+              /*                                  "int test5 = abx(int : 5, boolean: true);" +
                                                 "int function abx(int c, boolean b)" +
                                                 "{" +
                                                     "int test = ab(int : 5); " +
@@ -42,8 +42,18 @@ public class Main {
                                                     "return 200 * c;" +
                                                 "} " +
                                                 //"test5 = ab(int : 5);" +
+*/
+                        "int a = -1;"+
+                        "for (b = 1 ... 5)" +
+                        "{" +
+                        "a = a+b;"+
+                        "}" +
 
-                "}");
+                        "a = 10;" +
+
+                "int c = 5;"+
+                "}"
+        );
 
         BaseCompiler baseCompiler = new BaseCompiler();
         for (Instruction instruction : baseCompiler.getInstructionsList()

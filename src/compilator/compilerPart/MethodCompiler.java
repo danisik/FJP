@@ -34,7 +34,7 @@ public class MethodCompiler extends BaseCompiler
         this.setStackPointer(this.STACK_POINTER_DEFAULT_VALUE);
 
         // variables + parameters + default method size
-        int methodSize = this.method.getBody().getStatementData().getVariableDeclarationCount() + this.method.getParameters().size() + this.BASE_METHOD_SIZE;
+        int methodSize = this.method.getBody().getStatementData().getVariableDeclarationCount() + this.method.getParameters().size() + this.BASE_METHOD_SIZE + this.method.getBody().getStatementData().getForStatementCount();
 
         // add method to symbol of table, have to be added first, for get address of row to address method call
         // method address pointing at INT instruction of method
@@ -45,10 +45,7 @@ public class MethodCompiler extends BaseCompiler
 
 
         BlockStatementCompiler blockStatementCompiler = new BlockStatementCompiler(this.method.getBody(), 1);
-        blockStatementCompiler.setGenerateMethods(false);
-        blockStatementCompiler.setIncreaseStack(false);
-        blockStatementCompiler.setGenerateReturn(false);
-        blockStatementCompiler.setDeleteLocalVariables(true);
+        blockStatementCompiler.setUpInnerBodySettings();
         blockStatementCompiler.run();
 
         if (this.method.getReturnValue() != null)
