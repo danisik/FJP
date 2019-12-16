@@ -34,7 +34,13 @@ public class MethodCompiler extends BaseCompiler
         this.setStackPointer(this.STACK_POINTER_DEFAULT_VALUE);
 
         // variables + parameters + default method size
-        int methodSize = this.method.getBody().getStatementData().getVariableDeclarationCount() + this.method.getParameters().size() + this.BASE_METHOD_SIZE + this.method.getBody().getStatementData().getForStatementCount();
+        int methodCustomSize = 0;
+
+        if (this.method.getBody() != null)
+        {
+            methodCustomSize = this.method.getBody().getStatementData().getVariableDeclarationCount() + this.method.getBody().getStatementData().getForStatementCount();
+        }
+        int methodSize = this.method.getParameters().size() + this.BASE_METHOD_SIZE + methodCustomSize;
 
         // add method to symbol of table, have to be added first, for get address of row to address method call
         // method address pointing at INT instruction of method

@@ -6,13 +6,10 @@ import compilator.visitor.ProgramVisitor;
 import generate.SimpleJavaLexer;
 import generate.SimpleJavaParser;
 import org.antlr.v4.runtime.CharStream;
-import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
 
-import java.io.FileNotFoundException;
 import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 public class Compilator
@@ -33,12 +30,16 @@ public class Compilator
     public void run(CharStream input, String output)
     {
         SimpleJavaLexer lexer = new SimpleJavaLexer(input);
+        lexer.removeErrorListeners();
+        lexer.addErrorListener(LexerParserErrorListener.getInstance());
 
         CommonTokenStream tokens = new CommonTokenStream(lexer);
 
         SimpleJavaParser parser = new SimpleJavaParser(tokens);
 
         parser.setBuildParseTree(true);
+        parser.removeErrorListeners();
+        parser.addErrorListener(LexerParserErrorListener.getInstance());
 
         ParseTree parseTree = parser.program();
 
