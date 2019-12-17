@@ -11,7 +11,7 @@ public class Main {
     public static void main(String[] args) {
        // String input = args[0];
        // String input = "testFiles/statements/ifElse.txt";
-        String input = "testFiles/statements/loops/doWhile.txt";
+        String input = "testFiles/test.txt";
         String output = "testFiles/output.txt";
 
 

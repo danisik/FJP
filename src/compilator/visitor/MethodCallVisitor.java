@@ -31,18 +31,8 @@ public class MethodCallVisitor extends SimpleJavaBaseVisitor<MethodCall>
         for (SimpleJavaParser.MethodCallParameterContext parameterContext : methodCallParameterContextsList)
         {
             Expression expression = new ExpressionBodyVisitor().visit(parameterContext.expressionBody());
-            EVariableType variableType;
 
-            if (parameterContext.possibleTypes().INT() != null)
-            {
-                variableType = EVariableType.INT;
-            }
-            else
-            {
-                variableType = EVariableType.BOOLEAN;
-            }
-
-            methodCallParameter = new MethodCallParameter(expression, variableType);
+            methodCallParameter = new MethodCallParameter(expression, null);
 
             methodCallParameters.add(methodCallParameter);
         }

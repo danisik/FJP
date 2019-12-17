@@ -26,9 +26,12 @@ public class MethodCallCompiler extends BaseCompiler
         }
 
         // add parameters to stack top
-        for (MethodCallParameter parameter: this.methodCall.getParameters())
+        for (int i = 0 ; i < this.methodCall.getParameters().size() ; i++)
         {
-            new ExpressionCompiler(parameter.getExpression(), parameter.getVariableType()).run();
+            MethodCallParameter parameter = this.methodCall.getParameters().get(i);
+            EVariableType returnType = new ExpressionCompiler(parameter.getExpression()).runReturnType();
+            this.methodCall.getParameters().get(i).setVariableType(returnType);
+
         }
 
         // add call

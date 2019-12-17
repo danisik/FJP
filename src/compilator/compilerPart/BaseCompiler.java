@@ -4,9 +4,11 @@ import compilator.ErrorHandler;
 import compilator.enums.EInstruction;
 import compilator.object.instruction.Instruction;
 import compilator.object.method.MethodCall;
+import compilator.object.method.MethodPrototype;
 import compilator.object.symbolTable.SymbolTable;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class BaseCompiler
 {
@@ -21,6 +23,8 @@ public class BaseCompiler
     private static int stackPointer = 3;
 
     public final int STACK_POINTER_DEFAULT_VALUE = 3;
+
+    protected static HashMap<String, MethodPrototype> methodPrototype = new HashMap<>();
 
     public ArrayList<Instruction> getInstructionsList()
     {
@@ -82,5 +86,15 @@ public class BaseCompiler
     protected ErrorHandler getErrorHandler()
     {
         return errorHandler;
+    }
+
+    public HashMap<String, MethodPrototype> getMethodPrototype()
+    {
+        return methodPrototype;
+    }
+
+    public HashMap<String, MethodPrototype> getMethodPrototypes()
+    {
+        return methodPrototype;
     }
 }

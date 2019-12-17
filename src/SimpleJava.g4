@@ -229,6 +229,5 @@ methodCall
   ;
 
 methodCallParameter
-  : possibleTypes COLON expressionBody
-  | possibleTypes COLON methodCall
+  : expressionBody
   ;

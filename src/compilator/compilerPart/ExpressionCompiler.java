@@ -15,6 +15,11 @@ public class ExpressionCompiler extends BaseCompiler
     private EMethodReturnType methodReturnType;
     private EVariableType resultType;
 
+    public ExpressionCompiler(Expression expression)
+    {
+        this.expression = expression;
+    }
+
     public ExpressionCompiler(Expression expression, EVariableType resultType)
     {
         this.expression = expression;
@@ -26,6 +31,11 @@ public class ExpressionCompiler extends BaseCompiler
 
         this.expression = expression;
         this.methodReturnType = methodReturnType;
+    }
+
+    public EVariableType runReturnType()
+    {
+        return this.processExpression(this.expression);
     }
 
     public void run()
@@ -203,9 +213,12 @@ public class ExpressionCompiler extends BaseCompiler
             this.getErrorHandler().throwError(new ErrorVoidMethodExpression(expression.getMethodCall().getIdentifier()));
         }
 
+        // set up return type of method call from method prototypes
+        expression.getMethodCall().setExpectedReturnType(this.getMethodPrototypes().get(expression.getMethodCall().getIdentifier()).getMethodReturnType());
+
         new MethodCallCompiler(expression.getMethodCall(), 0).run();
-        //System.out.println(expression.getMethodCall().convertReturnTypeToVariableType());
-        return EVariableType.INT;
+
+        return this.getMethodPrototype().get(expression.getMethodCall().getIdentifier()).convertReturnTypeToVariableType();
     }
 
     private void checkVariableTypes(EVariableType type1, EVariableType type2, EVariableType expected)

@@ -23,4 +23,14 @@ public class MethodCallParameter
     {
         return variableType;
     }
+
+    public void setExpression(Expression expression)
+    {
+        this.expression = expression;
+    }
+
+    public void setVariableType(EVariableType variableType)
+    {
+        this.variableType = variableType;
+    }
 }

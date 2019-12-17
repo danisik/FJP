@@ -230,7 +230,7 @@ public class BlockStatementCompiler extends BaseCompiler
 
     private void variableAssigmentIdentifier(Variable variable)
     {
-        if (this.isInSymbolTable(variable.getValue().toString()))
+        if (!this.isInSymbolTable(variable.getValue().toString()))
         {
             this.getErrorHandler().throwError(new ErrorAssignedVariableNotExists(variable.getValue().toString()));
         }
@@ -241,6 +241,8 @@ public class BlockStatementCompiler extends BaseCompiler
         {
             this.getErrorHandler().throwError(new ErrorMismatchTypesVariable(variable.getName(), variable.getType().toString(), assignedValue.getVariableType().toString()));
         }
+
+        // check constant
 
         // load value on top
         this.addInstruction(EInstruction.LOD, this.level, assignedValue.getAddress());
