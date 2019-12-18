@@ -29,7 +29,7 @@ public class MethodCallCompiler extends BaseCompiler
         for (int i = 0 ; i < this.methodCall.getParameters().size() ; i++)
         {
             MethodCallParameter parameter = this.methodCall.getParameters().get(i);
-            EVariableType returnType = new ExpressionCompiler(parameter.getExpression()).runReturnType();
+            EVariableType returnType = new ExpressionCompiler(parameter.getExpression(), this.level).runReturnType();
             this.methodCall.getParameters().get(i).setVariableType(returnType);
 
         }

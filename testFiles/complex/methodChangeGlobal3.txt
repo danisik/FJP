@@ -1,0 +1,24 @@
+{
+    int a = 0;
+
+    test(1, 2);
+
+    void function test(int b, int c)
+    {
+        a = b + c;
+        test1(c, b);
+        return;
+    }
+
+    void function test1(int c, int b)
+    {
+        a = c * a * b;
+
+        return;
+    }
+}
+
+
+
+
+

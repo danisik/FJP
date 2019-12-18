@@ -1,0 +1,12 @@
+{
+
+    int fact = 1;
+    int number = 5;
+
+    for(i = 1 ... number)
+    {
+        fact = fact * i;
+    }
+
+    // result 120
+}

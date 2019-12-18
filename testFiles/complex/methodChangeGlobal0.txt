@@ -1,0 +1,12 @@
+{
+    int a = 0;
+
+    test();
+
+    void function test()
+    {
+        a = 5 / 2;
+        return;
+    }
+
+}

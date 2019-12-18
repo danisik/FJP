@@ -74,6 +74,7 @@ DECIMAL : DIGIT;
 
 WHITESPACE : [ \r\t\n]+ -> skip ;
 
+LINE_COMMENT : '//' ~[\r\n]* -> skip;
 
 /* -------------- parser rules -------------- */
 methodReturnType

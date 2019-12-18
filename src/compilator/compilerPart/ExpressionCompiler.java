@@ -1,10 +1,7 @@
 package compilator.compilerPart;
 
 import compilator.enums.*;
-import compilator.error.ErrorMismatchExpressionResult;
-import compilator.error.ErrorMismatchTypesExpression;
-import compilator.error.ErrorVariableNotExists;
-import compilator.error.ErrorVoidMethodExpression;
+import compilator.error.*;
 import compilator.object.expression.*;
 import compilator.object.symbolTable.SymbolTableItem;
 import compilator.value.Value;
@@ -12,25 +9,29 @@ import compilator.value.Value;
 public class ExpressionCompiler extends BaseCompiler
 {
     private final Expression expression;
+    private int level;
     private EMethodReturnType methodReturnType;
     private EVariableType resultType;
 
-    public ExpressionCompiler(Expression expression)
+    public ExpressionCompiler(Expression expression, int level)
     {
         this.expression = expression;
+        this.level = level;
     }
 
-    public ExpressionCompiler(Expression expression, EVariableType resultType)
+    public ExpressionCompiler(Expression expression, EVariableType resultType, int level)
     {
         this.expression = expression;
         this.resultType = resultType;
+        this.level = level;
     }
 
-    public ExpressionCompiler(Expression expression, EMethodReturnType methodReturnType)
+    public ExpressionCompiler(Expression expression, EMethodReturnType methodReturnType, int level)
     {
 
         this.expression = expression;
         this.methodReturnType = methodReturnType;
+        this.level = level;
     }
 
     public EVariableType runReturnType()
@@ -101,7 +102,7 @@ public class ExpressionCompiler extends BaseCompiler
         if (this.isInSymbolTable(identifier))
         {
             SymbolTableItem item = this.getSymbolTable().getItem(identifier);
-            this.addInstruction(EInstruction.LOD, 0, item.getAddress());
+            this.addInstruction(EInstruction.LOD, this.level - item.getLevel(), item.getAddress());
 
             return item.getVariableType();
         }
@@ -211,6 +212,12 @@ public class ExpressionCompiler extends BaseCompiler
         if (expression.getMethodCall().getExpectedReturnType() == EMethodReturnType.VOID)
         {
             this.getErrorHandler().throwError(new ErrorVoidMethodExpression(expression.getMethodCall().getIdentifier(), expression.getLine()));
+        }
+
+        // check if method exists in prototypes
+        if (!this.getMethodPrototypes().containsKey(expression.getMethodCall().getIdentifier()))
+        {
+            this.getErrorHandler().throwError(new ErrorMethodNotExists(expression.getMethodCall().getIdentifier(), expression.getMethodCall().getLine()));
         }
 
         // set up return type of method call from method prototypes

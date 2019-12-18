@@ -1,0 +1,16 @@
+{
+    int a = 0;
+
+    test(1, 2);
+
+    void function test(int b, int c)
+    {
+        a = b + c + a;
+        return;
+    }
+}
+
+
+
+
+

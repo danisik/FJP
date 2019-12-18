@@ -1,0 +1,18 @@
+{
+    int a = test(1,2);
+
+    int function test(int b, int c)
+    {
+        return b + test1(b, c);
+    }
+
+    int function test1(int b, int c)
+    {
+        return b * c;
+    }
+}
+
+
+
+
+

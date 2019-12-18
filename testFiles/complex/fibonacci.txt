@@ -1,0 +1,19 @@
+{
+    int a = fib(5); // 5
+    int a = fib(4); // 3
+
+    int function fib(int b)
+    {
+        int c = 0;
+
+        if (b <= 1)
+        {
+            c = b;
+        }
+        else
+        {
+            c = fib(b-1) + fib(b-2);
+        }
+        return c;
+    }
+}

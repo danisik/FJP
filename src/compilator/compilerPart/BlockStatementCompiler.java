@@ -3,7 +3,6 @@ package compilator.compilerPart;
 import compilator.enums.*;
 import compilator.error.*;
 import compilator.object.BlockStatement;
-import compilator.object.Body;
 import compilator.object.StatementData;
 import compilator.object.Variable;
 import compilator.object.expression.ExpressionMethodCall;
@@ -12,9 +11,7 @@ import compilator.object.method.Method;
 import compilator.object.method.MethodCall;
 import compilator.object.statement.*;
 import compilator.object.symbolTable.SymbolTableItem;
-
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
 
 public class BlockStatementCompiler extends BaseCompiler
@@ -46,10 +43,10 @@ public class BlockStatementCompiler extends BaseCompiler
             return;
         }
 
+        // check method for more information
         this.incrementStackForVariables();
 
         this.generateInstructionForStatements();
-
 
         // methods generate own return
         if (this.generateReturn)
@@ -74,21 +71,19 @@ public class BlockStatementCompiler extends BaseCompiler
         if (this.deleteLocalVariables)
         {
             this.deleteLocalVariables();
-
-            if (this.createLocalSpaceForLocalVariables && this.statementData.getVariableDeclarationCount() != 0)
-            {
-                this.addInstruction(EInstruction.INT, 0, -this.statementData.getVariableDeclarationCount());
-            }
         }
     }
 
+
     private void incrementStackForVariables()
     {
+        // used in main block
         if (this.increaseStack)
         {
             this.addInstruction(EInstruction.INT, 0, this.BASE_METHOD_SIZE + this.statementData.getVariableDeclarationCount() + this.statementData.getForStatementCount());
         }
 
+        // used for loops, other blocks, methods
         if (this.createLocalSpaceForLocalVariables && this.statementData.getVariableDeclarationCount() != 0)
         {
             this.addInstruction(EInstruction.INT, 0, this.statementData.getVariableDeclarationCount());
@@ -169,7 +164,7 @@ public class BlockStatementCompiler extends BaseCompiler
         {
             for(String variableName : variable.getParallelArray())
             {
-                this.addInstruction(EInstruction.LOD, this.level, symbolTableItem.getAddress());
+                this.addInstruction(EInstruction.LOD, this.level - symbolTableItem.getLevel(), symbolTableItem.getAddress());
                 this.addVariable(variableName, variable);
             }
         }
@@ -204,7 +199,7 @@ public class BlockStatementCompiler extends BaseCompiler
                 this.variableAssigmentIdentifier(variable);
                 break;
             case EXPRESSION:
-                new ExpressionCompiler(variable.getExpression(), EVariableType.INT).run();
+                new ExpressionCompiler(variable.getExpression(), EVariableType.INT, this.level).run();
                 break;
         }
     }
@@ -223,7 +218,7 @@ public class BlockStatementCompiler extends BaseCompiler
                 this.variableAssigmentIdentifier(variable);
                 break;
             case EXPRESSION:
-                new ExpressionCompiler(variable.getExpression(), EVariableType.BOOLEAN).run();
+                new ExpressionCompiler(variable.getExpression(), EVariableType.BOOLEAN, this.level).run();
                 break;
         }
     }
@@ -264,15 +259,15 @@ public class BlockStatementCompiler extends BaseCompiler
                 ExpressionMethodCall expressionMethodCall = (ExpressionMethodCall) statementAssigment.getExpression();
                 EMethodReturnType methodReturnType = symbolTableItem.getVariableType() == EVariableType.INT ? EMethodReturnType.INT : EMethodReturnType.BOOLEAN;
                 expressionMethodCall.getMethodCall().setExpectedReturnType(methodReturnType);
-                new ExpressionCompiler(expressionMethodCall, symbolTableItem.getVariableType()).run();
+                new ExpressionCompiler(expressionMethodCall, symbolTableItem.getVariableType(), this.level).run();
             }
             else
             {
                 statementAssigment.getExpression().setExpectedReturnType(symbolTableItem.getVariableType());
-                new ExpressionCompiler(statementAssigment.getExpression(), symbolTableItem.getVariableType()).run();
+                new ExpressionCompiler(statementAssigment.getExpression(), symbolTableItem.getVariableType(), this.level).run();
             }
 
-            this.addInstruction(EInstruction.STO, this.level, symbolTableItem.getAddress());
+            this.addInstruction(EInstruction.STO, this.level - symbolTableItem.getLevel(), symbolTableItem.getAddress());
         }
         else
         {
@@ -282,7 +277,7 @@ public class BlockStatementCompiler extends BaseCompiler
 
     private void generateIfInstructions(StatementIf statementIf)
     {
-        new ExpressionCompiler(statementIf.getExpression(), EVariableType.BOOLEAN).run();
+        new ExpressionCompiler(statementIf.getExpression(), EVariableType.BOOLEAN, this.level).run();
 
         int jmcElseRow = this.getInstructionsCounter();
 
@@ -322,7 +317,7 @@ public class BlockStatementCompiler extends BaseCompiler
             this.getErrorHandler().throwError(new ErrorVariableAlreadyExists(statementFor.getControlFor().getIdentifier(), statementFor.getLine()));
         }
 
-        new ExpressionCompiler(statementFor.getControlFor().getFrom(), EVariableType.INT).run();
+        new ExpressionCompiler(statementFor.getControlFor().getFrom(), EVariableType.INT, this.level).run();
 
         SymbolTableItem symbolTableItem = new SymbolTableItem(statementFor.getControlFor().getIdentifier(), this.level, this.getAndIncreaseStackPointer(), 0);
         symbolTableItem.setIsVariable(true);
@@ -336,7 +331,7 @@ public class BlockStatementCompiler extends BaseCompiler
 
         this.addInstruction(EInstruction.LOD, 0, symbolTableItem.getAddress());
 
-        new ExpressionCompiler(statementFor.getControlFor().getTo(), EVariableType.INT).run();
+        new ExpressionCompiler(statementFor.getControlFor().getTo(), EVariableType.INT, this.level).run();
 
         this.addInstruction(EInstruction.OPR, 0, EInstructionOperation.LESS_EQ.getCode());
 
@@ -360,7 +355,7 @@ public class BlockStatementCompiler extends BaseCompiler
     private void generateWhileInstructions(StatementWhile statementWhile)
     {
         int startIndex = this.getInstructionsCounter();
-        new ExpressionCompiler(statementWhile.getExpression(), EVariableType.BOOLEAN).run();
+        new ExpressionCompiler(statementWhile.getExpression(), EVariableType.BOOLEAN, this.level).run();
 
         int jmcIndex = this.getInstructionsCounter();
         this.addInstruction(EInstruction.JMC, 0, -1);
@@ -384,7 +379,7 @@ public class BlockStatementCompiler extends BaseCompiler
         blockStatementCompiler.setUpInnerBodySettings();
         blockStatementCompiler.run();
 
-        new ExpressionCompiler(statementDoWhile.getExpression(), EVariableType.BOOLEAN).run();
+        new ExpressionCompiler(statementDoWhile.getExpression(), EVariableType.BOOLEAN, this.level).run();
 
         int jmcIndex = this.getInstructionsCounter();
         this.addInstruction(EInstruction.JMC, 0, -1);
@@ -410,7 +405,7 @@ public class BlockStatementCompiler extends BaseCompiler
         blockStatementCompiler.setUpInnerBodySettings();
         blockStatementCompiler.run();
 
-        new ExpressionCompiler(statementRepeatUntil.getExpression(), EVariableType.BOOLEAN).run();
+        new ExpressionCompiler(statementRepeatUntil.getExpression(), EVariableType.BOOLEAN,this.level).run();
 
         // jump back if false
         this.addInstruction(EInstruction.JMC, 0, startAddress);
@@ -424,7 +419,7 @@ public class BlockStatementCompiler extends BaseCompiler
             int key = block.getKey();
             StatementSwitchBlock body = block.getValue();
 
-            new ExpressionCompiler(statementSwitch.getExpression(), EVariableType.INT).run();
+            new ExpressionCompiler(statementSwitch.getExpression(), EVariableType.INT, this.level).run();
 
             this.addInstruction(EInstruction.LIT, 0, key);
             this.addInstruction(EInstruction.OPR, 0, EInstructionOperation.EQ.getCode());
@@ -513,11 +508,20 @@ public class BlockStatementCompiler extends BaseCompiler
         }
     }
 
-    private void deleteLocalVariables()
+    public void deleteLocalVariables()
     {
-        for (String name : this.statementData.getVariableNames())
+        // check if variables exists
+        if (this.statementData != null)
         {
-            this.getSymbolTable().getTable().remove(name);
+            for (String name : this.statementData.getVariableNames())
+            {
+                this.getSymbolTable().getTable().remove(name);
+            }
+
+            if (this.createLocalSpaceForLocalVariables && this.statementData.getVariableDeclarationCount() != 0)
+            {
+                this.addInstruction(EInstruction.INT, 0, -this.statementData.getVariableDeclarationCount());
+            }
         }
     }
 
@@ -528,7 +532,8 @@ public class BlockStatementCompiler extends BaseCompiler
             if (instruction.getInstruction() == EInstruction.CAL && !instruction.isUpdatedCall())
             {
                 int methodCalls = 1;
-                for(int i = instruction.getAddress() ; i < instructionsList.size() ; i++)
+                int lastCallAddress = instruction.getAddress(); // recursion loop
+                for(int i = lastCallAddress ; i < instructionsList.size() ; i++)
                 {
                     if (instructionsList.get(i).getInstruction() == EInstruction.RET)
                     {
@@ -536,10 +541,16 @@ public class BlockStatementCompiler extends BaseCompiler
                     }
                     else if(instructionsList.get(i).getInstruction() == EInstruction.CAL)
                     {
+                        if (instructionsList.get(i).getAddress() == lastCallAddress)
+                        {
+                            break;
+                        }
+
                         instructionsList.get(i).setUpdatedCall(true);
                         instructionsList.get(i).setLevel(methodCalls);
                         methodCalls++;
-                        i = instructionsList.get(i).getAddress();
+
+                        lastCallAddress = instructionsList.get(i).getAddress();
                     }
                 }
             }

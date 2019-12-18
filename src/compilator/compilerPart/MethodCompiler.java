@@ -40,11 +40,13 @@ public class MethodCompiler extends BaseCompiler
         {
             methodCustomSize = this.method.getBody().getStatementData().getVariableDeclarationCount() + this.method.getBody().getStatementData().getForStatementCount();
         }
-        int methodSize = this.method.getParameters().size() + this.BASE_METHOD_SIZE + methodCustomSize;
+
+        // space for variables is declared in blockStatement
+        int baseMethodSize = this.method.getParameters().size() + this.BASE_METHOD_SIZE;
 
         // add method to symbol of table, have to be added first, for get address of row to address method call
         // method address pointing at INT instruction of method
-        this.addMethodToSymbolTable(methodSize);
+        this.addMethodToSymbolTable(methodCustomSize, baseMethodSize);
 
         // load parameters from stack
         this.loadParametersToStack();
@@ -52,21 +54,24 @@ public class MethodCompiler extends BaseCompiler
 
         BlockStatementCompiler blockStatementCompiler = new BlockStatementCompiler(this.method.getBody(), 1);
         blockStatementCompiler.setUpInnerBodySettings();
+        // cant be deleted before compile return value
+        blockStatementCompiler.setDeleteLocalVariables(false);
         blockStatementCompiler.run();
 
         if (this.method.getReturnValue() != null)
         {
-            new ExpressionCompiler(this.method.getReturnValue(), this.method.getReturnType()).run();
+            new ExpressionCompiler(this.method.getReturnValue(), this.method.getReturnType(), 1).run();
             this.addInstruction(EInstruction.STO, 0, -(this.method.getParameters().size() + 1));
         }
 
-        this.addInstruction(EInstruction.RET, 0,0);
 
+        blockStatementCompiler.deleteLocalVariables();
         this.deleteParametersFromSymbolOfTable();
 
+        this.addInstruction(EInstruction.RET, 0,0);
     }
 
-    private void addMethodToSymbolTable(int methodSize)
+    private void addMethodToSymbolTable(int methodSize, int baseMethodSize)
     {
         SymbolTableItem symbolTableItem = new SymbolTableItem(this.method.getIdentifier(), 0, this.getInstructionsCounter(), methodSize);
         symbolTableItem.setMethod(true);
@@ -75,7 +80,7 @@ public class MethodCompiler extends BaseCompiler
 
         this.getSymbolTable().addItem(symbolTableItem);
 
-        this.addInstruction(EInstruction.INT, 0, methodSize);
+        this.addInstruction(EInstruction.INT, 0, baseMethodSize);
     }
 
     private void loadParametersToStack()
