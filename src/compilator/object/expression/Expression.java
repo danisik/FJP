@@ -6,11 +6,13 @@ import compilator.enums.EVariableType;
 public class Expression {
 
     private EExpressionType type;
+    private int line;
     private EVariableType expectedReturnType;
 
-    public Expression(EExpressionType type)
+    public Expression(EExpressionType type, int line)
     {
         this.type = type;
+        this.line = line;
     }
 
     public EExpressionType getType()
@@ -32,5 +34,10 @@ public class Expression {
     public void setExpectedReturnType(EVariableType expectedReturnType)
     {
         this.expectedReturnType = expectedReturnType;
+    }
+
+    public int getLine()
+    {
+        return line;
     }
 }

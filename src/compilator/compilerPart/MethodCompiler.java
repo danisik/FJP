@@ -27,7 +27,7 @@ public class MethodCompiler extends BaseCompiler
     {
         if (this.isInSymbolTable(this.method.getIdentifier()))
         {
-            this.getErrorHandler().throwError(new ErrorMethodAlreadyExists(this.method.getIdentifier()));
+            this.getErrorHandler().throwError(new ErrorMethodAlreadyExists(this.method.getIdentifier(), this.method.getLine()));
         }
 
         // new scope, new stack pointer
@@ -87,7 +87,7 @@ public class MethodCompiler extends BaseCompiler
         {
             if (this.isInSymbolTable(parameters.get(i).getIdentifier()))
             {
-                this.getErrorHandler().throwError(new ErrorVariableAlreadyExists(parameters.get(i).getIdentifier()));
+                this.getErrorHandler().throwError(new ErrorVariableAlreadyExists(parameters.get(i).getIdentifier(), this.method.getLine()));
             }
 
             this.addInstruction(EInstruction.LOD, 0, i - parameters.size());

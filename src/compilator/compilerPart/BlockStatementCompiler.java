@@ -150,7 +150,7 @@ public class BlockStatementCompiler extends BaseCompiler
 
         if (this.isInSymbolTable(variable.getName()))
         {
-            this.getErrorHandler().throwError(new ErrorVariableAlreadyExists(variable.getName()));
+            this.getErrorHandler().throwError(new ErrorVariableAlreadyExists(variable.getName(), variable.getLine()));
         }
 
         switch (variable.getType())
@@ -232,17 +232,21 @@ public class BlockStatementCompiler extends BaseCompiler
     {
         if (!this.isInSymbolTable(variable.getValue().toString()))
         {
-            this.getErrorHandler().throwError(new ErrorAssignedVariableNotExists(variable.getValue().toString()));
+            this.getErrorHandler().throwError(new ErrorAssignedVariableNotExists(variable.getValue().toString(),variable.getLine()));
         }
 
         SymbolTableItem assignedValue = this.getSymbolTable().getItem(variable.getValue().toString());
 
         if (variable.getType() != assignedValue.getVariableType())
         {
-            this.getErrorHandler().throwError(new ErrorMismatchTypesVariable(variable.getName(), variable.getType().toString(), assignedValue.getVariableType().toString()));
+            this.getErrorHandler().throwError(new ErrorMismatchTypesVariable(variable.getName(), variable.getType().toString(), assignedValue.getVariableType().toString(), variable.getLine()));
         }
 
         // check constant
+        if (variable.isConstant())
+        {
+            this.getErrorHandler().throwError(new ErrorConstantAssigment(variable.getName(), variable.getLine()));
+        }
 
         // load value on top
         this.addInstruction(EInstruction.LOD, this.level, assignedValue.getAddress());
@@ -272,7 +276,7 @@ public class BlockStatementCompiler extends BaseCompiler
         }
         else
         {
-            this.getErrorHandler().throwError(new ErrorVariableNotExists(statementAssigment.getIdentifier()));
+            this.getErrorHandler().throwError(new ErrorVariableNotExists(statementAssigment.getIdentifier(), statementAssigment.getLine()));
         }
     }
 
@@ -315,7 +319,7 @@ public class BlockStatementCompiler extends BaseCompiler
     {
         if (this.isInSymbolTable(statementFor.getControlFor().getIdentifier()))
         {
-            this.getErrorHandler().throwError(new ErrorVariableAlreadyExists(statementFor.getControlFor().getIdentifier()));
+            this.getErrorHandler().throwError(new ErrorVariableAlreadyExists(statementFor.getControlFor().getIdentifier(), statementFor.getLine()));
         }
 
         new ExpressionCompiler(statementFor.getControlFor().getFrom(), EVariableType.INT).run();
@@ -478,14 +482,15 @@ public class BlockStatementCompiler extends BaseCompiler
                     {
                         this.getErrorHandler().throwError(new ErrorMismatchMethodCallReturnType(methodCall.getIdentifier(),
                                                                                                 methodCall.getExpectedReturnType(),
-                                                                                                symbolTableItem.getMethodReturnType())
+                                                                                                symbolTableItem.getMethodReturnType(),
+                                                                                                methodCall.getLine())
                                                                                                 );
                     }
 
                     // check parameters count
                     if (methodCall.getParameters().size() != symbolTableItem.getMethodDeclarationParameters().size())
                     {
-                        this.getErrorHandler().throwError(new ErrorInvalidParametersCount(symbolTableItem.getName(), symbolTableItem.getMethodDeclarationParameters().size()));
+                        this.getErrorHandler().throwError(new ErrorInvalidParametersCount(symbolTableItem.getName(), symbolTableItem.getMethodDeclarationParameters().size(), methodCall.getLine()));
                     }
 
                     for (int i = 0 ; i < methodCall.getParameters().size() ; i++)
@@ -494,7 +499,7 @@ public class BlockStatementCompiler extends BaseCompiler
                         EVariableType methodType = symbolTableItem.getMethodDeclarationParameters().get(i).getType();
                         if (callType != methodType)
                         {
-                            this.getErrorHandler().throwError(new ErrorMismatchMethodAndCallParameterTypes(methodCall.getIdentifier(), methodType, callType, i + 1));
+                            this.getErrorHandler().throwError(new ErrorMismatchMethodAndCallParameterTypes(methodCall.getIdentifier(), methodType, callType, i + 1, methodCall.getLine()));
                         }
                     }
 
@@ -502,7 +507,7 @@ public class BlockStatementCompiler extends BaseCompiler
                 }
                 else
                 {
-                    this.getErrorHandler().throwError(new ErrorMethodNotExists(methodCall.getIdentifier()));
+                    this.getErrorHandler().throwError(new ErrorMethodNotExists(methodCall.getIdentifier(), methodCall.getLine()));
                 }
             }
         }

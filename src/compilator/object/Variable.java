@@ -25,6 +25,8 @@ public class Variable {
 
     private EVariableDeclaration variableDeclaration;
 
+    private int line;
+
     public Variable(String name, Value value, EVariableType type)
     {
         this.name = name;
@@ -151,5 +153,15 @@ public class Variable {
     public void setExpression(Expression expression)
     {
         this.expression = expression;
+    }
+
+    public int getLine()
+    {
+        return line;
+    }
+
+    public void setLine(int line)
+    {
+        this.line = line;
     }
 }

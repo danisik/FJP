@@ -11,9 +11,9 @@ public class StatementDo extends Statement
     private final Expression expression;
     private final BlockStatement body;
 
-    public StatementDo(Expression expression, BlockStatement body)
+    public StatementDo(Expression expression, BlockStatement body, int line)
     {
-        super(EStatementType.DO_WHILE);
+        super(EStatementType.DO_WHILE, line);
         this.expression = expression;
         this.body = body;
     }

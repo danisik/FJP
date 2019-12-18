@@ -7,9 +7,9 @@ public class StatementMethodCall extends Statement
 {
     private MethodCall methodCall;
 
-    public StatementMethodCall(MethodCall methodCall)
+    public StatementMethodCall(MethodCall methodCall, int line)
     {
-        super(EStatementType.METHOD_CALL);
+        super(EStatementType.METHOD_CALL, line);
         this.methodCall = methodCall;
     }
 

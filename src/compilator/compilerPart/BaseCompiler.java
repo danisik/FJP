@@ -24,7 +24,7 @@ public class BaseCompiler
 
     public final int STACK_POINTER_DEFAULT_VALUE = 3;
 
-    protected static HashMap<String, MethodPrototype> methodPrototype = new HashMap<>();
+    private static HashMap<String, MethodPrototype> methodPrototype = new HashMap<>();
 
     public ArrayList<Instruction> getInstructionsList()
     {

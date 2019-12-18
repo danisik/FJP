@@ -7,9 +7,9 @@ public class StatementDeclaration extends Statement
 {
     private final Variable variable;
 
-    public StatementDeclaration(Variable variable)
+    public StatementDeclaration(Variable variable, int line)
     {
-        super(EStatementType.DECLARATION);
+        super(EStatementType.DECLARATION, line);
         this.variable = variable;
     }
 

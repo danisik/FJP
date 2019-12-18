@@ -8,11 +8,13 @@ public class StatementSwitchBlock
 
     private int identifier;
     private final BlockStatement body;
+    private int line;
     private boolean isSetDefault = false;
 
-    public StatementSwitchBlock(BlockStatement body)
+    public StatementSwitchBlock(BlockStatement body, int line)
     {
         this.body = body;
+        this.line = line;
     }
 
     public StatementSwitchBlock(int identifier, BlockStatement body)
@@ -39,5 +41,15 @@ public class StatementSwitchBlock
     public void setSetDefault(boolean setDefault)
     {
         isSetDefault = setDefault;
+    }
+
+    public int getLine()
+    {
+        return line;
+    }
+
+    public void setLine(int line)
+    {
+        this.line = line;
     }
 }

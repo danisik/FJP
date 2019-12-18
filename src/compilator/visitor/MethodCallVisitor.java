@@ -20,7 +20,7 @@ public class MethodCallVisitor extends SimpleJavaBaseVisitor<MethodCall>
         String identifier = ctx.identifier().getText() + this.METHOD_SYMBOL;
         List<MethodCallParameter> methodCallParameters = this.parseMethodCallParameters(ctx.methodCallParameter());
 
-        return new MethodCall(identifier, methodCallParameters);
+        return new MethodCall(identifier, methodCallParameters, ctx.start.getLine());
     }
 
     private List<MethodCallParameter> parseMethodCallParameters(List<SimpleJavaParser.MethodCallParameterContext> methodCallParameterContextsList)

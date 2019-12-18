@@ -13,9 +13,9 @@ public class ExpressionRelational extends Expression implements IExpression
 
     private EOperatorRelational operatorRelational;
 
-    public ExpressionRelational(Expression leftExpression, Expression rightExpression, EOperatorRelational operatorRelational)
+    public ExpressionRelational(Expression leftExpression, Expression rightExpression, EOperatorRelational operatorRelational, int line)
     {
-        super(EExpressionType.RELATIONAL);
+        super(EExpressionType.RELATIONAL, line);
         this.leftExpression = leftExpression;
         this.rightExpression = rightExpression;
         this.operatorRelational = operatorRelational;

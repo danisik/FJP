@@ -139,12 +139,12 @@ public class VariableVisitor extends SimpleJavaBaseVisitor<Variable> {
             MethodCall methodCall = new MethodCallVisitor().visit(ctx.boolValue().methodCall());
             methodCall.setExpectedReturnType(EMethodReturnType.BOOLEAN);
 
+
             variable = new Variable(name, methodCall, EVariableType.BOOLEAN);
             variable.setVariableDeclaration(EVariableDeclaration.METHOD_CALL);
 
         }
         // boolean a = a && b;
-        // TODO: 07/12/2019 CHECK expression type
         else if (ctx.boolValue().expressionBody() != null)
         {
             Expression expression = new ExpressionBodyVisitor().visit(ctx.boolValue().expressionBody());

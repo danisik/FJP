@@ -11,9 +11,9 @@ public class StatementSwitch extends Statement
     private HashMap<Integer, StatementSwitchBlock> blocks;
     private final StatementSwitchBlock defaultBlock;
 
-    public StatementSwitch(Expression expression, HashMap<Integer, StatementSwitchBlock> blocks, StatementSwitchBlock defaultBlock)
+    public StatementSwitch(Expression expression, HashMap<Integer, StatementSwitchBlock> blocks, StatementSwitchBlock defaultBlock, int line)
     {
-        super(EStatementType.SWITCH);
+        super(EStatementType.SWITCH, line);
         this.expression = expression;
         this.blocks = blocks;
         this.defaultBlock = defaultBlock;

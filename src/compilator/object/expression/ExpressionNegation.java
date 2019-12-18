@@ -6,8 +6,8 @@ public class ExpressionNegation extends Expression {
 
     private Expression expression;
 
-    public ExpressionNegation(Expression expression) {
-        super(EExpressionType.NEGATION);
+    public ExpressionNegation(Expression expression, int line) {
+        super(EExpressionType.NEGATION, line);
         this.expression = expression;
     }
 

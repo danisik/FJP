@@ -9,9 +9,9 @@ public class ExpressionValue extends Expression {
     private Value value;
     private EVariableType type;
 
-    public ExpressionValue(Value value, EVariableType type)
+    public ExpressionValue(Value value, EVariableType type, int line)
     {
-        super(EExpressionType.VALUE);
+        super(EExpressionType.VALUE, line);
         this.value = value;
         this.type = type;
     }

@@ -14,14 +14,16 @@ public class Method
     private final List<MethodDeclarationParameter> parameters;
     private final BlockStatement body;
     private final Expression returnValue;
+    private int line;
 
-    public Method(EMethodReturnType returnType, String identifier, List<MethodDeclarationParameter> parameters, BlockStatement body, Expression returnValue)
+    public Method(EMethodReturnType returnType, String identifier, List<MethodDeclarationParameter> parameters, BlockStatement body, Expression returnValue, int line)
     {
         this.identifier = identifier;
         this.returnType = returnType;
         this.parameters = parameters;
         this.body = body;
         this.returnValue = returnValue;
+        this.line = line;
     }
 
     public String getIdentifier()
@@ -59,5 +61,10 @@ public class Method
                 ", body=" + body +
                 ", returnValue=" + returnValue +
                 '}';
+    }
+
+    public int getLine()
+    {
+        return line;
     }
 }

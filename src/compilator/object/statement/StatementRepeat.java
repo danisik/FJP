@@ -10,9 +10,9 @@ public class StatementRepeat extends Statement
     private final Expression expression;
     private final BlockStatement body;
 
-    public StatementRepeat(Expression expression, BlockStatement body)
+    public StatementRepeat(Expression expression, BlockStatement body, int line)
     {
-        super(EStatementType.REPEAT_UNTIL);
+        super(EStatementType.REPEAT_UNTIL, line);
         this.expression = expression;
         this.body = body;
     }

@@ -33,7 +33,7 @@ public class MethodDeclarationVisitor extends SimpleJavaBaseVisitor<Method>
             returnValue.setExpectedReturnType(returnType == EMethodReturnType.INT ? EVariableType.INT : EVariableType.BOOLEAN);
         }
 
-        return new Method(returnType, identifier, parameters, body, returnValue);
+        return new Method(returnType, identifier, parameters, body, returnValue, ctx.start.getLine());
     }
 
     private List<MethodDeclarationParameter> parseMethodParameters(List<SimpleJavaParser.MethodParameterContext> methodParameterContext)

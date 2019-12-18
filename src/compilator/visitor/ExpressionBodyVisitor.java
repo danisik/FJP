@@ -12,7 +12,7 @@ public class ExpressionBodyVisitor extends SimpleJavaBaseVisitor<Expression>
     @Override
     public Expression visitExprNeg(SimpleJavaParser.ExprNegContext ctx)
     {
-        return new ExpressionNegation(this.visit(ctx.expressionBody()));
+        return new ExpressionNegation(this.visit(ctx.expressionBody()), ctx.start.getLine());
     }
 
     @Override
@@ -22,13 +22,13 @@ public class ExpressionBodyVisitor extends SimpleJavaBaseVisitor<Expression>
         Expression right = this.visit(ctx.expressionBody(1));
         EOperatorAdditive operator = EOperatorAdditive.getSymbol(ctx.op.getText());
 
-        return new ExpressionAdditive(left, right, operator);
+        return new ExpressionAdditive(left, right, operator, ctx.start.getLine());
     }
 
     @Override
     public Expression visitExprPar(SimpleJavaParser.ExprParContext ctx)
     {
-        return new ExpressionPar(this.visit(ctx.expressionBody()));
+        return new ExpressionPar(this.visit(ctx.expressionBody()), ctx.start.getLine());
     }
 
     @Override
@@ -38,13 +38,13 @@ public class ExpressionBodyVisitor extends SimpleJavaBaseVisitor<Expression>
         Expression right = this.visit(ctx.expressionBody(1));
         EOperatorRelational operator = EOperatorRelational.getSymbol(ctx.op.getText());
 
-        return new ExpressionRelational(left, right, operator);
+        return new ExpressionRelational(left, right, operator, ctx.start.getLine());
     }
 
     @Override
     public Expression visitExprIdentifier(SimpleJavaParser.ExprIdentifierContext ctx)
     {
-        return new ExpressionIdentifier(new Value(ctx.identifier().getText()));
+        return new ExpressionIdentifier(new Value(ctx.identifier().getText()), ctx.start.getLine());
     }
 
     @Override
@@ -64,7 +64,7 @@ public class ExpressionBodyVisitor extends SimpleJavaBaseVisitor<Expression>
             type = EVariableType.BOOLEAN;
         }
 
-        return new ExpressionValue(value, type);
+        return new ExpressionValue(value, type, ctx.start.getLine());
     }
 
     @Override
@@ -75,7 +75,7 @@ public class ExpressionBodyVisitor extends SimpleJavaBaseVisitor<Expression>
         EOperatorLogical operator = EOperatorLogical.getSymbol(ctx.op.getText());
 
 
-        return new ExpressionLogical(left, right, operator);
+        return new ExpressionLogical(left, right, operator, ctx.start.getLine());
     }
 
     @Override
@@ -86,7 +86,7 @@ public class ExpressionBodyVisitor extends SimpleJavaBaseVisitor<Expression>
         EOperatorMultiplication operator = EOperatorMultiplication.getSymbol(ctx.op.getText());
 
 
-        return new ExpressionMultiplication(left, right, operator);
+        return new ExpressionMultiplication(left, right, operator, ctx.start.getLine());
     }
 
     @Override
@@ -95,7 +95,7 @@ public class ExpressionBodyVisitor extends SimpleJavaBaseVisitor<Expression>
         // expected return type is set in compilation, we dont know here
         // BlockStatementCompiler::generateAssigmentInstruction()
         MethodCall methodCall = new MethodCallVisitor().visit(ctx.methodCall());
-        return new ExpressionMethodCall(methodCall);
+        return new ExpressionMethodCall(methodCall, ctx.start.getLine());
     }
 
 

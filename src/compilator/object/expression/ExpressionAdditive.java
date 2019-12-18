@@ -12,8 +12,8 @@ public class ExpressionAdditive extends Expression implements IExpression{
 
     private EOperatorAdditive operatorAdditive;
 
-    public ExpressionAdditive(Expression leftExpression, Expression rightExpression, EOperatorAdditive operatorAdditive) {
-        super(EExpressionType.ADDITIVE);
+    public ExpressionAdditive(Expression leftExpression, Expression rightExpression, EOperatorAdditive operatorAdditive, int line) {
+        super(EExpressionType.ADDITIVE, line);
         this.leftExpression = leftExpression;
         this.rightExpression = rightExpression;
         this.operatorAdditive = operatorAdditive;

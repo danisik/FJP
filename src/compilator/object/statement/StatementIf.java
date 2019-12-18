@@ -13,9 +13,9 @@ public class StatementIf extends Statement
     private final BlockStatement bodyIf;
     private final BlockStatement bodyElse;
 
-    public StatementIf(Expression expression, BlockStatement bodyIf, BlockStatement bodyElse)
+    public StatementIf(Expression expression, BlockStatement bodyIf, BlockStatement bodyElse, int line)
     {
-        super(EStatementType.IF);
+        super(EStatementType.IF, line);
         this.expression = expression;
         this.bodyIf = bodyIf;
         this.bodyElse = bodyElse;

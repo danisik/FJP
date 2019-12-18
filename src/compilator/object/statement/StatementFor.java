@@ -10,9 +10,9 @@ public class StatementFor extends Statement
     private final ControlFor controlFor;
     private final BlockStatement body;
 
-    public StatementFor(ControlFor controlFor, BlockStatement body)
+    public StatementFor(ControlFor controlFor, BlockStatement body, int line)
     {
-        super(EStatementType.FOR);
+        super(EStatementType.FOR, line);
         this.controlFor = controlFor;
         this.body = body;
     }

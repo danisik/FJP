@@ -12,9 +12,9 @@ public class ExpressionMultiplication extends Expression implements IExpression{
     private Expression rightExpression;
     private EOperatorMultiplication operatorMultiplication;
 
-    public ExpressionMultiplication(Expression leftExpression, Expression rightExpression, EOperatorMultiplication operatorMultiplication)
+    public ExpressionMultiplication(Expression leftExpression, Expression rightExpression, EOperatorMultiplication operatorMultiplication, int line)
     {
-        super(EExpressionType.MULTIPLICATION);
+        super(EExpressionType.MULTIPLICATION, line);
         this.leftExpression = leftExpression;
         this.rightExpression = rightExpression;
         this.operatorMultiplication = operatorMultiplication;

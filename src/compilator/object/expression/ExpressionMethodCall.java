@@ -7,9 +7,9 @@ public class ExpressionMethodCall extends Expression
 {
     private MethodCall methodCall;
 
-    public ExpressionMethodCall(MethodCall methodCall)
+    public ExpressionMethodCall(MethodCall methodCall, int line)
     {
-        super(EExpressionType.METHOD_CALL);
+        super(EExpressionType.METHOD_CALL, line);
         this.methodCall = methodCall;
     }
 

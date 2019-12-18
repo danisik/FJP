@@ -11,9 +11,9 @@ public class StatementWhile extends Statement
     private final Expression expression;
     private final BlockStatement body;
 
-    public StatementWhile(Expression expression, BlockStatement body)
+    public StatementWhile(Expression expression, BlockStatement body, int line)
     {
-        super(EStatementType.WHILE);
+        super(EStatementType.WHILE, line);
         this.expression = expression;
         this.body = body;
     }

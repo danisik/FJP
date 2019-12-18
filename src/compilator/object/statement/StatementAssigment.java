@@ -9,9 +9,9 @@ public class StatementAssigment extends Statement
 
     private final Expression expression;
 
-    public StatementAssigment(String identifier, Expression expression)
+    public StatementAssigment(String identifier, Expression expression, int line)
     {
-        super(EStatementType.ASSIGMENT);
+        super(EStatementType.ASSIGMENT, line);
         this.identifier = identifier;
         this.expression = expression;
     }

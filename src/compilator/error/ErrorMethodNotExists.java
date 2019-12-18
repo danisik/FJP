@@ -2,8 +2,8 @@ package compilator.error;
 
 public class ErrorMethodNotExists extends Error
 {
-    public ErrorMethodNotExists(String method)
+    public ErrorMethodNotExists(String method, int line)
     {
-        super("Method " + method + " not exists.");
+        super("Method " + method + " not exists.", line);
     }
 }

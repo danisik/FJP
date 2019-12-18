@@ -11,9 +11,9 @@ public class ExpressionLogical extends Expression {
     private Expression rightExpression;
     private EOperatorLogical operatorLogical;
 
-    public ExpressionLogical(Expression leftExpression, Expression rightExpression, EOperatorLogical operatorLogical)
+    public ExpressionLogical(Expression leftExpression, Expression rightExpression, EOperatorLogical operatorLogical, int line)
     {
-        super(EExpressionType.LOGICAL);
+        super(EExpressionType.LOGICAL, line);
         this.leftExpression = leftExpression;
         this.rightExpression = rightExpression;
         this.operatorLogical = operatorLogical;

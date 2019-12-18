@@ -46,7 +46,7 @@ public class ExpressionCompiler extends BaseCompiler
         {
             if (type != this.resultType)
             {
-                this.getErrorHandler().throwError(new ErrorMismatchExpressionResult(this.resultType.toString(), type.toString()));
+                this.getErrorHandler().throwError(new ErrorMismatchExpressionResult(this.resultType.toString(), type.toString(), this.expression.getLine()));
             }
         }
         else
@@ -107,7 +107,7 @@ public class ExpressionCompiler extends BaseCompiler
         }
         else
         {
-            this.getErrorHandler().throwError(new ErrorVariableNotExists(identifier));
+            this.getErrorHandler().throwError(new ErrorVariableNotExists(identifier, expression.getLine()));
         }
 
         return null;
@@ -210,7 +210,7 @@ public class ExpressionCompiler extends BaseCompiler
     {
         if (expression.getMethodCall().getExpectedReturnType() == EMethodReturnType.VOID)
         {
-            this.getErrorHandler().throwError(new ErrorVoidMethodExpression(expression.getMethodCall().getIdentifier()));
+            this.getErrorHandler().throwError(new ErrorVoidMethodExpression(expression.getMethodCall().getIdentifier(), expression.getLine()));
         }
 
         // set up return type of method call from method prototypes
@@ -225,7 +225,7 @@ public class ExpressionCompiler extends BaseCompiler
     {
         if (type1 != expected || type2 != expected)
         {
-            this.getErrorHandler().throwError(new ErrorMismatchTypesExpression(expected.toString(), type1.toString(), type2.toString()));
+            this.getErrorHandler().throwError(new ErrorMismatchTypesExpression(expected.toString(), type1.toString(), type2.toString(), this.expression.getLine()));
         }
     }
 
@@ -233,7 +233,7 @@ public class ExpressionCompiler extends BaseCompiler
     {
         if (type != expected)
         {
-            this.getErrorHandler().throwError(new ErrorMismatchExpressionResult(expected.toString(), type.toString()));
+            this.getErrorHandler().throwError(new ErrorMismatchExpressionResult(expected.toString(), type.toString(), this.expression.getLine()));
         }
     }
 

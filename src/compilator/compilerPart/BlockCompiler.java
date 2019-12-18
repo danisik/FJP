@@ -1,5 +1,6 @@
 package compilator.compilerPart;
 
+import compilator.error.ErrorMethodAlreadyExists;
 import compilator.object.Block;
 import compilator.object.method.Method;
 import compilator.object.method.MethodPrototype;
@@ -36,6 +37,11 @@ public class BlockCompiler extends BaseCompiler
         List<Method> methods = this.block.getBlockStatement().getMethods();
         for(Method method : methods)
         {
+            if (this.getMethodPrototypes().containsKey(method.getIdentifier()))
+            {
+                this.getErrorHandler().throwError(new ErrorMethodAlreadyExists(method.getIdentifier(), method.getLine()));
+            }
+
             MethodPrototype prototype = new MethodPrototype(method.getIdentifier(), method.getReturnType());
             this.getMethodPrototypes().put(prototype.getName(), prototype);
         }
