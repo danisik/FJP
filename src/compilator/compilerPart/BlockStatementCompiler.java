@@ -16,13 +16,44 @@ import java.util.Map;
 
 public class BlockStatementCompiler extends BaseCompiler
 {
+    /**
+     * Block statement instance
+     */
     private BlockStatement blockStatement;
+
+    /**
+     * Block statement data
+     */
     private StatementData statementData;
+
+    /**
+     * level of instructions
+     */
     private int level;
+
+    /**
+     * Should be methods generated
+     */
     private boolean generateMethods = true;
+
+    /**
+     * Should be stack increased
+     */
     private boolean increaseStack = true;
+
+    /**
+     * Should be return generated
+     */
     private boolean generateReturn = true;
+
+    /**
+     * Should be local variables deleted
+     */
     private boolean deleteLocalVariables = false;
+
+    /**
+     * Should be allocated space for variables
+     */
     private boolean createLocalSpaceForLocalVariables = false;
 
     public BlockStatementCompiler(BlockStatement blockStatement, int level)
@@ -31,11 +62,15 @@ public class BlockStatementCompiler extends BaseCompiler
 
         if (blockStatement != null)
         {
+            // for better access
             this.statementData = blockStatement.getStatementData();
         }
         this.level = level;
     }
 
+    /**
+     * Processes block to instructions
+     */
     public void run()
     {
         if (this.blockStatement == null)
@@ -74,7 +109,10 @@ public class BlockStatementCompiler extends BaseCompiler
         }
     }
 
-
+    /**
+     * Increase stack for variables
+     * depends on settings
+     */
     private void incrementStackForVariables()
     {
         // used in main block
@@ -90,6 +128,9 @@ public class BlockStatementCompiler extends BaseCompiler
         }
     }
 
+    /**
+     * Compile methods to instructions, called after statements
+     */
     private void generateInstructionForMethods()
     {
         for (Method method: this.blockStatement.getMethods())
@@ -98,6 +139,9 @@ public class BlockStatementCompiler extends BaseCompiler
         }
     }
 
+    /**
+     * Statements processing
+     */
     private void generateInstructionForStatements()
     {
         for (Statement statement: this.statementData.getStatements())
@@ -170,6 +214,12 @@ public class BlockStatementCompiler extends BaseCompiler
         }
     }
 
+    /**
+     * Adds variable to symbol table
+     * @param name
+     * @param variable
+     * @return
+     */
     private SymbolTableItem addVariable(String name, Variable variable)
     {
         SymbolTableItem symbolTableItem = new SymbolTableItem(name, this.level, this.getAndIncreaseStackPointer(), 0);
@@ -184,7 +234,10 @@ public class BlockStatementCompiler extends BaseCompiler
         return symbolTableItem;
     }
 
-
+    /**
+     * Generate instructions for int variable depends on variable type
+     * @param variable
+     */
     private void variableIntInstruction(Variable variable)
     {
         switch (variable.getVariableDeclaration())
@@ -204,6 +257,10 @@ public class BlockStatementCompiler extends BaseCompiler
         }
     }
 
+    /**
+     * Generate instructions for boolean variable depends on variable type
+     * @param variable
+     */
     private void variableBooleanInstruction(Variable variable)
     {
         switch (variable.getVariableDeclaration())
@@ -223,8 +280,13 @@ public class BlockStatementCompiler extends BaseCompiler
         }
     }
 
+    /**
+     * Generate instructions for declaration via assigment
+     * @param variable
+     */
     private void variableAssigmentIdentifier(Variable variable)
     {
+        // check if exists
         if (!this.isInSymbolTable(variable.getValue().toString()))
         {
             this.getErrorHandler().throwError(new ErrorAssignedVariableNotExists(variable.getValue().toString(),variable.getLine()));
@@ -232,26 +294,31 @@ public class BlockStatementCompiler extends BaseCompiler
 
         SymbolTableItem assignedValue = this.getSymbolTable().getItem(variable.getValue().toString());
 
+        // check if assigned value match witch variable type
         if (variable.getType() != assignedValue.getVariableType())
         {
             this.getErrorHandler().throwError(new ErrorMismatchTypesVariable(variable.getName(), variable.getType().toString(), assignedValue.getVariableType().toString(), variable.getLine()));
-        }
-
-        // check constant
-        if (variable.isConstant())
-        {
-            this.getErrorHandler().throwError(new ErrorConstantAssigment(variable.getName(), variable.getLine()));
         }
 
         // load value on top
         this.addInstruction(EInstruction.LOD, this.level, assignedValue.getAddress());
     }
 
+    /**
+     * Generate assigment instructions
+     * @param statementAssigment
+     */
     private void generateAssigmentInstruction(StatementAssigment statementAssigment)
     {
         if (this.isInSymbolTable(statementAssigment.getIdentifier()))
         {
             SymbolTableItem symbolTableItem = this.getSymbolTable().getItem(statementAssigment.getIdentifier());
+
+            // check constant
+            if (symbolTableItem.isConstant())
+            {
+                this.getErrorHandler().throwError(new ErrorConstantAssigment(symbolTableItem.getName(), statementAssigment.getLine()));
+            }
 
             // need to set methodCall expected return value here. In assigment visitor we dont know variable type
             if (statementAssigment.getExpression().getType() == EExpressionType.METHOD_CALL)
@@ -259,6 +326,7 @@ public class BlockStatementCompiler extends BaseCompiler
                 ExpressionMethodCall expressionMethodCall = (ExpressionMethodCall) statementAssigment.getExpression();
                 EMethodReturnType methodReturnType = symbolTableItem.getVariableType() == EVariableType.INT ? EMethodReturnType.INT : EMethodReturnType.BOOLEAN;
                 expressionMethodCall.getMethodCall().setExpectedReturnType(methodReturnType);
+
                 new ExpressionCompiler(expressionMethodCall, symbolTableItem.getVariableType(), this.level).run();
             }
             else
@@ -267,6 +335,7 @@ public class BlockStatementCompiler extends BaseCompiler
                 new ExpressionCompiler(statementAssigment.getExpression(), symbolTableItem.getVariableType(), this.level).run();
             }
 
+            // loads value on top of stack
             this.addInstruction(EInstruction.STO, this.level - symbolTableItem.getLevel(), symbolTableItem.getAddress());
         }
         else
@@ -275,13 +344,17 @@ public class BlockStatementCompiler extends BaseCompiler
         }
     }
 
+    /**
+     * Generate instructions for if statement
+     * @param statementIf
+     */
     private void generateIfInstructions(StatementIf statementIf)
     {
         new ExpressionCompiler(statementIf.getExpression(), EVariableType.BOOLEAN, this.level).run();
 
         int jmcElseRow = this.getInstructionsCounter();
 
-        // jmo to else/end if
+        // jmp to else/end if
         this.addInstruction(EInstruction.JMC, 0, -1); // address is set later
 
         BlockStatementCompiler blockStatementCompiler = new BlockStatementCompiler(statementIf.getBodyIf(), 0);
@@ -310,8 +383,13 @@ public class BlockStatementCompiler extends BaseCompiler
         }
     }
 
+    /**
+     * Generate instructions for for statement
+     * @param statementFor
+     */
     private void generateForInstructions(StatementFor statementFor)
     {
+        // check if for iterator not exists in symbol table
         if (this.isInSymbolTable(statementFor.getControlFor().getIdentifier()))
         {
             this.getErrorHandler().throwError(new ErrorVariableAlreadyExists(statementFor.getControlFor().getIdentifier(), statementFor.getLine()));
@@ -319,47 +397,61 @@ public class BlockStatementCompiler extends BaseCompiler
 
         new ExpressionCompiler(statementFor.getControlFor().getFrom(), EVariableType.INT, this.level).run();
 
+        // load for iterator from stack
         SymbolTableItem symbolTableItem = new SymbolTableItem(statementFor.getControlFor().getIdentifier(), this.level, this.getAndIncreaseStackPointer(), 0);
         symbolTableItem.setIsVariable(true);
         symbolTableItem.setVariableType(EVariableType.INT);
 
         this.getSymbolTable().addItem(symbolTableItem);
 
+        // store from value
         this.addInstruction(EInstruction.STO, 0, symbolTableItem.getAddress());
 
         int startIndex = this.getInstructionsCounter();
 
+        // load from value
         this.addInstruction(EInstruction.LOD, 0, symbolTableItem.getAddress());
 
+        // process to value
         new ExpressionCompiler(statementFor.getControlFor().getTo(), EVariableType.INT, this.level).run();
 
+        // compare them
         this.addInstruction(EInstruction.OPR, 0, EInstructionOperation.LESS_EQ.getCode());
 
         int jmcEndIndex = this.getInstructionsCounter();
-        this.addInstruction(EInstruction.JMC, 0, -1);
+        // jmc to over block
+        this.addInstruction(EInstruction.JMC, 0, -1); // address set later
 
-
+        // process body
         BlockStatementCompiler blockStatementCompiler = new BlockStatementCompiler(statementFor.getBody(), 0);
         blockStatementCompiler.setUpInnerBodySettings();
         blockStatementCompiler.run();
 
+        // increase iterator
         this.addInstruction(EInstruction.LOD, 0, symbolTableItem.getAddress());
         this.addInstruction(EInstruction.LIT, 0, 1);
         this.addInstruction(EInstruction.OPR, 0, EInstructionOperation.PLUS.getCode());
         this.addInstruction(EInstruction.STO, 0, symbolTableItem.getAddress());
         this.addInstruction(EInstruction.JMP, 0, startIndex);
 
+        // set over jump address
         this.getInstructionsList().get(jmcEndIndex).setAddress(this.getInstructionsCounter());
     }
 
+    /**
+     * Generate instruction for while
+     * @param statementWhile
+     */
     private void generateWhileInstructions(StatementWhile statementWhile)
     {
         int startIndex = this.getInstructionsCounter();
+        // process expression
         new ExpressionCompiler(statementWhile.getExpression(), EVariableType.BOOLEAN, this.level).run();
 
         int jmcIndex = this.getInstructionsCounter();
         this.addInstruction(EInstruction.JMC, 0, -1);
 
+        // process body
         BlockStatementCompiler blockStatementCompiler = new BlockStatementCompiler(statementWhile.getBody(), 0);
         blockStatementCompiler.setUpInnerBodySettings();
         blockStatementCompiler.run();
@@ -371,14 +463,20 @@ public class BlockStatementCompiler extends BaseCompiler
         this.getInstructionsList().get(jmcIndex).setAddress(this.getInstructionsCounter());
     }
 
+    /**
+     * Generate do while instructions
+     * @param statementDoWhile
+     */
     private void generateDoWhileInstructions(StatementDo statementDoWhile)
     {
         int startIndex = this.getInstructionsCounter();
 
+        //process body
         BlockStatementCompiler blockStatementCompiler = new BlockStatementCompiler(statementDoWhile.getBody(), 0);
         blockStatementCompiler.setUpInnerBodySettings();
         blockStatementCompiler.run();
 
+        // process expression
         new ExpressionCompiler(statementDoWhile.getExpression(), EVariableType.BOOLEAN, this.level).run();
 
         int jmcIndex = this.getInstructionsCounter();
@@ -392,47 +490,70 @@ public class BlockStatementCompiler extends BaseCompiler
 
     }
 
+    /**
+     * Generate instructions for method call
+     * @param statementMethodCall
+     */
     private void generateMethodCallInstructions(StatementMethodCall statementMethodCall)
     {
+        // call method call compiler
         new MethodCallCompiler(statementMethodCall.getMethodCall(), this.level).run();
     }
 
+    /**
+     * Generate instructions for repeat until
+     * @param statementRepeatUntil
+     */
     private void generateRepeatUntilInstructions(StatementRepeat statementRepeatUntil)
     {
         int startAddress = this.getInstructionsCounter();
 
+        // process body
         BlockStatementCompiler blockStatementCompiler = new BlockStatementCompiler(statementRepeatUntil.getBody(), 0);
         blockStatementCompiler.setUpInnerBodySettings();
         blockStatementCompiler.run();
 
+        // process expression
         new ExpressionCompiler(statementRepeatUntil.getExpression(), EVariableType.BOOLEAN,this.level).run();
 
         // jump back if false
         this.addInstruction(EInstruction.JMC, 0, startAddress);
     }
 
+    /**
+     * Generate instructions for switch
+     * @param statementSwitch
+     */
     private void generateSwitchInstructions(StatementSwitch statementSwitch)
     {
         ArrayList<Integer> jmpIndexes = new ArrayList<>();
 
+        // create switch blocks
         for(Map.Entry<Integer, StatementSwitchBlock> block : statementSwitch.getBlocks().entrySet()) {
             int key = block.getKey();
             StatementSwitchBlock body = block.getValue();
 
+            // process expression - switch value
             new ExpressionCompiler(statementSwitch.getExpression(), EVariableType.INT, this.level).run();
 
             this.addInstruction(EInstruction.LIT, 0, key);
+
+            // compare block key witch switch value
             this.addInstruction(EInstruction.OPR, 0, EInstructionOperation.EQ.getCode());
 
             int jmcIndex = this.getInstructionsCounter();
+            // jump to next block if key and switch value not equals
             this.addInstruction(EInstruction.JMC, 0, -1);
 
+            // process body
             BlockStatementCompiler blockStatementCompiler = new BlockStatementCompiler(body.getBody(), 0);
             blockStatementCompiler.setUpInnerBodySettings();
             blockStatementCompiler.run();
 
             int jmpEndIndex = this.getInstructionsCounter();
+            // list of end jumps
             jmpIndexes.add(jmpEndIndex);
+            // jump to switch end
             this.addInstruction(EInstruction.JMP, 0, -1);
 
             this.getInstructionsList().get(jmcIndex).setAddress(this.getInstructionsCounter());
@@ -460,6 +581,9 @@ public class BlockStatementCompiler extends BaseCompiler
         this.generateMethods = generateMethods;
     }
 
+    /**
+     * Update method call address
+     */
     private void initializeMethodsInInstructions()
     {
         for (Instruction instruction : this.getInstructionsList())
@@ -468,6 +592,7 @@ public class BlockStatementCompiler extends BaseCompiler
             {
                 MethodCall methodCall = instruction.getMethodCall();
 
+                // check if method exists
                 if (this.isInSymbolTable(methodCall.getIdentifier()))
                 {
                     SymbolTableItem symbolTableItem = this.getSymbolTable().getItem(methodCall.getIdentifier());
@@ -488,6 +613,7 @@ public class BlockStatementCompiler extends BaseCompiler
                         this.getErrorHandler().throwError(new ErrorInvalidParametersCount(symbolTableItem.getName(), symbolTableItem.getMethodDeclarationParameters().size(), methodCall.getLine()));
                     }
 
+                    // check parameter types
                     for (int i = 0 ; i < methodCall.getParameters().size() ; i++)
                     {
                         EVariableType callType = methodCall.getParameters().get(i).getVariableType();
@@ -508,6 +634,9 @@ public class BlockStatementCompiler extends BaseCompiler
         }
     }
 
+    /**
+     * Delete local variables and decrease stack space
+     */
     public void deleteLocalVariables()
     {
         // check if variables exists
@@ -525,6 +654,9 @@ public class BlockStatementCompiler extends BaseCompiler
         }
     }
 
+    /**
+     * Update nested method call levels
+     */
     private void updateCallLevel()
     {
         for (Instruction instruction : this.getInstructionsList())
@@ -535,12 +667,15 @@ public class BlockStatementCompiler extends BaseCompiler
                 int lastCallAddress = instruction.getAddress(); // recursion loop
                 for(int i = lastCallAddress ; i < instructionsList.size() ; i++)
                 {
+                    // if return is no more nested calls
                     if (instructionsList.get(i).getInstruction() == EInstruction.RET)
                     {
                         break;
                     }
+                    // if call instruction update level
                     else if(instructionsList.get(i).getInstruction() == EInstruction.CAL)
                     {
+                        // against recursion
                         if (instructionsList.get(i).getAddress() == lastCallAddress)
                         {
                             break;
@@ -572,6 +707,9 @@ public class BlockStatementCompiler extends BaseCompiler
         this.deleteLocalVariables = deleteLocalVariables;
     }
 
+    /**
+     * Set up settings for all blocks except main block
+     */
     public void setUpInnerBodySettings()
     {
         this.setGenerateMethods(false);

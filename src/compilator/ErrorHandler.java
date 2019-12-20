@@ -13,6 +13,10 @@ public class ErrorHandler
         return instance;
     }
 
+    /**
+     * Print error message and ends program
+     * @param error instance of Error
+     */
     public void throwError(Error error)
     {
         System.out.println(error);

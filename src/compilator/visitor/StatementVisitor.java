@@ -1,10 +1,11 @@
 package compilator.visitor;
 
 
+import compilator.ErrorHandler;
 import compilator.enums.EMethodReturnType;
 import compilator.enums.EVariableType;
+import compilator.error.ErrorSwitchMultipleDefaultBlock;
 import compilator.object.BlockStatement;
-import compilator.object.Body;
 import compilator.object.control.ControlFor;
 import compilator.object.method.MethodCall;
 import compilator.object.Variable;
@@ -20,11 +21,17 @@ import java.util.List;
 public class StatementVisitor extends SimpleJavaBaseVisitor<Statement>
 {
 
+    /**
+     * Visitor for StatementIf()
+     * @param ctx StatementIf context
+     * @return
+     */
     @Override
     public StatementIf visitStatementIf(SimpleJavaParser.StatementIfContext ctx)
     {
         Expression expression = new ExpressionVisitor().visit(ctx.expression());
         expression.setExpectedReturnType(EVariableType.BOOLEAN);
+
         BlockStatement bodyIf = new BlockBodyVisitor().visit(ctx.body(0).blockBody());
 
         BlockStatement bodyElse = null;
@@ -38,11 +45,18 @@ public class StatementVisitor extends SimpleJavaBaseVisitor<Statement>
         return new StatementIf(expression, bodyIf, bodyElse, ctx.start.getLine());
     }
 
+    /**
+     * visitor for StatementFor()
+     * @param ctx StatementFor context
+     * @return
+     */
     @Override
     public StatementFor visitStatementFor(SimpleJavaParser.StatementForContext ctx)
     {
         ControlFor controlFor = new ForControlVisitor().visit(ctx.forControl());
+
         BlockStatement body;
+
         if (ctx.body().blockBody() == null)
         {
             body = null;
@@ -55,6 +69,11 @@ public class StatementVisitor extends SimpleJavaBaseVisitor<Statement>
         return new StatementFor(controlFor, body, ctx.start.getLine());
     }
 
+    /**
+     * Visitor for StatementWhile()
+     * @param ctx StatementWhile context
+     * @return
+     */
     @Override
     public StatementWhile visitStatementWhile(SimpleJavaParser.StatementWhileContext ctx)
     {
@@ -77,8 +96,11 @@ public class StatementVisitor extends SimpleJavaBaseVisitor<Statement>
     public StatementSwitch visitStatementSwitch(SimpleJavaParser.StatementSwitchContext ctx)
     {
         List<SimpleJavaParser.SwitchBlockStatementContext> switchBlocks = ctx.switchBlockStatement();
+
         HashMap<Integer, StatementSwitchBlock> switchBlockHashMap = new HashMap<>();
+
         StatementSwitchBlock defaultBlock = null;
+
         Expression expression = new ExpressionVisitor().visit(ctx.expression());
 
         for (SimpleJavaParser.SwitchBlockStatementContext switchBlockStatement : switchBlocks)
@@ -92,9 +114,13 @@ public class StatementVisitor extends SimpleJavaBaseVisitor<Statement>
                 switchBlockHashMap.put(identifier, stmtSwitchBlock);
             }
             // default block
-            // TO-DO validation only single default block
             else
             {
+                if (defaultBlock != null)
+                {
+                    ErrorHandler.getInstance().throwError(new ErrorSwitchMultipleDefaultBlock(switchBlockStatement.start.getLine()));
+                }
+
                 BlockStatement body = new BlockBodyVisitor().visit(switchBlockStatement.body().blockBody());
                 defaultBlock = new StatementSwitchBlock(body, switchBlockStatement.body().blockBody().start.getLine());
             }
@@ -103,6 +129,11 @@ public class StatementVisitor extends SimpleJavaBaseVisitor<Statement>
         return new StatementSwitch(expression, switchBlockHashMap, defaultBlock, ctx.start.getLine());
     }
 
+    /**
+     * Visitor for StatementRepeat()
+     * @param ctx StatementRepeat context
+     * @return
+     */
     @Override
     public StatementRepeat visitStatementRepeat(SimpleJavaParser.StatementRepeatContext ctx)
     {
@@ -112,6 +143,11 @@ public class StatementVisitor extends SimpleJavaBaseVisitor<Statement>
         return new StatementRepeat(expression, body, ctx.start.getLine());
     }
 
+    /**
+     * Visitor for StatementMethodCall()
+     * @param ctx StatementMethodCall context
+     * @return
+     */
     @Override
     public Statement visitStatementMethodCall(SimpleJavaParser.StatementMethodCallContext ctx)
     {
@@ -122,6 +158,11 @@ public class StatementVisitor extends SimpleJavaBaseVisitor<Statement>
         return new StatementMethodCall(methodCall, ctx.start.getLine());
     }
 
+    /**
+     * Visitor for StatementAssigment()
+     * @param ctx StatementAssigment
+     * @return
+     */
     @Override
     public Statement visitStatementAssigment(SimpleJavaParser.StatementAssigmentContext ctx)
     {
@@ -131,13 +172,17 @@ public class StatementVisitor extends SimpleJavaBaseVisitor<Statement>
         return new StatementAssigment(identifier, expression, ctx.start.getLine());
     }
 
+    /**
+     * Visitor for StatementVariableDeclaration
+     * @param ctx StatementVariableDeclaration context
+     * @return
+     */
     @Override
     public Statement visitStatementVariableDeclaration(SimpleJavaParser.StatementVariableDeclarationContext ctx)
     {
         Variable variable = new VariableVisitor().visit(ctx.variableDeclaration());
         variable.setLine(ctx.start.getLine());
+
         return new StatementDeclaration(variable, ctx.start.getLine());
     }
-
-
 }

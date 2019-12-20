@@ -2,15 +2,23 @@ package compilator.object.statement;
 
 import compilator.enums.EStatementType;
 import compilator.object.BlockStatement;
-import compilator.object.Body;
 import compilator.object.expression.Expression;
 
 public class StatementIf extends Statement
 {
-
-
+    /**
+     * Condition
+     */
     private final Expression expression;
+
+    /**
+     * If body
+     */
     private final BlockStatement bodyIf;
+
+    /**
+     * Else body
+     */
     private final BlockStatement bodyElse;
 
     public StatementIf(Expression expression, BlockStatement bodyIf, BlockStatement bodyElse, int line)

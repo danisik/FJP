@@ -1,14 +1,27 @@
 package compilator.object.statement;
 
 import compilator.object.BlockStatement;
-import compilator.object.Body;
 
 public class StatementSwitchBlock
 {
-
+    /**
+     * Switch block identifier
+     */
     private int identifier;
+
+    /**
+     * Switch block body
+     */
     private final BlockStatement body;
+
+    /**
+     * Switch block declared line
+     */
     private int line;
+
+    /**
+     * Is set default block indication
+     */
     private boolean isSetDefault = false;
 
     public StatementSwitchBlock(BlockStatement body, int line)

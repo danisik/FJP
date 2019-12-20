@@ -1,5 +1,8 @@
 package compilator.object;
 
+/**
+ * Represent of program in internal structure
+ */
 public class Program {
 
     private Block block;

@@ -1,5 +1,9 @@
 package compilator.value;
 
+/**
+ * Stores all types of values
+ * In getting you have to know what you want (Variable type)
+ */
 public class Value
 {
     final private Object value;

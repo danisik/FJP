@@ -8,7 +8,14 @@ import compilator.object.method.MethodCallParameter;
 
 public class MethodCallCompiler extends BaseCompiler
 {
+    /**
+     * Method call object
+     */
     private MethodCall methodCall;
+
+    /**
+     * level of call
+     */
     private int level;
 
     public MethodCallCompiler(MethodCall methodCall, int level)
@@ -17,11 +24,14 @@ public class MethodCallCompiler extends BaseCompiler
         this.level = level;
     }
 
+    /**
+     * Processes method call to instructions
+     */
     public void run()
     {
         if (methodCall.getExpectedReturnType() != EMethodReturnType.VOID)
         {
-            // return value
+            // add space for return value
             this.addInstruction(EInstruction.INT, 0, 1);
         }
 
@@ -37,11 +47,10 @@ public class MethodCallCompiler extends BaseCompiler
         // add call
         this.addMethodCallInstruction(EInstruction.CAL, this.level, methodCall);
 
-        // remove parameterst from stack top
+        // remove parameters from stack top
         for (int i = 0 ; i < this.methodCall.getParameters().size() ; i++)
         {
             this.addInstruction(EInstruction.STO, 0, -1);
         }
-
     }
 }

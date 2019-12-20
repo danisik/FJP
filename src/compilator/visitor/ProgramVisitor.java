@@ -6,6 +6,11 @@ import generate.SimpleJavaParser;
 
 public class ProgramVisitor extends SimpleJavaBaseVisitor<Program> {
 
+    /**
+     * Visitor for Program()
+     * @param ctx Program context
+     * @return
+     */
     @Override
     public Program visitProgram(SimpleJavaParser.ProgramContext ctx)
     {

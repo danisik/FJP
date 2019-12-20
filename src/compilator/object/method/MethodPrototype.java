@@ -7,7 +7,14 @@ import java.util.List;
 
 public class MethodPrototype
 {
+    /**
+     * Method name
+     */
     private String name;
+
+    /**
+     * Method parameters
+     */
     private EMethodReturnType methodReturnType;
 
     public MethodPrototype(String name, EMethodReturnType methodReturnType)

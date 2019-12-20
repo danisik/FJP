@@ -23,6 +23,11 @@ public class Compilator
         return instance;
     }
 
+    /**
+     * Main body of compiler. Process input and create file with PL/0 instructions
+     * @param input input file
+     * @param output output file
+     */
     public void run(CharStream input, String output)
     {
         SimpleJavaLexer lexer = new SimpleJavaLexer(input);
@@ -42,6 +47,7 @@ public class Compilator
         Program program = null;
         try
         {
+            // processes tree into internal structure
             program = new ProgramVisitor().visit(parseTree);
         }
         catch (Exception e)
@@ -52,8 +58,11 @@ public class Compilator
 
         try
         {
+            // processes internal structure into instructions
             InstructionGenerator instructionGenerator = new InstructionGenerator(program);
             List<Instruction> instructions = instructionGenerator.generateInstructions();
+
+            // write instructions into file
             this.writeInstructions(output, instructions);
         }
         catch (Exception e)
@@ -63,6 +72,11 @@ public class Compilator
         }
     }
 
+    /**
+     * Handles writing to file
+     * @param outputFile output file
+     * @param instructions instructions list
+     */
     private void writeInstructions(String outputFile, List<Instruction> instructions)
     {
         PrintWriter writer = null;

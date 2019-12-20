@@ -12,37 +12,73 @@ import java.util.HashMap;
 
 public class BaseCompiler
 {
+    /**
+     * Instruction list
+     */
     protected static ArrayList<Instruction> instructionsList = new ArrayList<>();
 
+    /**
+     * Instance of symbol table
+     */
     protected static SymbolTable symbolTable = new SymbolTable();
 
+    /**
+     * Instruction counter
+     */
     private static int instructionsCounter = 0;
 
+    /**
+     * Constant for method default size
+     */
     protected final int BASE_METHOD_SIZE = 3;
 
+    /**
+     * Stack pointer
+     */
     private static int stackPointer = 3;
 
+    /**
+     * Default value of stack pointer
+     */
     public final int STACK_POINTER_DEFAULT_VALUE = 3;
 
+    /**
+     * List of method prototypes
+     */
     private static HashMap<String, MethodPrototype> methodPrototype = new HashMap<>();
 
-    public ArrayList<Instruction> getInstructionsList()
-    {
-        return instructionsList;
-    }
-
+    /**
+     * Instance of error handler
+     */
     protected static ErrorHandler errorHandler = ErrorHandler.getInstance();
 
+    /**
+     * Adds normal instruction to instruction list
+     * @param instruction
+     * @param level
+     * @param address
+     */
     protected void addInstruction(EInstruction instruction, int level, int address)
     {
         instructionsList.add(new Instruction(instruction, this.getInstructionsCounter(), level, address));
         instructionsCounter++;
     }
 
+    /**
+     * Adds method call instruction to instruction list
+     * @param instruction
+     * @param level
+     * @param methodCall
+     */
     protected void addMethodCallInstruction(EInstruction instruction, int level, MethodCall methodCall)
     {
         instructionsList.add(new Instruction(instruction, this.getInstructionsCounter(), level, methodCall));
         instructionsCounter++;
+    }
+
+    public ArrayList<Instruction> getInstructionsList()
+    {
+        return instructionsList;
     }
 
     protected int getStackPointer()

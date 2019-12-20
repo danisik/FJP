@@ -2,29 +2,70 @@ package compilator.object.symbolTable;
 
 import compilator.enums.EMethodReturnType;
 import compilator.enums.EVariableType;
-import compilator.object.Variable;
 import compilator.object.method.MethodDeclarationParameter;
-
 import java.util.List;
 
+/**
+ * Represent record in Symbol table
+ */
 public class SymbolTableItem
 {
-
+    /**
+     * identifier
+     */
     private String name;
+
+    /**
+     * level
+     */
     private int level;
+
+    /**
+     * address
+     */
     private int address;
+
+    /**
+     * size
+     */
     private int size;
 
-    // additional info variable
+    // additional info - variable
+    /**
+     * indication if record belongs to variable
+     */
     private boolean isVariable = false;
+
+    /**
+     * indication if record is constant
+     */
     private boolean isConstant = false;
+
+    /**
+     * indication of variable type
+     */
     private EVariableType variableType = null;
 
 
-    // additional info method
+    // additional info - method
+    /**
+     * indication if record belongs to method
+     */
     private boolean isMethod = false;
+
+    /**
+     * indication of method identifier
+     */
     private String methodIdentifier = null;
+
+    /**
+     * method return value
+     */
     private EMethodReturnType methodReturnType = null;
+
+    /**
+     * method parameters - for later check
+     */
     private List<MethodDeclarationParameter> methodDeclarationParameters = null;
 
     public SymbolTableItem(String name, int level, int address, int size)

@@ -8,18 +8,25 @@ import compilator.object.expression.Expression;
 import compilator.object.method.MethodCall;
 import compilator.value.Value;
 import generate.*;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class VariableVisitor extends SimpleJavaBaseVisitor<Variable> {
+
+    /**
+     * Visitor for VariableDeclaration ()
+     * @param ctx VariableDeclaration context
+     * @return
+     */
     @Override
     public Variable visitVariableDeclaration(SimpleJavaParser.VariableDeclarationContext ctx) {
 
+        // create decimal variable
         if (ctx.localVariableDeclaration() != null)
         {
             return this.createVariable(ctx.localVariableDeclaration());
         }
+        // create constant variable
         else if (ctx.constVariableDeclaration() != null)
         {
             return this.createConstantVariable(ctx.constVariableDeclaration());
@@ -28,6 +35,11 @@ public class VariableVisitor extends SimpleJavaBaseVisitor<Variable> {
         return null;
     }
 
+    /**
+     * Creates constant variable
+     * @param ctx ConstVariableDeclaration context
+     * @return
+     */
     private Variable createConstantVariable(SimpleJavaParser.ConstVariableDeclarationContext ctx)
     {
         Variable variable = this.createVariable(ctx.localVariableDeclaration());
@@ -36,9 +48,15 @@ public class VariableVisitor extends SimpleJavaBaseVisitor<Variable> {
         return variable;
     }
 
+    /**
+     * Creates variable
+     * @param ctx LocalVariableDeclaration context
+     * @return
+     */
     private Variable createVariable(SimpleJavaParser.LocalVariableDeclarationContext ctx)
     {
         Variable variable = null;
+
         // decimal
         if (ctx.decimalVariable() != null)
         {
@@ -53,6 +71,11 @@ public class VariableVisitor extends SimpleJavaBaseVisitor<Variable> {
         return  variable;
     }
 
+    /**
+     * Creates decimal variable
+     * @param ctx DecimalVariable context
+     * @return
+     */
     private Variable createDecimal(SimpleJavaParser.DecimalVariableContext ctx)
     {
         Variable variable = null;
@@ -98,7 +121,7 @@ public class VariableVisitor extends SimpleJavaBaseVisitor<Variable> {
             variable.setVariableDeclaration(EVariableDeclaration.EXPRESSION);
         }
 
-
+        // check parallel declaration
         if (ctx.paralelDeclaration() != null)
         {
             if (variable != null)
@@ -110,6 +133,11 @@ public class VariableVisitor extends SimpleJavaBaseVisitor<Variable> {
         return variable;
     }
 
+    /**
+     * Creates boolean variable
+     * @param ctx BoolVariable context
+     * @return
+     */
     private Variable createBoolean(SimpleJavaParser.BoolVariableContext ctx)
     {
         Variable variable = null;
@@ -153,7 +181,7 @@ public class VariableVisitor extends SimpleJavaBaseVisitor<Variable> {
             variable.setVariableDeclaration(EVariableDeclaration.EXPRESSION);
         }
 
-
+        // check parallel declaration
         if (ctx.paralelDeclaration() != null)
         {
             if (variable != null)
@@ -165,7 +193,11 @@ public class VariableVisitor extends SimpleJavaBaseVisitor<Variable> {
         return variable;
     }
 
-
+    /**
+     * Processes parallel declaration
+     * @param ctx ParalelDeclaration context
+     * @return
+     */
     private List<String> getParallel(List<SimpleJavaParser.ParalelDeclarationContext> ctx)
     {
         List<String> parallel = new ArrayList<>();

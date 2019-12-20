@@ -1,6 +1,5 @@
 package compilator.visitor;
 
-import compilator.enums.EVariableType;
 import compilator.object.expression.Expression;
 import compilator.object.method.MethodCall;
 import compilator.object.method.MethodCallParameter;
@@ -12,8 +11,16 @@ import java.util.List;
 
 public class MethodCallVisitor extends SimpleJavaBaseVisitor<MethodCall>
 {
+    /**
+     * Indication of method
+     */
     private final String METHOD_SYMBOL = "()";
 
+    /**
+     * Visitor for MethodCall()
+     * @param ctx MethodCall context
+     * @return
+     */
     @Override
     public MethodCall visitMethodCall(SimpleJavaParser.MethodCallContext ctx)
     {
@@ -23,6 +30,11 @@ public class MethodCallVisitor extends SimpleJavaBaseVisitor<MethodCall>
         return new MethodCall(identifier, methodCallParameters, ctx.start.getLine());
     }
 
+    /**
+     * Processes method call parameters into internal structure
+     * @param methodCallParameterContextsList methodCallParameterContext
+     * @return
+     */
     private List<MethodCallParameter> parseMethodCallParameters(List<SimpleJavaParser.MethodCallParameterContext> methodCallParameterContextsList)
     {
         List<MethodCallParameter> methodCallParameters = new ArrayList<>();
@@ -32,7 +44,7 @@ public class MethodCallVisitor extends SimpleJavaBaseVisitor<MethodCall>
         {
             Expression expression = new ExpressionBodyVisitor().visit(parameterContext.expressionBody());
 
-            methodCallParameter = new MethodCallParameter(expression, null);
+            methodCallParameter = new MethodCallParameter(expression);
 
             methodCallParameters.add(methodCallParameter);
         }

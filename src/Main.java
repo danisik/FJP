@@ -18,7 +18,7 @@ public class Main {
         CharStream inputStream = null;
         try {
             inputStream = CharStreams.fromFileName(input);
-        } catch (IOException e) {
+        } catch (Exception e) {
             System.err.println("Error while loading file " + input);
             System.exit(0);
         }

@@ -1,7 +1,13 @@
 package compilator.object;
 
+/**
+ * Represent of block in internal structure
+ */
 public class Block {
 
+    /**
+     * BlockStatement data
+     */
     private BlockStatement blockStatement;
 
     public Block(BlockStatement blockStatement)

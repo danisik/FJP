@@ -16,6 +16,7 @@ public class ProgramCompiler extends BaseCompiler
 
     public void run()
     {
+        // first jump on first address -> our first instruction
         this.addInstruction(EInstruction.JMP, 0, 1);
 
         new BlockCompiler(program.getBlock()).run();

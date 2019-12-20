@@ -78,7 +78,11 @@ public class Instruction
         this.address = address;
     }
 
-
+    /**
+     * Address is initialized later
+     * used in call instruction
+     * @return
+     */
     public boolean isLaterInitialization()
     {
         return laterInitialization;

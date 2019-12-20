@@ -9,22 +9,54 @@ import compilator.value.Value;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Represent of variable in internal structure
+ */
 public class Variable {
+
+    /**
+     * Variable name
+     */
     private String name;
 
+    /**
+     * Variable value
+     */
     private Value value;
 
+    /**
+     * Is variable constant indication
+     */
     private boolean isConstant;
 
+    /**
+     * Variable expression value
+     */
     private Expression expression;
+
+    /**
+     * Variable type
+     */
     private EVariableType type;
 
+    /**
+     * List of parallel declared variables
+     */
     private List<String> parallelArray;
 
+    /**
+     * Variable method call value
+     */
     private MethodCall methodCall;
 
+    /**
+     * How was variable declared indication
+     */
     private EVariableDeclaration variableDeclaration;
 
+    /**
+     * On which line was variable declared
+     */
     private int line;
 
     public Variable(String name, Value value, EVariableType type)

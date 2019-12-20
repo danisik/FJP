@@ -4,7 +4,14 @@ import compilator.enums.EVariableType;
 
 public class MethodDeclarationParameter
 {
+    /**
+     * Parameter type
+     */
     private EVariableType type;
+
+    /**
+     * Parameter identifier
+     */
     private String identifier;
 
     public MethodDeclarationParameter(EVariableType type, String identifier)

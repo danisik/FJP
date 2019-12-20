@@ -8,9 +8,24 @@ import compilator.value.Value;
 
 public class ExpressionCompiler extends BaseCompiler
 {
+    /**
+     * Expression to process
+     */
     private final Expression expression;
+
+    /**
+     * Level of expression
+     */
     private int level;
+
+    /**
+     * Method return type
+     */
     private EMethodReturnType methodReturnType;
+
+    /**
+     * Exprexted return type
+     */
     private EVariableType resultType;
 
     public ExpressionCompiler(Expression expression, int level)
@@ -39,24 +54,28 @@ public class ExpressionCompiler extends BaseCompiler
         return this.processExpression(this.expression);
     }
 
+    /**
+     * Processes expression into instruction
+     */
     public void run()
     {
         EVariableType type = this.processExpression(this.expression);
 
         if (this.resultType != null && type != null)
         {
+            // if expected return type not match with result type
             if (type != this.resultType)
             {
                 this.getErrorHandler().throwError(new ErrorMismatchExpressionResult(this.resultType.toString(), type.toString(), this.expression.getLine()));
             }
         }
-        else
-        {
-
-        }
-
     }
 
+    /**
+     * Expression processing, called recursively
+     * @param expression
+     * @return
+     */
     private EVariableType processExpression(Expression expression)
     {
         EVariableType type = null;
@@ -95,6 +114,11 @@ public class ExpressionCompiler extends BaseCompiler
         return type;
     }
 
+    /**
+     * Identifier expression
+     * @param expression
+     * @return
+     */
     private EVariableType generateIdentifierInstructions(ExpressionIdentifier expression)
     {
         String identifier = expression.getValue().toString();
@@ -114,6 +138,11 @@ public class ExpressionCompiler extends BaseCompiler
         return null;
     }
 
+    /**
+     * Specific value expression
+     * @param expression
+     * @return
+     */
     private EVariableType generateValueInstructions(ExpressionValue expression)
     {
         Value value = expression.getValue();
@@ -132,6 +161,11 @@ public class ExpressionCompiler extends BaseCompiler
         return null;
     }
 
+    /**
+     * Multiplication expression
+     * @param expression
+     * @return
+     */
     private EVariableType generateMultiplicationInstructions(ExpressionMultiplication expression)
     {
         EVariableType leftExpression = this.processExpression(expression.getLeftExpression());
@@ -144,6 +178,11 @@ public class ExpressionCompiler extends BaseCompiler
         return  EVariableType.INT;
     }
 
+    /**
+     * Additive expression
+     * @param expression
+     * @return
+     */
     private EVariableType generateAdditiveInstructions(ExpressionAdditive expression)
     {
         EVariableType leftExpression = this.processExpression(expression.getLeftExpression());
@@ -156,6 +195,11 @@ public class ExpressionCompiler extends BaseCompiler
         return  EVariableType.INT;
     }
 
+    /**
+     * Relational Expression
+     * @param expression
+     * @return
+     */
     private EVariableType generateRelationalInstructions(ExpressionRelational expression)
     {
         EVariableType leftExpression = this.processExpression(expression.getLeftExpression());
@@ -168,6 +212,11 @@ public class ExpressionCompiler extends BaseCompiler
         return  EVariableType.BOOLEAN;
     }
 
+    /**
+     * Logical expression
+     * @param expression
+     * @return
+     */
     private EVariableType generateLogicalInstructions(ExpressionLogical expression)
     {
         EVariableType leftExpression = this.processExpression(expression.getLeftExpression());
@@ -190,6 +239,11 @@ public class ExpressionCompiler extends BaseCompiler
         return  EVariableType.BOOLEAN;
     }
 
+    /**
+     * Negation expression
+     * @param expression
+     * @return
+     */
     private EVariableType generateNegationInstructions(ExpressionNegation expression)
     {
         EVariableType expressionType = this.processExpression(expression.getExpression());
@@ -202,11 +256,21 @@ public class ExpressionCompiler extends BaseCompiler
         return EVariableType.BOOLEAN;
     }
 
+    /**
+     * Par expression
+     * @param expression
+     * @return
+     */
     private EVariableType generateParInstructions(ExpressionPar expression)
     {
         return this.processExpression(expression.getExpression());
     }
 
+    /**
+     * Method call expression
+     * @param expression
+     * @return
+     */
     private EVariableType generateMethodCallInstructions(ExpressionMethodCall expression)
     {
         if (expression.getMethodCall().getExpectedReturnType() == EMethodReturnType.VOID)
@@ -223,11 +287,18 @@ public class ExpressionCompiler extends BaseCompiler
         // set up return type of method call from method prototypes
         expression.getMethodCall().setExpectedReturnType(this.getMethodPrototypes().get(expression.getMethodCall().getIdentifier()).getMethodReturnType());
 
+        // compile method call
         new MethodCallCompiler(expression.getMethodCall(), 0).run();
 
         return this.getMethodPrototype().get(expression.getMethodCall().getIdentifier()).convertReturnTypeToVariableType();
     }
 
+    /**
+     * Checks if return types are same
+     * @param type1
+     * @param type2
+     * @param expected
+     */
     private void checkVariableTypes(EVariableType type1, EVariableType type2, EVariableType expected)
     {
         if (type1 != expected || type2 != expected)
@@ -236,6 +307,11 @@ public class ExpressionCompiler extends BaseCompiler
         }
     }
 
+    /**
+     * Check if type is equal to expected
+     * @param type
+     * @param expected
+     */
     private void checkVariableType(EVariableType type, EVariableType expected)
     {
         if (type != expected)

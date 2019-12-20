@@ -5,13 +5,19 @@ import compilator.object.expression.Expression;
 
 public class MethodCallParameter
 {
+    /**
+     * Parameter value
+     */
     private Expression expression;
+
+    /**
+     * Type of parameter
+     */
     private EVariableType variableType;
 
-    public MethodCallParameter(Expression expression, EVariableType variableType)
+    public MethodCallParameter(Expression expression)
     {
         this.expression = expression;
-        this.variableType = variableType;
     }
 
     public Expression getExpression()

@@ -17,11 +17,14 @@ public class InstructionGenerator
         this.program = program;
     }
 
+    /**
+     * Generate instructions from stored structure
+     * @return list of instructions
+     */
     public List<Instruction> generateInstructions()
     {
         ProgramCompiler programCompiler = new ProgramCompiler(this.program);
         programCompiler.run();
-
 
         return programCompiler.getInstructionsList();
     }

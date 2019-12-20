@@ -5,6 +5,9 @@ import compilator.object.Variable;
 
 public class StatementDeclaration extends Statement
 {
+    /**
+     * Declared variable
+     */
     private final Variable variable;
 
     public StatementDeclaration(Variable variable, int line)

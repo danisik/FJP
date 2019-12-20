@@ -2,18 +2,40 @@ package compilator.object.method;
 
 import compilator.enums.EMethodReturnType;
 import compilator.object.BlockStatement;
-import compilator.object.Body;
 import compilator.object.expression.Expression;
 
 import java.util.List;
 
 public class Method
 {
+    /**
+     * Method name
+     */
     private final String identifier;
+
+    /**
+     * Method return type
+     */
     private final EMethodReturnType returnType;
+
+    /**
+     * List of parameters
+     */
     private final List<MethodDeclarationParameter> parameters;
+
+    /**
+     * Method body
+     */
     private final BlockStatement body;
+
+    /**
+     * Return value
+     */
     private final Expression returnValue;
+
+    /**
+     * Line of method head
+     */
     private int line;
 
     public Method(EMethodReturnType returnType, String identifier, List<MethodDeclarationParameter> parameters, BlockStatement body, Expression returnValue, int line)

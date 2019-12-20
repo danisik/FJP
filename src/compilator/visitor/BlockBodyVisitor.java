@@ -11,6 +11,11 @@ import java.util.List;
 
 public class BlockBodyVisitor extends SimpleJavaBaseVisitor<BlockStatement>
 {
+    /**
+     * Visitor for BlockBody
+     * @param ctx blockBody context
+     * @return internal structure BlockStatement
+     */
     public BlockStatement visitBlockBody(SimpleJavaParser.BlockBodyContext ctx)
     {
         if (ctx == null)
@@ -23,6 +28,11 @@ public class BlockBodyVisitor extends SimpleJavaBaseVisitor<BlockStatement>
         return new BlockStatement(new StatementData(statements), null);
     }
 
+    /**
+     * Processes all statements in blockBody();
+     * @param statementContextList list of statements
+     * @return internal list of statements
+     */
     private List<Statement> getStatements(List<SimpleJavaParser.StatementContext> statementContextList)
     {
         List<Statement> statements = new ArrayList<>();

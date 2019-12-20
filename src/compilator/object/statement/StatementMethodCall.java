@@ -5,6 +5,9 @@ import compilator.object.method.MethodCall;
 
 public class StatementMethodCall extends Statement
 {
+    /**
+     * Method call object
+     */
     private MethodCall methodCall;
 
     public StatementMethodCall(MethodCall methodCall, int line)

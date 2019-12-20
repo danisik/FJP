@@ -7,10 +7,24 @@ import compilator.object.statement.StatementDeclaration;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Holds data of Statement
+ */
 public class StatementData
 {
+    /**
+     * List of declared statements
+     */
     private List<Statement> statements;
+
+    /**
+     * List with names of declared variables
+     */
     private List<String> variableNames;
+
+    /**
+     * Number of for cycles in statements
+     */
     private int forStatementCount = 0;
 
     public StatementData(List<Statement> statements)
@@ -19,11 +33,19 @@ public class StatementData
         this.variableNames = this.createVariableNamesList();
     }
 
+    /**
+     * Number of parallel declared variables
+     * @return
+     */
     public int getVariableDeclarationCount()
     {
         return this.variableNames.size();
     }
 
+    /**
+     * Creates list with names of declared variables
+     * @return
+     */
     private List<String> createVariableNamesList()
     {
         List<String> list = new ArrayList<>();

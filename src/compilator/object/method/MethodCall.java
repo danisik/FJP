@@ -7,10 +7,24 @@ import java.util.List;
 
 public class MethodCall
 {
-
+    /**
+     * Method name to call
+     */
     private final String identifier;
+
+    /**
+     * Call parameters
+     */
     private List<MethodCallParameter> parameters;
+
+    /**
+     * Which type call should return
+     */
     private EMethodReturnType expectedReturnType;
+
+    /**
+     * On which line was method called
+     */
     private int line;
 
     public MethodCall(String identifier)
@@ -42,6 +56,10 @@ public class MethodCall
         return expectedReturnType;
     }
 
+    /**
+     * Converts EMethodReturnType to EVariableType
+     * @return
+     */
     public EVariableType convertReturnTypeToVariableType()
     {
         if (this.expectedReturnType == EMethodReturnType.INT)

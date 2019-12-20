@@ -23,8 +23,12 @@ public class MethodCompiler extends BaseCompiler
         this.processMethod();
     }
 
+    /**
+     * Processes method into instructions
+     */
     private void processMethod()
     {
+        // check if method exists
         if (this.isInSymbolTable(this.method.getIdentifier()))
         {
             this.getErrorHandler().throwError(new ErrorMethodAlreadyExists(this.method.getIdentifier(), this.method.getLine()));
@@ -49,8 +53,7 @@ public class MethodCompiler extends BaseCompiler
         this.addMethodToSymbolTable(methodCustomSize, baseMethodSize);
 
         // load parameters from stack
-        this.loadParametersToStack();
-
+        this.loadParametersFromStack();
 
         BlockStatementCompiler blockStatementCompiler = new BlockStatementCompiler(this.method.getBody(), 1);
         blockStatementCompiler.setUpInnerBodySettings();
@@ -61,16 +64,22 @@ public class MethodCompiler extends BaseCompiler
         if (this.method.getReturnValue() != null)
         {
             new ExpressionCompiler(this.method.getReturnValue(), this.method.getReturnType(), 1).run();
+            // store value to return address
             this.addInstruction(EInstruction.STO, 0, -(this.method.getParameters().size() + 1));
         }
 
-
+        // now we can delete variables
         blockStatementCompiler.deleteLocalVariables();
         this.deleteParametersFromSymbolOfTable();
 
         this.addInstruction(EInstruction.RET, 0,0);
     }
 
+    /**
+     * Adds method to symbol table and increase stack
+     * @param methodSize size for symbol table item (full size)
+     * @param baseMethodSize base size (default size + parameters count)
+     */
     private void addMethodToSymbolTable(int methodSize, int baseMethodSize)
     {
         SymbolTableItem symbolTableItem = new SymbolTableItem(this.method.getIdentifier(), 0, this.getInstructionsCounter(), methodSize);
@@ -83,7 +92,10 @@ public class MethodCompiler extends BaseCompiler
         this.addInstruction(EInstruction.INT, 0, baseMethodSize);
     }
 
-    private void loadParametersToStack()
+    /**
+     * Method load parameters from top of stack and stores them
+     */
+    private void loadParametersFromStack()
     {
         List<MethodDeclarationParameter> parameters = this.method.getParameters();
         SymbolTableItem item;
@@ -106,6 +118,9 @@ public class MethodCompiler extends BaseCompiler
         }
     }
 
+    /**
+     * Removes parameters from Symbol table
+     */
     private void deleteParametersFromSymbolOfTable()
     {
         for (MethodDeclarationParameter parameter: this.method.getParameters())

@@ -5,8 +5,14 @@ import compilator.object.expression.Expression;
 
 public class StatementAssigment extends Statement
 {
+    /**
+     * Statement identifier
+     */
     private final String identifier;
 
+    /**
+     * Assigned value
+     */
     private final Expression expression;
 
     public StatementAssigment(String identifier, Expression expression, int line)

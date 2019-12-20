@@ -4,9 +4,19 @@ import compilator.object.expression.Expression;
 
 public class ControlFor
 {
-
+    /**
+     * Identifier for iteration
+     */
     private final String identifier;
+
+    /**
+     * From value expression
+     */
     private Expression expression;
+
+    /**
+     * To value expression
+     */
     private Expression to;
 
     public ControlFor(String identifier, Expression expression, Expression to)

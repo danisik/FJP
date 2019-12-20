@@ -11,6 +11,11 @@ import java.util.List;
 
 public class BlockStatementVisitor extends SimpleJavaBaseVisitor<BlockStatement> {
 
+    /**
+     * Visitor for BlockStatement()
+     * @param ctx BlockStatement context
+     * @return internal BlockStatement structure
+     */
     public BlockStatement visitBlockStatement(SimpleJavaParser.BlockStatementContext ctx)
     {
         List<Statement> statements = this.getStatements(ctx.statement());
@@ -19,6 +24,11 @@ public class BlockStatementVisitor extends SimpleJavaBaseVisitor<BlockStatement>
         return new BlockStatement(new StatementData(statements), methods);
     }
 
+    /**
+     * Processes all statements in BlockStatement();
+     * @param statementContextList list of statements
+     * @return internal list of statements
+     */
     private List<Statement> getStatements(List<SimpleJavaParser.StatementContext> statementContextList)
     {
         List<Statement> statements = new ArrayList<>();
@@ -33,6 +43,11 @@ public class BlockStatementVisitor extends SimpleJavaBaseVisitor<BlockStatement>
         return statements;
     }
 
+    /**
+     * Processes all methods in BlockStatement();
+     * @param methodDeclarationContextList list of methods
+     * @return internal list of methods
+     */
     private List<Method> getMethods(List<SimpleJavaParser.MethodDeclarationContext> methodDeclarationContextList)
     {
         List<Method> methods = new ArrayList<>();

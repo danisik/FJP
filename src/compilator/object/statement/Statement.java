@@ -2,9 +2,19 @@ package compilator.object.statement;
 
 import compilator.enums.EStatementType;
 
+/**
+ * Base statement class
+ */
 public class Statement {
 
+    /**
+     * Statement type
+     */
     private EStatementType type;
+
+    /**
+     * Statement declaration line
+     */
     private int line;
 
     public Statement(EStatementType type, int line)
