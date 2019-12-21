@@ -20,7 +20,7 @@ public class ErrorHandler
     public void throwError(Error error)
     {
         System.out.println(error);
-        System.exit(0);
+        System.exit(error.getErrorCode());
     }
 
 }
