@@ -2,7 +2,6 @@ package compilator.enums;
 
 public enum EErrorCode
 {
-    ERROR_UNKNOWN(0),
     ERROR_ASSIGMENT_VARIABLE_NOT_EXISTS(1),
     ERROR_CONSTANT_ASSIGMENT(2),
     ERROR_INVALID_PARAMETERS_COUNT(3),
@@ -19,6 +18,7 @@ public enum EErrorCode
     ERROR_MISMATCH_METHOD_AND_CALL_PARAMETER_RETURN_TYPE(14),
     ERROR_LOADING_INPUT_FILE(15),
     ERROR_ANTLR_PROCESS(16),
+    ERROR_UNKNOWN(17),
     ;
 
     private int code;

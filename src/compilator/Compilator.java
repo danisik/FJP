@@ -1,5 +1,6 @@
 package compilator;
 
+import compilator.enums.EErrorCode;
 import compilator.object.Program;
 import compilator.object.instruction.Instruction;
 import compilator.visitor.ProgramVisitor;
@@ -52,8 +53,8 @@ public class Compilator
         }
         catch (Exception e)
         {
-            System.out.println("Something goes wrong while parsing tree. " + e.getMessage());
-            System.exit(0);
+            System.out.println("Something goes wrong while parsing tree. " + e.toString());
+            System.exit(EErrorCode.ERROR_UNKNOWN.getCode());
         }
 
         try
@@ -67,8 +68,8 @@ public class Compilator
         }
         catch (Exception e)
         {
-            System.out.println("Something goes wrong while generating instructions. " + e.getMessage());
-            System.exit(0);
+            System.out.println("Something goes wrong while generating instructions. " + e.toString());
+            System.exit(EErrorCode.ERROR_UNKNOWN.getCode());
         }
     }
 

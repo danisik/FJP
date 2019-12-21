@@ -32,14 +32,14 @@ public class StatementVisitor extends SimpleJavaBaseVisitor<Statement>
         Expression expression = new ExpressionVisitor().visit(ctx.expression());
         expression.setExpectedReturnType(EVariableType.BOOLEAN);
 
-        BlockStatement bodyIf = new BlockBodyVisitor().visit(ctx.body(0).blockBody());
+        BlockStatement bodyIf = ctx.body(0).blockBody() != null ? new BlockBodyVisitor().visit(ctx.body(0).blockBody()) : null;
 
         BlockStatement bodyElse = null;
 
         // else part
         if (ctx.body(1) != null)
         {
-            bodyElse = new BlockBodyVisitor().visit(ctx.body(1).blockBody());
+            bodyElse = ctx.body(1).blockBody() != null ? new BlockBodyVisitor().visit(ctx.body(1).blockBody()) : null;
         }
 
         return new StatementIf(expression, bodyIf, bodyElse, ctx.start.getLine());
@@ -78,7 +78,7 @@ public class StatementVisitor extends SimpleJavaBaseVisitor<Statement>
     public StatementWhile visitStatementWhile(SimpleJavaParser.StatementWhileContext ctx)
     {
         Expression expression = new ExpressionVisitor().visit(ctx.expression());
-        BlockStatement body = new BlockBodyVisitor().visit(ctx.body().blockBody());
+        BlockStatement body = ctx.body().blockBody() != null ? new BlockBodyVisitor().visit(ctx.body().blockBody()) : null;
 
         return new StatementWhile(expression, body, ctx.start.getLine());
     }
@@ -87,7 +87,7 @@ public class StatementVisitor extends SimpleJavaBaseVisitor<Statement>
     public StatementDo visitStatementDo(SimpleJavaParser.StatementDoContext ctx)
     {
         Expression expression = new ExpressionVisitor().visit(ctx.expression());
-        BlockStatement body = new BlockBodyVisitor().visit(ctx.body().blockBody());
+        BlockStatement body = ctx.body().blockBody() != null ? new BlockBodyVisitor().visit(ctx.body().blockBody()) : null;
 
         return new StatementDo(expression, body, ctx.start.getLine());
     }
@@ -109,7 +109,7 @@ public class StatementVisitor extends SimpleJavaBaseVisitor<Statement>
             if (switchBlockStatement.CASE() != null)
             {
                 int identifier = Integer.parseInt(switchBlockStatement.DECIMAL().getText());
-                BlockStatement body = new BlockBodyVisitor().visit(switchBlockStatement.body().blockBody());
+                BlockStatement body = switchBlockStatement.body().blockBody() != null ? new BlockBodyVisitor().visit(switchBlockStatement.body().blockBody()) : null;
                 StatementSwitchBlock stmtSwitchBlock = new StatementSwitchBlock(identifier, body);
                 switchBlockHashMap.put(identifier, stmtSwitchBlock);
             }
@@ -121,7 +121,7 @@ public class StatementVisitor extends SimpleJavaBaseVisitor<Statement>
                     ErrorHandler.getInstance().throwError(new ErrorSwitchMultipleDefaultBlock(switchBlockStatement.start.getLine()));
                 }
 
-                BlockStatement body = new BlockBodyVisitor().visit(switchBlockStatement.body().blockBody());
+                BlockStatement body = switchBlockStatement.body().blockBody() != null ? new BlockBodyVisitor().visit(switchBlockStatement.body().blockBody()) : null;
                 defaultBlock = new StatementSwitchBlock(body, switchBlockStatement.body().blockBody().start.getLine());
             }
         }
@@ -138,7 +138,7 @@ public class StatementVisitor extends SimpleJavaBaseVisitor<Statement>
     public StatementRepeat visitStatementRepeat(SimpleJavaParser.StatementRepeatContext ctx)
     {
         Expression expression = new ExpressionVisitor().visit(ctx.expression());
-        BlockStatement body = new BlockBodyVisitor().visit(ctx.body().blockBody());
+        BlockStatement body = ctx.body().blockBody() != null ? new BlockBodyVisitor().visit(ctx.body().blockBody()) : null;
 
         return new StatementRepeat(expression, body, ctx.start.getLine());
     }

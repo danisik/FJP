@@ -222,7 +222,7 @@ methodParameter
   ;
 
 methodBody
-  : LBRACE blockBody? RETURN (expressionBody)? SEMI RBRACE
+  : LBRACE blockBody? (RETURN expressionBody SEMI)? RBRACE
   ;
 
 methodCall
