@@ -19,6 +19,7 @@ public enum EErrorCode
     ERROR_LOADING_INPUT_FILE(15),
     ERROR_ANTLR_PROCESS(16),
     ERROR_UNKNOWN(17),
+    ERROR_INVALID_USE(18)
     ;
 
     private int code;
