@@ -288,7 +288,7 @@ public class ExpressionCompiler extends BaseCompiler
         expression.getMethodCall().setExpectedReturnType(this.getMethodPrototypes().get(expression.getMethodCall().getIdentifier()).getMethodReturnType());
 
         // compile method call
-        new MethodCallCompiler(expression.getMethodCall(), 0).run();
+        new MethodCallCompiler(expression.getMethodCall(), this.level).run();
 
         return this.getMethodPrototype().get(expression.getMethodCall().getIdentifier()).convertReturnTypeToVariableType();
     }

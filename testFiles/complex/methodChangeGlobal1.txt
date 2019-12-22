@@ -6,7 +6,6 @@
     void function test(int b, int c)
     {
         a = b + c;
-        return;
     }
 }
 

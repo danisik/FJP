@@ -1,0 +1,12 @@
+{
+
+    const int a = 10;
+    const int b = 12;
+    int c = 0;
+
+    if (a < b)
+    {
+        c = b;
+    }
+
+}

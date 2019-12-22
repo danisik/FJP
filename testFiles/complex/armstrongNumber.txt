@@ -1,6 +1,6 @@
 {
     boolean test = isArmstrongNumber(153); // result is 1
-    boolean test1 = isArmstrongNumber(150); // result is 0
+    //boolean test1 = isArmstrongNumber(150); // result is 0
 
     boolean function isArmstrongNumber(int n)
     {

@@ -1,5 +1,5 @@
 {
-    int a = test(1,2);
+    int a = test(6,3);
 
     int function test(int b, int c)
     {

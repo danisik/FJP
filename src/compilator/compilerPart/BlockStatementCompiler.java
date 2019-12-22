@@ -246,7 +246,7 @@ public class BlockStatementCompiler extends BaseCompiler
                 this.addInstruction(EInstruction.LIT, 0, variable.getValue().toInt());
                 break;
             case METHOD_CALL:
-                new MethodCallCompiler(variable.getMethodCall(), 0).run();
+                new MethodCallCompiler(variable.getMethodCall(), this.level).run();
                 break;
             case IDENTIFIER:
                 this.variableAssigmentIdentifier(variable);
@@ -269,7 +269,7 @@ public class BlockStatementCompiler extends BaseCompiler
                 this.addInstruction(EInstruction.LIT, 0, variable.getValue().toBooleanAsInt());
                 break;
             case METHOD_CALL:
-                new MethodCallCompiler(variable.getMethodCall(), 0).run();
+                new MethodCallCompiler(variable.getMethodCall(), this.level).run();
                 break;
             case IDENTIFIER:
                 this.variableAssigmentIdentifier(variable);
@@ -357,7 +357,7 @@ public class BlockStatementCompiler extends BaseCompiler
         // jmp to else/end if
         this.addInstruction(EInstruction.JMC, 0, -1); // address is set later
 
-        BlockStatementCompiler blockStatementCompiler = new BlockStatementCompiler(statementIf.getBodyIf(), 0);
+        BlockStatementCompiler blockStatementCompiler = new BlockStatementCompiler(statementIf.getBodyIf(),  this.level);
         blockStatementCompiler.setUpInnerBodySettings();
         blockStatementCompiler.run();
 
@@ -374,7 +374,7 @@ public class BlockStatementCompiler extends BaseCompiler
 
         if (statementIf.hasElse())
         {
-            BlockStatementCompiler blockStatementCompilerElse = new BlockStatementCompiler(statementIf.getBodyElse(), 0);
+            BlockStatementCompiler blockStatementCompilerElse = new BlockStatementCompiler(statementIf.getBodyElse(),  this.level);
             blockStatementCompilerElse.setUpInnerBodySettings();
             blockStatementCompilerElse.run();
 
@@ -423,7 +423,7 @@ public class BlockStatementCompiler extends BaseCompiler
         this.addInstruction(EInstruction.JMC, 0, -1); // address set later
 
         // process body
-        BlockStatementCompiler blockStatementCompiler = new BlockStatementCompiler(statementFor.getBody(), 0);
+        BlockStatementCompiler blockStatementCompiler = new BlockStatementCompiler(statementFor.getBody(),  this.level);
         blockStatementCompiler.setUpInnerBodySettings();
         blockStatementCompiler.run();
 
@@ -452,7 +452,7 @@ public class BlockStatementCompiler extends BaseCompiler
         this.addInstruction(EInstruction.JMC, 0, -1);
 
         // process body
-        BlockStatementCompiler blockStatementCompiler = new BlockStatementCompiler(statementWhile.getBody(), 0);
+        BlockStatementCompiler blockStatementCompiler = new BlockStatementCompiler(statementWhile.getBody(), this.level);
         blockStatementCompiler.setUpInnerBodySettings();
         blockStatementCompiler.run();
 
@@ -472,7 +472,7 @@ public class BlockStatementCompiler extends BaseCompiler
         int startIndex = this.getInstructionsCounter();
 
         //process body
-        BlockStatementCompiler blockStatementCompiler = new BlockStatementCompiler(statementDoWhile.getBody(), 0);
+        BlockStatementCompiler blockStatementCompiler = new BlockStatementCompiler(statementDoWhile.getBody(),  this.level);
         blockStatementCompiler.setUpInnerBodySettings();
         blockStatementCompiler.run();
 
@@ -509,7 +509,7 @@ public class BlockStatementCompiler extends BaseCompiler
         int startAddress = this.getInstructionsCounter();
 
         // process body
-        BlockStatementCompiler blockStatementCompiler = new BlockStatementCompiler(statementRepeatUntil.getBody(), 0);
+        BlockStatementCompiler blockStatementCompiler = new BlockStatementCompiler(statementRepeatUntil.getBody(),  this.level);
         blockStatementCompiler.setUpInnerBodySettings();
         blockStatementCompiler.run();
 
@@ -546,7 +546,7 @@ public class BlockStatementCompiler extends BaseCompiler
             this.addInstruction(EInstruction.JMC, 0, -1);
 
             // process body
-            BlockStatementCompiler blockStatementCompiler = new BlockStatementCompiler(body.getBody(), 0);
+            BlockStatementCompiler blockStatementCompiler = new BlockStatementCompiler(body.getBody(),  this.level);
             blockStatementCompiler.setUpInnerBodySettings();
             blockStatementCompiler.run();
 
@@ -562,7 +562,7 @@ public class BlockStatementCompiler extends BaseCompiler
         // default block
         if (statementSwitch.getDefaultBlock() != null)
         {
-            BlockStatementCompiler blockStatementCompiler = new BlockStatementCompiler(statementSwitch.getDefaultBlock().getBody(), 0);
+            BlockStatementCompiler blockStatementCompiler = new BlockStatementCompiler(statementSwitch.getDefaultBlock().getBody(),  this.level);
             blockStatementCompiler.setUpInnerBodySettings();
             blockStatementCompiler.run();
         }

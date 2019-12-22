@@ -6,6 +6,7 @@
         int b = 10;
         a = a + 1;
         b = a + b;
+        int c = 5;
     }
     until (a >= 10)
 

@@ -7,14 +7,11 @@
     {
         a = b + c;
         test1(c, b);
-        return;
     }
 
     void function test1(int c, int b)
     {
         a = c * a * b;
-
-        return;
     }
 }
 

@@ -1,5 +1,5 @@
 {
-    int a = fib(5); // 5
+   // int a = fib(5); // 5
     int a = fib(4); // 3
 
     int function fib(int b)
