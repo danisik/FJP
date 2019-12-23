@@ -3,7 +3,7 @@ package compilator.visitor;
 import compilator.enums.*;
 import compilator.object.expression.*;
 import compilator.object.method.MethodCall;
-import compilator.value.Value;
+import compilator.object.Value;
 import generate.SimpleJavaBaseVisitor;
 import generate.SimpleJavaParser;
 

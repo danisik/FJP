@@ -2,7 +2,7 @@ package compilator.object.expression;
 
 import compilator.enums.EExpressionType;
 import compilator.enums.EVariableType;
-import compilator.value.Value;
+import compilator.object.Value;
 
 public class ExpressionValue extends Expression {
 

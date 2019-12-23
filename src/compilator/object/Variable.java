@@ -4,7 +4,6 @@ import compilator.enums.EVariableDeclaration;
 import compilator.enums.EVariableType;
 import compilator.object.expression.Expression;
 import compilator.object.method.MethodCall;
-import compilator.value.Value;
 
 import java.util.ArrayList;
 import java.util.List;

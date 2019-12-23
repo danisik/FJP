@@ -10,6 +10,7 @@ import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
 
+import java.io.File;
 import java.io.PrintWriter;
 import java.util.List;
 
@@ -94,7 +95,8 @@ public class Compilator
         }
         catch (Exception e)
         {
-            e.printStackTrace();
+            System.out.println("Path to output file not exists!");
+            System.exit(EErrorCode.ERROR_INVALID_OUTPUT_FILE.getCode());
         }
     }
 }

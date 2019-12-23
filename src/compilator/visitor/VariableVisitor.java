@@ -6,7 +6,7 @@ import compilator.enums.EVariableType;
 import compilator.object.Variable;
 import compilator.object.expression.Expression;
 import compilator.object.method.MethodCall;
-import compilator.value.Value;
+import compilator.object.Value;
 import generate.*;
 import java.util.ArrayList;
 import java.util.List;

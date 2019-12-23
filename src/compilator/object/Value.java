@@ -1,4 +1,4 @@
-package compilator.value;
+package compilator.object;
 
 /**
  * Stores all types of values

@@ -4,7 +4,7 @@ import compilator.enums.*;
 import compilator.error.*;
 import compilator.object.expression.*;
 import compilator.object.symbolTable.SymbolTableItem;
-import compilator.value.Value;
+import compilator.object.Value;
 
 public class ExpressionCompiler extends BaseCompiler
 {

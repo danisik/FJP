@@ -1,7 +1,7 @@
 package compilator.object.expression;
 
 import compilator.enums.EExpressionType;
-import compilator.value.Value;
+import compilator.object.Value;
 
 public class ExpressionIdentifier extends Expression {
 
