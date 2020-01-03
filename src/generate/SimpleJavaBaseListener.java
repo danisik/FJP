@@ -100,18 +100,6 @@ public class SimpleJavaBaseListener implements SimpleJavaListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterOperator(SimpleJavaParser.OperatorContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitOperator(SimpleJavaParser.OperatorContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterDecimalValue(SimpleJavaParser.DecimalValueContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -419,6 +407,18 @@ public class SimpleJavaBaseListener implements SimpleJavaListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitExprPar(SimpleJavaParser.ExprParContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterExprMinus(SimpleJavaParser.ExprMinusContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitExprMinus(SimpleJavaParser.ExprMinusContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

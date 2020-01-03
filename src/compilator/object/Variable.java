@@ -54,6 +54,11 @@ public class Variable {
     private EVariableDeclaration variableDeclaration;
 
     /**
+     * indication if variable was declared with minus symbol
+     */
+    private boolean isDeclaredWithMinus = false;
+
+    /**
      * On which line was variable declared
      */
     private int line;
@@ -194,5 +199,15 @@ public class Variable {
     public void setLine(int line)
     {
         this.line = line;
+    }
+
+    public boolean isDeclaredWithMinus()
+    {
+        return isDeclaredWithMinus;
+    }
+
+    public void setDeclaredWithMinus(boolean declaredWithMinus)
+    {
+        isDeclaredWithMinus = declaredWithMinus;
     }
 }

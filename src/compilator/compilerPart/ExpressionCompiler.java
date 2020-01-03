@@ -109,6 +109,9 @@ public class ExpressionCompiler extends BaseCompiler
             case METHOD_CALL:
                 type = this.generateMethodCallInstructions((ExpressionMethodCall) expression);
                 break;
+            case MINUS:
+                type = this.generateMinusInstructions((ExpressionMinus) expression);
+                break;
         }
 
         return type;
@@ -254,6 +257,23 @@ public class ExpressionCompiler extends BaseCompiler
         this.addInstruction(EInstruction.OPR, 0, EInstructionOperation.EQ.getCode());
 
         return EVariableType.BOOLEAN;
+    }
+
+    /**
+     * Negation expression
+     * @param expression
+     * @return
+     */
+    private EVariableType generateMinusInstructions(ExpressionMinus expression)
+    {
+        EVariableType expressionType = this.processExpression(expression.getExpression());
+
+        this.checkVariableType(expressionType, EVariableType.INT);
+
+        this.addInstruction(EInstruction.LIT, 0,-1);
+        this.addInstruction(EInstruction.OPR, 0, EInstructionOperation.MULTIPLY.getCode());
+
+        return EVariableType.INT;
     }
 
     /**

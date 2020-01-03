@@ -85,15 +85,12 @@ public class VariableVisitor extends SimpleJavaBaseVisitor<Variable> {
         // int a = 1;
         if (ctx.decimalValue().DECIMAL() != null)
         {
-            int dimension = 1;
-            if (ctx.operator() != null && ctx.operator().getText().equals("-"))
-            {
-                dimension = -1;
-            }
-            int val = Integer.parseInt(ctx.decimalValue().getText());
+            String val = ctx.decimalValue().getText();
 
-            variable = new Variable(name, new Value(val * dimension), EVariableType.INT);
+            variable = new Variable(name, new Value(val), EVariableType.INT);
             variable.setVariableDeclaration(EVariableDeclaration.DECIMAL);
+            variable.setDeclaredWithMinus(this.isMinusValue(ctx));
+
         }
         // int a = b;
         else if (ctx.decimalValue().identifier() != null)
@@ -102,6 +99,8 @@ public class VariableVisitor extends SimpleJavaBaseVisitor<Variable> {
 
             variable = new Variable(name, new Value(val), EVariableType.INT);
             variable.setVariableDeclaration(EVariableDeclaration.IDENTIFIER);
+            variable.setDeclaredWithMinus(this.isMinusValue(ctx));
+
         }
         // int a = declare();
         else if (ctx.decimalValue().methodCall() != null)
@@ -111,6 +110,8 @@ public class VariableVisitor extends SimpleJavaBaseVisitor<Variable> {
 
             variable = new Variable(name,methodCall, EVariableType.INT);
             variable.setVariableDeclaration(EVariableDeclaration.METHOD_CALL);
+            variable.setDeclaredWithMinus(this.isMinusValue(ctx));
+
         }
         // int a = 1 + 2 + a;
         else if (ctx.decimalValue().expressionBody() != null)
@@ -119,6 +120,7 @@ public class VariableVisitor extends SimpleJavaBaseVisitor<Variable> {
 
             variable = new Variable(name, expression, EVariableType.INT);
             variable.setVariableDeclaration(EVariableDeclaration.EXPRESSION);
+            variable.setDeclaredWithMinus(this.isMinusValue(ctx));
         }
 
         // check parallel declaration
@@ -131,6 +133,15 @@ public class VariableVisitor extends SimpleJavaBaseVisitor<Variable> {
         }
 
         return variable;
+    }
+
+    private boolean isMinusValue(SimpleJavaParser.DecimalVariableContext ctx)
+    {
+        if (ctx.decimalSymbol() != null && ctx.decimalSymbol().getText().equals("-"))
+        {
+            return true;
+        }
+        return false;
     }
 
     /**

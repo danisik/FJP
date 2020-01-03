@@ -10,5 +10,6 @@ public enum EExpressionType
         LOGICAL,
         NEGATION,
         PAR,
-        METHOD_CALL
+        METHOD_CALL,
+        MINUS
 }

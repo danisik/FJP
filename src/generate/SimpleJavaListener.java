@@ -78,16 +78,6 @@ public interface SimpleJavaListener extends ParseTreeListener {
 	 */
 	void exitDecimalVariable(SimpleJavaParser.DecimalVariableContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link SimpleJavaParser#operator}.
-	 * @param ctx the parse tree
-	 */
-	void enterOperator(SimpleJavaParser.OperatorContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link SimpleJavaParser#operator}.
-	 * @param ctx the parse tree
-	 */
-	void exitOperator(SimpleJavaParser.OperatorContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link SimpleJavaParser#decimalValue}.
 	 * @param ctx the parse tree
 	 */
@@ -371,6 +361,18 @@ public interface SimpleJavaListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitExprPar(SimpleJavaParser.ExprParContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code exprMinus}
+	 * labeled alternative in {@link SimpleJavaParser#expressionBody}.
+	 * @param ctx the parse tree
+	 */
+	void enterExprMinus(SimpleJavaParser.ExprMinusContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code exprMinus}
+	 * labeled alternative in {@link SimpleJavaParser#expressionBody}.
+	 * @param ctx the parse tree
+	 */
+	void exitExprMinus(SimpleJavaParser.ExprMinusContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code exprRelational}
 	 * labeled alternative in {@link SimpleJavaParser#expressionBody}.

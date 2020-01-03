@@ -12,7 +12,7 @@ public class ExpressionBodyVisitor extends SimpleJavaBaseVisitor<Expression>
     /**
      * Visitor for ExprNeg()
      * @param ctx ExprNeg context
-     * @return
+     * @return Expression
      */
     @Override
     public Expression visitExprNeg(SimpleJavaParser.ExprNegContext ctx)
@@ -21,9 +21,20 @@ public class ExpressionBodyVisitor extends SimpleJavaBaseVisitor<Expression>
     }
 
     /**
+     * Visitor for ExprMinus()
+     * @param ctx ExprMinus context
+     * @return Expression
+     */
+    @Override
+    public Expression visitExprMinus(SimpleJavaParser.ExprMinusContext ctx)
+    {
+        return new ExpressionMinus(this.visit(ctx.expressionBody()), ctx.start.getLine());
+    }
+
+    /**
      * Visitor for ExprAdditive()
      * @param ctx ExprAdditive context
-     * @return
+     * @return Expression
      */
     @Override
     public Expression visitExprAdditive(SimpleJavaParser.ExprAdditiveContext ctx)
@@ -38,7 +49,7 @@ public class ExpressionBodyVisitor extends SimpleJavaBaseVisitor<Expression>
     /**
      * Visitor for ExprPar()
      * @param ctx ExprPar context
-     * @return
+     * @return Expression
      */
     @Override
     public Expression visitExprPar(SimpleJavaParser.ExprParContext ctx)
@@ -49,7 +60,7 @@ public class ExpressionBodyVisitor extends SimpleJavaBaseVisitor<Expression>
     /**
      * Visitor for ExprRelational()
      * @param ctx ExprRelational context
-     * @return
+     * @return Expression
      */
     @Override
     public Expression visitExprRelational(SimpleJavaParser.ExprRelationalContext ctx)
@@ -64,7 +75,7 @@ public class ExpressionBodyVisitor extends SimpleJavaBaseVisitor<Expression>
     /**
      * Visitor for ExprIdentifier()
      * @param ctx ExprIdentifier context
-     * @return
+     * @return Expression
      */
     @Override
     public Expression visitExprIdentifier(SimpleJavaParser.ExprIdentifierContext ctx)
@@ -75,7 +86,7 @@ public class ExpressionBodyVisitor extends SimpleJavaBaseVisitor<Expression>
     /**
      * Visitor for ExprPossibleValue()
      * @param ctx ExprPossibleValue context
-     * @return
+     * @return Expression
      */
     @Override
     public Expression visitExprPossibleValue(SimpleJavaParser.ExprPossibleValueContext ctx)
@@ -85,7 +96,13 @@ public class ExpressionBodyVisitor extends SimpleJavaBaseVisitor<Expression>
 
         if (ctx.possibleValues().DECIMAL() != null)
         {
-            value = new Value(ctx.possibleValues().DECIMAL().getText());
+            int dimension = 1;
+            if (ctx.possibleValues().decimalSymbol() != null && ctx.possibleValues().decimalSymbol().getText().equals("-"))
+            {
+                dimension = -1;
+            }
+            int val = Integer.parseInt(ctx.possibleValues().DECIMAL().getText());
+            value = new Value(val * dimension);
             type = EVariableType.INT;
         }
         else if (ctx.possibleValues().booleanValue() != null)
@@ -100,7 +117,7 @@ public class ExpressionBodyVisitor extends SimpleJavaBaseVisitor<Expression>
     /**
      * visitor for ExprLogical()
      * @param ctx ExprLogical context
-     * @return
+     * @return Expression
      */
     @Override
     public Expression visitExprLogical(SimpleJavaParser.ExprLogicalContext ctx)
@@ -115,7 +132,7 @@ public class ExpressionBodyVisitor extends SimpleJavaBaseVisitor<Expression>
     /**
      * Visitor for ExprMultipli()
      * @param ctx ExprMultipli context
-     * @return
+     * @return Expression
      */
     @Override
     public Expression visitExprMultipli(SimpleJavaParser.ExprMultipliContext ctx)
@@ -130,7 +147,7 @@ public class ExpressionBodyVisitor extends SimpleJavaBaseVisitor<Expression>
     /**
      * Visitor for ExprMethodCall()
      * @param ctx ExprMethodCall context
-     * @return
+     * @return Expression
      */
     @Override
     public Expression visitExprMethodCall(SimpleJavaParser.ExprMethodCallContext ctx)

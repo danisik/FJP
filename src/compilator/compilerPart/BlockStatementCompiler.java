@@ -226,6 +226,13 @@ public class BlockStatementCompiler extends BaseCompiler
 
         this.getSymbolTable().addItem(symbolTableItem);
 
+        // add negation
+        if (variable.isDeclaredWithMinus())
+        {
+            this.addInstruction(EInstruction.LIT, 0, -1);
+            this.addInstruction(EInstruction.OPR, 0, EInstructionOperation.MULTIPLY.getCode());
+        }
+
         this.addInstruction(EInstruction.STO, 0, symbolTableItem.getAddress());
 
         return symbolTableItem;

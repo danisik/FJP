@@ -1,0 +1,13 @@
+{
+    int a = -5;
+    int b = -a;
+    int d = -(20 - a);
+    int c = -test(-(20 - a));
+
+
+    int function test(int v )
+    {
+        return -v;
+    }
+
+}

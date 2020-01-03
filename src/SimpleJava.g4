@@ -108,13 +108,9 @@ possibleValues
   ;
 
 decimalVariable
-  : INT identifier (paralelDeclaration)* EQ operator? decimalValue
+  : INT identifier (paralelDeclaration)* EQ decimalSymbol? decimalValue
   ;
 
-operator
-  : PLUS
-  | MINUS
-  ;
 
 decimalValue
   : decimalSymbol? DECIMAL
@@ -202,6 +198,7 @@ expressionBody
   | expressionBody op=(AND | OR) expressionBody                             #exprLogical
   | LPAREN expressionBody RPAREN                                            #exprPar
   | NEGATION expressionBody                                                 #exprNeg
+  | MINUS expressionBody                                                    #exprMinus
   ;
 
 forControl
