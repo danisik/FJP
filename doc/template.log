@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.11.15)  23 DEC 2019 12:08
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.11.15)  3 JAN 2020 16:08
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -692,7 +692,7 @@ LaTeX Info: Redefining \nameref on input line 40.
 
 \c@lstlisting=\count119
 
-<img/logo.pdf, id=120, 151.4177pt x 96.2796pt>
+<img/logo.pdf, id=108, 151.4177pt x 96.2796pt>
 File: img/logo.pdf Graphic file (type pdf)
  <use img/logo.pdf>
 Package pdftex.def Info: img/logo.pdf used on input line 45.
@@ -767,37 +767,37 @@ Underfull \hbox (badness 10000) in paragraph at lines 174--175
  []
 
 [4]
-Underfull \hbox (badness 10000) in paragraph at lines 184--185
+Underfull \hbox (badness 10000) in paragraph at lines 186--187
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 197--198
+Underfull \hbox (badness 10000) in paragraph at lines 199--200
 
  []
 
 [5]
-Underfull \hbox (badness 10000) in paragraph at lines 222--223
+Underfull \hbox (badness 10000) in paragraph at lines 224--225
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 235--236
+Underfull \hbox (badness 10000) in paragraph at lines 237--238
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 255--256
+Underfull \hbox (badness 10000) in paragraph at lines 257--258
 
  []
 
 [6]
-LaTeX Font Info:    Try loading font information for IL2+cmss on input line 266
+LaTeX Font Info:    Try loading font information for IL2+cmss on input line 268
 .
  (/usr/local/texlive/2017/texmf-dist/tex/cslatex/base/il2cmss.fd
 File: il2cmss.fd 1997/02/13 CsLaTeX font definitions
 )
-Overfull \hbox (1.3478pt too wide) in paragraph at lines 272--273
+Overfull \hbox (1.3478pt too wide) in paragraph at lines 274--275
 []\IL2/cmtt/m/n/12 visitor \IL2/cmr/m/n/12 - ba-lík, který ob-sa-huje vi-si-tor
 y pro prùchod de-ri-va-è-ního stromu 
  []
@@ -805,13 +805,13 @@ y pro prùchod de-ri-va-è-ního stromu
 
 Package hyperref Warning: Composite letter `\textasciicaron+c'
 (hyperref)                not defined in PD1 encoding,
-(hyperref)                removing `\textasciicaron' on input line 279.
+(hyperref)                removing `\textasciicaron' on input line 281.
 
-<img/diagram.pdf, id=277, 218.7372pt x 363.27718pt>
+<img/diagram.pdf, id=262, 218.7372pt x 340.3917pt>
 File: img/diagram.pdf Graphic file (type pdf)
  <use img/diagram.pdf>
-Package pdftex.def Info: img/diagram.pdf used on input line 284.
-(pdftex.def)             Requested size: 174.98997pt x 290.62213pt.
+Package pdftex.def Info: img/diagram.pdf used on input line 286.
+(pdftex.def)             Requested size: 174.98997pt x 272.31372pt.
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
@@ -820,110 +820,66 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 Package hyperref Warning: Composite letter `\textring+u'
 (hyperref)                not defined in PD1 encoding,
-(hyperref)                removing `\textring' on input line 292.
+(hyperref)                removing `\textring' on input line 294.
 
 
 Package hyperref Warning: Composite letter `\textasciicaron+e'
 (hyperref)                not defined in PD1 encoding,
-(hyperref)                removing `\textasciicaron' on input line 295.
+(hyperref)                removing `\textasciicaron' on input line 297.
+
+
+Package hyperref Warning: Composite letter `\textasciicaron+c'
+(hyperref)                not defined in PD1 encoding,
+(hyperref)                removing `\textasciicaron' on input line 300.
 
 [8pdfTeX warning (ext4): destination with the same identifier (name{figure.1}) 
 has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.297 
+l.302 
        <./img/diagram.pdf
 
 pdfTeX warning: pdflatex (file ./img/diagram.pdf): PDF inclusion: invalid other
  resource which is no dict (key 'ProcSets', type <array>); ignored.
->]
-
-Package hyperref Warning: Composite letter `\textasciicaron+c'
-(hyperref)                not defined in PD1 encoding,
-(hyperref)                removing `\textasciicaron' on input line 298.
-
-[9]
-
-Package hyperref Warning: Composite letter `\textring+u'
-(hyperref)                not defined in PD1 encoding,
-(hyperref)                removing `\textring' on input line 323.
-
+>] [9]
 
 Package hyperref Warning: Composite letter `\textasciicaron+e'
 (hyperref)                not defined in PD1 encoding,
-(hyperref)                removing `\textasciicaron' on input line 333.
+(hyperref)                removing `\textasciicaron' on input line 328.
 
-[10]
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-[11]
-LaTeX Font Info:    Try loading font information for OML+cmr on input line 388.
+[10] [11]
+LaTeX Font Info:    Try loading font information for OML+cmr on input line 385.
 
  (/usr/local/texlive/2017/texmf-dist/tex/latex/base/omlcmr.fd
 File: omlcmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OML/cmr/m/n' in size <12> not available
-(Font)              Font shape `OML/cmm/m/it' tried instead on input line 388.
- [12]
+(Font)              Font shape `OML/cmm/m/it' tried instead on input line 385.
+
 
 Package hyperref Warning: Composite letter `\textasciicaron+e'
 (hyperref)                not defined in PD1 encoding,
-(hyperref)                removing `\textasciicaron' on input line 406.
+(hyperref)                removing `\textasciicaron' on input line 403.
 
-
-Package hyperref Warning: Composite letter `\textasciicaron+r'
-(hyperref)                not defined in PD1 encoding,
-(hyperref)                removing `\textasciicaron' on input line 407.
-
-<img/metody.pdf, id=319, 240.9pt x 74.1972pt>
-File: img/metody.pdf Graphic file (type pdf)
- <use img/metody.pdf>
-Package pdftex.def Info: img/metody.pdf used on input line 416.
-(pdftex.def)             Requested size: 240.8994pt x 74.197pt.
-
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-
-Package hyperref Warning: Composite letter `\textring+u'
-(hyperref)                not defined in PD1 encoding,
-(hyperref)                removing `\textring' on input line 423.
-
-[13]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 428.
- [14pdfTeX warning (ext4): destination with the same identifier (name{figure.2}
-) has been already used, duplicate ignored
-
-\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
-                                                  \fi \fi 
-l.428 \end{document}
-                     <./img/metody.pdf
-
-pdfTeX warning: pdflatex (file ./img/metody.pdf): PDF inclusion: invalid other 
-resource which is no dict (key 'ProcSets', type <array>); ignored.
->]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 428.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 408.
+[12]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 408.
  (./template.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 428.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 428.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 408.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 408.
 Package rerunfilecheck Info: File `template.out' has not changed.
-(rerunfilecheck)             Checksum: EA01130DC3F2B632B2D5D429A3288CDA;2173.
-
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 428.
+(rerunfilecheck)             Checksum: 5D11F17BABF6A91876B7E4C31CBDFC13;1915.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 408.
  ) 
 Here is how much of TeX's memory you used:
- 9044 strings out of 492995
- 128734 string characters out of 6132703
+ 9032 strings out of 492995
+ 128534 string characters out of 6132703
  256030 words of memory out of 5000000
- 12330 multiletter control sequences out of 15000+600000
+ 12323 multiletter control sequences out of 15000+600000
  14424 words of font info for 38 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 35i,9n,72p,1008b,1128s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 35i,9n,72p,934b,1128s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb
 ></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb>
 </usr/local/texlive/2017/texmf-dist/fonts/type1/public/cs/csbx12.pfb></usr/loca
@@ -933,10 +889,10 @@ l/texlive/2017/texmf-dist/fonts/type1/public/cs/cscsc10.pfb></usr/local/texlive
 /type1/public/cs/csss12.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/pub
 lic/cs/csti12.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/cs/cst
 t10.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/cs/cstt12.pfb>
-Output written on template.pdf (16 pages, 168382 bytes).
+Output written on template.pdf (14 pages, 145340 bytes).
 PDF statistics:
- 400 PDF objects out of 1000 (max. 8388607)
- 361 compressed objects within 4 object streams
- 126 named destinations out of 1000 (max. 500000)
- 248 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 364 PDF objects out of 1000 (max. 8388607)
+ 330 compressed objects within 4 object streams
+ 122 named destinations out of 1000 (max. 500000)
+ 219 words of extra memory for PDF output out of 10000 (max. 10000000)
 

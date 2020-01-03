@@ -165,8 +165,8 @@ Náš jazyk připomíná Javu, z které vychází. Popis námi zvolené gramatik
 \item při deklaraci proměnné je vždy nutné nastavit její hodnotu
 \item z metody nelze vyskočit dřív než před koncem jejího bloku
 \item void metody neobsahují return
-\item při rekurzivním volání nelze přistupovat ke globálním proměnným. Viz \ref{fig:volani}
-\item iterační proměnná \texttt{for} cyklu nesmí být deklarována
+\item iterační proměnná \texttt{for} cyklu nesmí být deklarována. Její deklarace je provedena v hlavičce cyklu
+\item zkrácené konstrukce (cislo++, ..) nejsou podporovány
 \end{itemize}
 
 \subsubsection{Ukázky jednotlivých konstrukcí}\label{fig:ukazky}
@@ -176,8 +176,10 @@ Detailnější ukázky programů jsou uloženy ve složce \textit{testFiles}. Bl
 {
 	const int a = 10;
 	boolean b = true;
-	int d = c = a;
-	int a = volaniMetodyNavratovaHodnota(1, false);
+	int c = d = a;
+	int e = volaniMetodyNavratovaHodnota(1, false);
+   int f = -a;
+   int g = -(a + b);
 }
 \end{lstlisting}
 \newpage
@@ -296,10 +298,10 @@ Projekt obsahuje dva hlavní balíky \texttt{generate} a \texttt{compilator}. Ba
 \noindent Struktury v paměti slouží pro uložení derivačního stromu do paměti, aby s ním bylo možné dále pracovat. Názvy struktur odpovídají hlavním položkám v gramatice. Výsledkem průchodu je objekt \texttt{Program}, který představuje kořen derivačního stromu a obsahuje odkazy na další objekty (uzly), které obsahují další odkazy.
 
 \subsubsection{Začátek generování instrukcí}
-\noindent V této částí je program přepnut do zpracování uložené struktury v paměti. Je zavolána třída \texttt{InstructionGenerator} a je jí předán objekt \texttt{Program}. Výsledkem generování instrukcí je list vygenerovaných instrukcí.
+\noindent V této částí je program přepnut do zpracování uložených struktur v paměti. Je zavolána třída \texttt{InstructionGenerator} a je jí předán objekt \texttt{Program}. Výsledkem generování instrukcí je list vygenerovaných instrukcí.
 
 \subsubsection{Prototypy metod}
-\noindent Před samotným generováním instrukcí je nejprve nutné zjistit prototypy metod (hlavičky metod), aby při generování volání metod bylo možné určit, jestli metoda má návratovou hodnotu, popřípadě jakého je typu. Prototypy metod nepracují s parametry.
+\noindent Před samotným generováním instrukcí je nejprve nutné zjistit prototypy metod (hlavičky metod), aby při generování volání metod bylo možné určit, jestli metoda má návratovou hodnotu, popřípadě jakého je typu. Prototypy metod nepracují s parametry. Typy parametrů jsou zkontrolovány při nastavení adres u volání metod.
 
 \subsubsection{Generování instrukcí}
 \noindent Pro generování instrukcí je připraveno několik tříd, kde každá zpracovává různě námi uložené struktury:
@@ -313,19 +315,12 @@ Projekt obsahuje dva hlavní balíky \texttt{generate} a \texttt{compilator}. Ba
 	\item \texttt{MethodCompiler} - zpracovává objekt \texttt{Metod}, který představuje deklaraci metod
 \end{itemize}
 
-Generování je rozděleno do dvou kroků. Prvním krokem je vygenerování instrukcí pro hlavní tělo programu, druhým krokem je vygenerování instrukcí pro metody. To způsobí, že začátek programu je vždy ve výsledných instrukcích uložen na adrese jedna a metody jsou uloženy na konci.
+Generování je rozděleno do dvou kroků. Prvním krokem je vygenerování instrukcí pro hlavní tělo programu, druhým krokem je vygenerování instrukcí pro metody. To způsobí, že začátek programu je vždy ve výsledných instrukcích uložen na adrese jedna a metody jsou uloženy na konci. Tato implementace umožní nadefinování metod v kódu až po jejich zavolání.
 
 \subsubsection{Nastavení adres u volání metod}
-\noindent Tím, že je umožněno, aby metody byly vytvořeny až po jejich zavolání, je nutné u instrukcí pro volání metod zpětně nastavit adresu, na které se volaná metoda nachází. Tyto instrukce jsou uloženy s adresou \uv{-1} navíc je to objektu představující instrukci uložen objekt \texttt{MethodCall}.
+\noindent Tím, že je umožněno, aby metody byly vytvořeny až po jejich zavolání, je nutné u instrukcí pro volání metod zpětně nastavit adresu, na které se volaná metoda nachází. Tyto instrukce jsou uloženy s adresou \uv{-1}. Aby bylo možné zpětně upravit adresu, je do objektu instrukce uložen mimo jiné objekt \texttt{MethodCall}.
 
 V cyklu se projdou veškeré instrukce a pokud se jedná o instrukci \texttt{CALL}, je z objektu instrukce získán objekt \texttt{MethodCall}. Zkontroluje se, zda název metody uložený v \texttt{MethodCall} existuje v tabulce symbolů, dále se zkontrolují zda sedí počet a typ parametrů. Pokud není cokoliv splněno je vyhozena chyba a program je ukončen. Pokud je vše splněno, je instrukci \texttt{CALL} změněna adresa podle tabulky symbolů.
-
-\subsubsection{Nastavení levelů u volání metod} \label{fig:nastaveni}
-\noindent Při volání metody v metodě je nutné u instrukce \texttt{CALL} zvýšit její level, aby	když volaná metoda chtěla přístup ke globální proměnné, tak aby se správně posunula	báze.
-
-V cyklu se prochází vygenerované instrukce. Pokud se najde instruce \texttt{RET}, cyklus končí. Pokud se najde instrukce \texttt{CALL}, je iterovací proměnná změněna na adresu instrukce \texttt{CALL}, instrukce se označí jako aktualizovaná a cyklus se opakuje. Pokud se nalezne další instukce \texttt{CALL} v těle volané metody před instrukcí \texttt{RET}, je instrukci uložen předchozí level zvýšen o jedničku, provede se změna iterační hodnoty proměnné a cyklus se opakuje. Metoda pro opravu levelů se nachází v \texttt{BlockStatementCompiler::updateCallLevel()}.
-
-Tato implementace nese jistá omezení popsaná v kapitole \ref{fig:volani}.
 
 \subsubsection{Zápis instrukcí do souboru}
 Instrukce se zapíšou do souboru, který byl zadán jako vstupní parametr. V cyklu se projde list instrukcí, který vrátil objekt \texttt{InstructionGenerator}. Pokud výstupní soubor již existuje, je vždy přepsán novými instrukcemi.
@@ -334,10 +329,11 @@ Instrukce se zapíšou do souboru, který byl zadán jako vstupní parametr. V c
 \noindent Proměnné nadefinované v hlavním těle programu jsou viditelné v celém kódu (jsou celou dobu držené v tabulce symbolů) a je pro ně zvýšen obsah zásobníku. Pro proměnné nadefinované mimo hlavní blok programu (těla metod, těla smyček, ...), je v momentě vykonávání bloku zvýšen obsah zásobníku, a jsou zahrnuty do tabulky symbolů. Po skončení bloku jsou proměnné odstraněny z tabulky symbolů, a je snížen vrchol zásobníku o jejich počet. Tím je zajištěno, že nejsou dále viditelné.
 
 \subsection{Volání metod s parametry}
-\noindent Volání metod je řešeno v \texttt{MethodCall}. Pokud má metoda parametry, které je nutné předat, jsou před instrukcí \texttt{CALL} na vrchol zásobníku přidány hodnoty parametrů. V metodě se zvýší vrchol zásobníku o počet parametrů +3 co představuje defaultní velikost metody. Parametry metody jsou získány pomocí instrukce \texttt{LOD} se zápornou hodnotou. Záporná hodnota odpovídá počtu parametrů. Následně se instrukce \texttt{LOD} volá znovu se zápornou hodnotou změnšenou o jedna. To se opakuje dokud se nenačtou všechny parametry. Načtené hodnoty se průběžně ukládají do tabulky symbolů, aby s nimi bylo možné v metodě dále pracovat. Po návratu z metody je ještě nutné předané parametry odstranit z vrcholu zásobníku. Provede se instrukce \texttt{STO} s hodnotou -1, tolikrát, kolik bylo předáno parametrů.
+\noindent Volání metod je řešeno v \texttt{MethodCallCompiler}. Pokud má metoda parametry, které je nutné předat, jsou před instrukcí \texttt{CALL} na vrchol zásobníku přidány hodnoty parametrů. V metodě se zvýší vrchol zásobníku o počet parametrů +3 co představuje defaultní velikost metody. Parametry metody jsou získány pomocí instrukce \texttt{LOD} se zápornou hodnotou. Záporná hodnota odpovídá počtu parametrů. Následně se instrukce \texttt{LOD} volá znovu se zápornou hodnotou změnšenou o jedna. To se opakuje dokud se nenačtou všechny parametry. Načtené hodnoty se průběžně ukládají do tabulky symbolů, aby s nimi bylo možné v metodě dále pracovat. Po návratu z volání metody, je ještě nutné předané parametry odstranit z vrcholu zásobníku. Provede se instrukce \texttt{STO} s hodnotou -1, tolikrát, kolik bylo předáno parametrů.
 
 \subsection{Metoda s návratovou hodnotou}
-\noindent Volání metody je řešeno v \texttt{MethodCall}. Pokud má metoda návratovou hodnotu, je před instrukcí \texttt{CALL} zvýšen obsah zásobníku o jedna. Výsledek, který metoda vrací je umístěn za klíčovým slovem \uv{return}. Po vyhodnocení výsledku je výsledek uložen na adresu počet proměnných +1. Tato adresa odpovídá místu, které se vytvořilo na vrcholu zásobníku jeho zvětšením.
+\noindent Volání metody je řešeno v \texttt{MethodCallCompiler}. Pokud má metoda návratovou hodnotu, je před instrukcí \texttt{CALL} zvýšen obsah zásobníku o jedna. Výsledek, který metoda vrací je umístěn za klíčovým slovem \uv{return}. Po vyhodnocení výsledku je výsledek uložen na adresu počet proměnných +1. Tato adresa odpovídá místu, které se vytvořilo na vrcholu zásobníku jeho zvětšením.
+
 \subsection{Error kódy}
 \noindent Program pracuje se svými chybovými kódy. Chyby jsou spravovány pomocí třídy \texttt{ErrorHandler}, která se stará o vypsání chyby a ukončení programu s příslušným kódem. Níže jsou popsány chybové kódy s jejich popisem.
 
@@ -363,15 +359,16 @@ Kód & Popis                                                                    
 14  & Typy parametrů metody a typy parametrů ve volání se neshodují.                                     \\ \hline
 15  & Vstupní soubor neexistuje.                                                                         \\ \hline
 16  & Chyba při parsování souboru ANTLR.                                                                 \\ \hline
-17  & Neznámá chyba (i když je program otestovaný, může se stát, že se objeví neočekávaná Chyba).										  									                                                                \\ \hline
+17  & Neznámá chyba (i když je program otestovaný, může se stát, že se objeví neočekávaná chyba).										  									                                                                \\ \hline
 18  & Chybné spuštění aplikace, nesedí parametry.                                                        \\ \hline
-18  & Chybná cesta k výstupnímu souboru.                                                        \\ \hline
+19  & Chybná cesta k výstupnímu souboru.                                                        \\ \hline
+20  & Neplatné použití operátorů. Způsobeno pokud jsou v programu špatně použity operátory (a ++ +a)                                                     \\ \hline
 \end{tabular}%
 }
 \end{table}
 \newpage
 \section{Testování}
-\noindent Pro překlad nebyly vytvořeny žádné automatické testy. Testy, které jsme prováděli byly všechny manuální. Všechny námi vytvořené testovací scénáře jsou uloženy ve složce \textit{testFiles}. Pro každý testovací scénář existuje i soubor s výslednými instrukcemi.
+\noindent Pro překlad nebyly vytvořeny žádné automatické testy. Testy, které jsme prováděli byly všechny manuální. Všechny námi vytvořené testovací scénáře jsou uloženy ve složce \textit{testFiles}. Pro každý testovací scénář existuje i soubor s výslednými \textsf{PL/0} instrukcemi.
 
 \section{Uživatelská dokumentace}
 \noindent Pro překlad je nutné mít nainstalovaný \textsf{Maven}. Překlad projektu se provede spuštěním příkazu:
@@ -404,24 +401,7 @@ Kód & Popis                                                                    
 
 
 \section{Závěr}
-\subsection{Omezení při volání metod} \label{fig:volani}
-\noindent Při vývoji byl zjištěn problém, který se nám nepodařilo lépe vyřešit. Problém nastává při úpravě levelu u instrukce \texttt{CALL} (viz \ref{fig:volani}) a projevuje se nemožností přistoupit ke globální proměnné ve dvou případech.
-
-Prvním případem, kdy není možné přistoupit ke globální proměnné, je při rekurzivním volání metody. Algoritmus, který je popsán v sekci \ref{fig:volani} způsoboval zacyklení, bylo tedy nutné ošetřit to, že pokud instrukce \texttt{CALL} volá stejnou adresu jako předešlá instrukce \texttt{CALL}, tak aby algoritmus skončil. Tím ale přestane fungovat přístup ke globální proměnné, protože nejsme schopni posunout správně bázi. Celkový výsledek metody je ale vyhodnocen správně. Testováno přes rekurzivní výpočet Fibonacciho čísla. Testovací scénář je uložen v souboru \textit{testFiles/complex/fibonacci.txt}.
-
-Druhým případem, kdy není možné přistoupit ke globální proměnné je znázorněn na obrázku \ref{fig:metody}. Metoda \textsf{A} volá \textsf{B}, \textsf{B} volá \textsf{C}, \textsf{C} volá \textsf{D}, v tomto případě, by přístup ke globální proměnné fungoval správně. Problém ale nastává v momentě, když bude metoda E volat metodu \textsf{C}, která volá \textsf{D}, protože v metodě \textsf{C} je už z prvního volání nastaven posun báze. To způsobí, že nedojde k aktualizaci levelu báze a přistup ke globální proměnné bude fungovat jen v  případě volání z \textsf{A} a v případě volání z \textsf{E} to bude přistupovat na špatnou adresu. To že se neprovede aktualizace je způsobeno identifikátorem, který označuje volání za již aktualizované. I kdyby tato značka nebyla nastavena, způsobilo by to to, že by se level upravil a potom by nefungovalo volání z metody \textsf{A} a fungovalo z metody \textsf{E}
-
-\begin{figure}[!h]
-  \centering
-  \includegraphics[]{img/metody.pdf}
-  \caption{Graf volání metod}
-  \label{fig:metody}
-\end{figure}
-
-Je možné, že tento nedostatek je způsoben špatným návrhem, ale i teď s odstupem času nás nenapadá, jak by bylo možné tuto chybu odstranit. Bylo by nejspíše nutné pokud jeden z těchto dvou případů nastane vytvořit kopii instrukcí pro metodu, u které by se upravil akorát level, to by ale způsobilo to, že by byly instrukce pro metodu uloženy v instrukcích dvakrát. Zároveň by to neřešilo problém s rekurzí.
-
-\subsection{Zhodnocení výsledků}
-I přes výše zmíněný nedostatek se nám podařilo vytvořit překladač, který dokáže náš vytvořený jazyk převést do instrukční sady \textsf{PL/0}. Pro testování bylo vytvořeno několik scénářů, které demonstrují, že si kompilátor dokáže poradit s jednoduššími, ale i se složitějšími konstrukcemi jako je rekurzivní volání.
+Podařilo se nám vytvořit překladač, který dokáže náš vytvořený jazyk převést do instrukční sady \textsf{PL/0}. Pro testování bylo vytvořeno několik scénářů, které demonstrují, že si kompilátor dokáže poradit s jednoduššími, ale i se složitějšími konstrukcemi jako je rekurzivní volání.
 
 Semetrální práce byla vedena na adrese \href{https://github.com/danisik/FJP}{https://github.com/danisik/FJP}.
 

@@ -23,14 +23,11 @@
 \contentsline {subsubsection}{\numberline {3.2.5}Prototypy metod}{9}{subsubsection.3.2.5}
 \contentsline {subsubsection}{\numberline {3.2.6}Generov\IeC {\'a}n\IeC {\'\i } instrukc\IeC {\'\i }}{9}{subsubsection.3.2.6}
 \contentsline {subsubsection}{\numberline {3.2.7}Nastaven\IeC {\'\i } adres u vol\IeC {\'a}n\IeC {\'\i } metod}{10}{subsubsection.3.2.7}
-\contentsline {subsubsection}{\numberline {3.2.8}Nastaven\IeC {\'\i } level\IeC {\r u} u vol\IeC {\'a}n\IeC {\'\i } metod}{10}{subsubsection.3.2.8}
-\contentsline {subsubsection}{\numberline {3.2.9}Z\IeC {\'a}pis instrukc\IeC {\'\i } do souboru}{10}{subsubsection.3.2.9}
+\contentsline {subsubsection}{\numberline {3.2.8}Z\IeC {\'a}pis instrukc\IeC {\'\i } do souboru}{10}{subsubsection.3.2.8}
 \contentsline {subsection}{\numberline {3.3}Viditelnost prom\IeC {\v e}nn\IeC {\'y}ch}{10}{subsection.3.3}
-\contentsline {subsection}{\numberline {3.4}Vol\IeC {\'a}n\IeC {\'\i } metod s parametry}{11}{subsection.3.4}
+\contentsline {subsection}{\numberline {3.4}Vol\IeC {\'a}n\IeC {\'\i } metod s parametry}{10}{subsection.3.4}
 \contentsline {subsection}{\numberline {3.5}Metoda s n\IeC {\'a}vratovou hodnotou}{11}{subsection.3.5}
 \contentsline {subsection}{\numberline {3.6}Error k\IeC {\'o}dy}{11}{subsection.3.6}
 \contentsline {section}{\numberline {4}Testov\IeC {\'a}n\IeC {\'\i }}{12}{section.4}
 \contentsline {section}{\numberline {5}U\IeC {\v z}ivatelsk\IeC {\'a} dokumentace}{12}{section.5}
-\contentsline {section}{\numberline {6}Z\IeC {\'a}v\IeC {\v e}r}{13}{section.6}
-\contentsline {subsection}{\numberline {6.1}Omezen\IeC {\'\i } p\IeC {\v r}i vol\IeC {\'a}n\IeC {\'\i } metod}{13}{subsection.6.1}
-\contentsline {subsection}{\numberline {6.2}Zhodnocen\IeC {\'\i } v\IeC {\'y}sledk\IeC {\r u}}{14}{subsection.6.2}
+\contentsline {section}{\numberline {6}Z\IeC {\'a}v\IeC {\v e}r}{12}{section.6}
