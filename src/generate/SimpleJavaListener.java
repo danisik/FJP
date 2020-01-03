@@ -338,6 +338,18 @@ public interface SimpleJavaListener extends ParseTreeListener {
 	 */
 	void exitExprNeg(SimpleJavaParser.ExprNegContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code exprPlus}
+	 * labeled alternative in {@link SimpleJavaParser#expressionBody}.
+	 * @param ctx the parse tree
+	 */
+	void enterExprPlus(SimpleJavaParser.ExprPlusContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code exprPlus}
+	 * labeled alternative in {@link SimpleJavaParser#expressionBody}.
+	 * @param ctx the parse tree
+	 */
+	void exitExprPlus(SimpleJavaParser.ExprPlusContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code exprAdditive}
 	 * labeled alternative in {@link SimpleJavaParser#expressionBody}.
 	 * @param ctx the parse tree

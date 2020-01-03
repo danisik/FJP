@@ -388,6 +388,18 @@ public class SimpleJavaBaseListener implements SimpleJavaListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterExprPlus(SimpleJavaParser.ExprPlusContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitExprPlus(SimpleJavaParser.ExprPlusContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterExprAdditive(SimpleJavaParser.ExprAdditiveContext ctx) { }
 	/**
 	 * {@inheritDoc}

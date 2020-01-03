@@ -112,6 +112,8 @@ public class ExpressionCompiler extends BaseCompiler
             case MINUS:
                 type = this.generateMinusInstructions((ExpressionMinus) expression);
                 break;
+            case PLUS:
+                type = this.generatePlusInstructions((ExpressionPlus) expression);
         }
 
         return type;
@@ -249,6 +251,12 @@ public class ExpressionCompiler extends BaseCompiler
      */
     private EVariableType generateNegationInstructions(ExpressionNegation expression)
     {
+        // multiple logical negation
+        if (expression.getType() == expression.getExpression().getType())
+        {
+            this.getErrorHandler().throwError(new ErrorArithmetic(EOperatorLogical.NEGATION.toString(), expression.getExpression().getLine()));
+        }
+
         EVariableType expressionType = this.processExpression(expression.getExpression());
 
         this.checkVariableType(expressionType, EVariableType.BOOLEAN);
@@ -266,12 +274,38 @@ public class ExpressionCompiler extends BaseCompiler
      */
     private EVariableType generateMinusInstructions(ExpressionMinus expression)
     {
+        // multiple number negation
+        if (expression.getType() == expression.getExpression().getType())
+        {
+            this.getErrorHandler().throwError(new ErrorArithmetic(EOperatorAdditive.MINUS.toString(), expression.getExpression().getLine()));
+        }
+
         EVariableType expressionType = this.processExpression(expression.getExpression());
 
         this.checkVariableType(expressionType, EVariableType.INT);
 
         this.addInstruction(EInstruction.LIT, 0,-1);
         this.addInstruction(EInstruction.OPR, 0, EInstructionOperation.MULTIPLY.getCode());
+
+        return EVariableType.INT;
+    }
+
+    /**
+     * Plus expression
+     * @param expression
+     * @return
+     */
+    private EVariableType generatePlusInstructions(ExpressionPlus expression)
+    {
+        // multiple number negation
+        if (expression.getType() == expression.getExpression().getType())
+        {
+            this.getErrorHandler().throwError(new ErrorArithmetic(EOperatorAdditive.PLUS.toString(), expression.getExpression().getLine()));
+        }
+
+        EVariableType expressionType = this.processExpression(expression.getExpression());
+
+        this.checkVariableType(expressionType, EVariableType.INT);
 
         return EVariableType.INT;
     }

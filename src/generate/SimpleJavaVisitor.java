@@ -207,6 +207,13 @@ public interface SimpleJavaVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitExprNeg(SimpleJavaParser.ExprNegContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code exprPlus}
+	 * labeled alternative in {@link SimpleJavaParser#expressionBody}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitExprPlus(SimpleJavaParser.ExprPlusContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code exprAdditive}
 	 * labeled alternative in {@link SimpleJavaParser#expressionBody}.
 	 * @param ctx the parse tree

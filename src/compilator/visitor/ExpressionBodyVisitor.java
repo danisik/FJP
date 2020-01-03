@@ -32,6 +32,18 @@ public class ExpressionBodyVisitor extends SimpleJavaBaseVisitor<Expression>
     }
 
     /**
+     * Visitor for ExprPlus()
+     * useless, but we want to allow write for example method(+(1+1))
+     * @param ctx ExprMinus context
+     * @return Expression
+     */
+    @Override
+    public Expression visitExprPlus(SimpleJavaParser.ExprPlusContext ctx)
+    {
+        return new ExpressionPlus(this.visit(ctx.expressionBody()), ctx.start.getLine());
+    }
+
+    /**
      * Visitor for ExprAdditive()
      * @param ctx ExprAdditive context
      * @return Expression

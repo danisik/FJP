@@ -4,7 +4,8 @@ public enum EOperatorLogical
 {
 
     AND("&&"),
-    OR("||");
+    OR("||"),
+    NEGATION("!");
 
 
     private String symbol;

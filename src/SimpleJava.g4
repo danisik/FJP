@@ -199,6 +199,7 @@ expressionBody
   | LPAREN expressionBody RPAREN                                            #exprPar
   | NEGATION expressionBody                                                 #exprNeg
   | MINUS expressionBody                                                    #exprMinus
+  | PLUS expressionBody                                                     #exprPlus
   ;
 
 forControl

@@ -20,7 +20,8 @@ public enum EErrorCode
     ERROR_ANTLR_PROCESS(16),
     ERROR_UNKNOWN(17),
     ERROR_INVALID_USE(18),
-    ERROR_INVALID_OUTPUT_FILE(19)
+    ERROR_INVALID_OUTPUT_FILE(19),
+    ERROR_ARITHMETIC(20)
     ;
 
     private int code;
