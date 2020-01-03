@@ -1,0 +1,22 @@
+{
+    int a = 5;
+    int b = 10;
+    int c = 0;
+    int d = method1();
+
+    int function method1()
+    {
+        return a + method2();
+    }
+
+    int function method2()
+    {
+        return b + method3();
+    }
+
+    int function method3()
+    {
+        c = a * b;
+        return a + b;
+    }
+}

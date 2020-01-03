@@ -1,0 +1,28 @@
+{
+    int a = 5;
+    int b = 20;
+    int l = 0;
+
+    if (a < b)
+    {
+        int c = 5;
+        a = a + c;
+
+        if (a > c)
+        {
+            int q = 10; // test snizeni zasobniku po konci
+            a = a - 10;
+
+            if (a < c) // sem se to nedostane a = 0, c = 5
+            {
+                int r = a + a;
+                l = r;
+            }
+            else
+            {
+                int r = 100;
+                l = r;
+            }
+        }
+    }
+}

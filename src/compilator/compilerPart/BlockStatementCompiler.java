@@ -97,9 +97,6 @@ public class BlockStatementCompiler extends BaseCompiler
 
             // method calls assignment
             this.initializeMethodsInInstructions();
-
-            // update call levels in multiple calls
-            this.updateCallLevel();
         }
 
         // delete local variables
@@ -654,43 +651,6 @@ public class BlockStatementCompiler extends BaseCompiler
         }
     }
 
-    /**
-     * Update nested method call levels
-     */
-    private void updateCallLevel()
-    {
-        for (Instruction instruction : this.getInstructionsList())
-        {
-            if (instruction.getInstruction() == EInstruction.CAL && !instruction.isUpdatedCall())
-            {
-                int methodCalls = 1;
-                int lastCallAddress = instruction.getAddress(); // recursion loop
-                for(int i = lastCallAddress ; i < instructionsList.size() ; i++)
-                {
-                    // if return is no more nested calls
-                    if (instructionsList.get(i).getInstruction() == EInstruction.RET)
-                    {
-                        break;
-                    }
-                    // if call instruction update level
-                    else if(instructionsList.get(i).getInstruction() == EInstruction.CAL)
-                    {
-                        // against recursion
-                        if (instructionsList.get(i).getAddress() == lastCallAddress)
-                        {
-                            break;
-                        }
-
-                        instructionsList.get(i).setUpdatedCall(true);
-                        instructionsList.get(i).setLevel(methodCalls);
-                        methodCalls++;
-
-                        lastCallAddress = instructionsList.get(i).getAddress();
-                    }
-                }
-            }
-        }
-    }
 
     public void setIncreaseStack(boolean increaseStack)
     {

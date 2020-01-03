@@ -18,6 +18,7 @@ public class Main {
         CharStream inputStream = null;
         try {
             inputStream = CharStreams.fromFileName(input);
+
         } catch (Exception e) {
             System.out.println("File not found " + input);
             System.exit(EErrorCode.ERROR_LOADING_INPUT_FILE.getCode());
@@ -26,6 +27,7 @@ public class Main {
         Compilator.getInstance().run(inputStream, output);
 
         System.out.println("Done");
+
     }
 
     public static void printUse()

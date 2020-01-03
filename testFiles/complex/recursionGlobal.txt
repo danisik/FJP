@@ -1,0 +1,16 @@
+{
+
+    int a = 3;
+    int b = 0;
+
+    recursion();
+
+    void function recursion()
+    {
+        if (a != b)
+        {
+            b = b + 1;
+            recursion();
+        }
+    }
+}
